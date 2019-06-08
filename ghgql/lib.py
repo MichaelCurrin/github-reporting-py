@@ -17,9 +17,8 @@ def prettify(data):
 
 def fetch_github_data(query, prettyprint=False):
     """
-    Note that a request which returns an error will still give a 200.
-    The data key is expected, but there could be an errors key for 404
-    there can be others.
+    Note that a request which returns an error will still give a 200 and can
+    still contain some data. A 404 will not contain the data or errors keys.
     """
     resp = requests.post(
         config.BASE_URL,
@@ -27,11 +26,15 @@ def fetch_github_data(query, prettyprint=False):
         headers=HEADERS
     ).json()
 
-    data = resp.get('data', None)
+    errors = resp.get('errors', None)
+    if errors:
+        message = prettify(errors)
+        raise ValueError(f"Error requesting Github. Errors:\n{message}")
 
+    data = resp.get('data', None)
     if data is None:
         message = prettify(resp)
-        raise ValueError(f"Error requesting Github GQL endpoint:\n{message}")
+        raise ValueError(f"Error requesting Github. Details:\n{message}")
 
     return data
 
