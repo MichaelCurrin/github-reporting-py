@@ -1,7 +1,7 @@
 # Do a request for a short history of commits within a repo's default branch
 # and print the results.
-query {
-  repository(owner: "$owner", name: "aggre-git") {
+query RecentCommits($owner: String!, $name: String!) {
+  repository(owner: $owner, name: $name) {
     name
     owner {
       login
