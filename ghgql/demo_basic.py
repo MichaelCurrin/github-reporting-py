@@ -5,6 +5,8 @@ This is intended for newcomers to Python and/or GraphQL to see in one place
 what the minimum components are to do a request and print the response.
 This is just meant as a demo though, as it is too simple to be resuable or
 robust.
+
+See also the parametized demo script in the same directory.
 """
 import json
 
@@ -15,7 +17,7 @@ import config
 
 # Simple query with hardcoded repo owner and name to fetch the last 3 commits
 # on the default branch.
-json_query = {
+payload = {
     'query': """
         query BasicQueryTest {
             repository(owner: "michaelcurrin", name: "aggre-git") {
@@ -52,7 +54,7 @@ json_query = {
 headers = {'Authorization': f"token {config.ACCESS_TOKEN}"}
 
 # Send the POST request.
-resp = requests.post(config.BASE_URL, json=json_query, headers=headers)
+resp = requests.post(config.BASE_URL, json=payload, headers=headers)
 
 # Pretty print the output.
 prettified = json.dumps(resp.json(), indent=4)
