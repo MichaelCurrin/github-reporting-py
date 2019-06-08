@@ -1,0 +1,34 @@
+# Do a request for a short history of commits within a repo's default branch
+# and print the results.
+query {
+  repository(owner: "$owner", name: "aggre-git") {
+    name
+    owner {
+      login
+    }
+    defaultBranchRef {
+      name
+      target {
+        ... on Commit {
+          history(first: 3) {
+            edges {
+              node {
+                abbreviatedOid
+                committedDate
+                committer {
+                  user {
+                    login
+                  }
+                }
+                changedFiles
+                additions
+                deletions
+                message
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
