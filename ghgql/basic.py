@@ -13,9 +13,11 @@ import requests
 import config
 
 
+# Simple query with hardcoded repo owner and name to fetch the last 3 commits
+# on the default branch.
 json_query = {
     'query': """
-        query BasicQueryTest{
+        query BasicQueryTest {
             repository(owner: "michaelcurrin", name: "aggre-git") {
                 defaultBranchRef {
                     target {
@@ -46,7 +48,12 @@ json_query = {
     """
 }
 
+# Request headers - Github auth token is needed.
 headers = {'Authorization': f"token {config.ACCESS_TOKEN}"}
+
+# Send the POST request.
 resp = requests.post(config.BASE_URL, json=json_query, headers=headers)
+
+# Pretty print the output.
 prettified = json.dumps(resp.json(), indent=4)
 print(prettified)
