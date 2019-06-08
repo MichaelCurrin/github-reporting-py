@@ -15,14 +15,18 @@ def prettify(data):
     return json.dumps(data, indent=4, sort_keys=True)
 
 
-def fetch_github_data(query, prettyprint=False):
+def fetch_github_data(query, variables={}, prettyprint=False):
     """
     Note that a request which returns an error will still give a 200 and can
     still contain some data. A 404 will not contain the data or errors keys.
     """
+    payload = {
+        'query': query,
+        'variables': variables,
+    }
     resp = requests.post(
         config.BASE_URL,
-        json={'query': query},
+        json=payload,
         headers=HEADERS
     ).json()
 
