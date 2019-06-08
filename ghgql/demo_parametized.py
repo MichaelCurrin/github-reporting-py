@@ -6,6 +6,8 @@ what the minimum components are to do a request and print the response.
 This is just meant as a demo though, as it is too simple to be resuable or
 robust.
 
+See also the basic demo script in the same directory.
+
 This demo makes use of variables which are sent in the JSON payload. In
 the GQL explorer, the variables would go in the Query Variables pane.
 
@@ -25,7 +27,7 @@ import config
 
 # Simple query with parametized repo owner and name values, to fetch the last
 # 3 commits on the default branch.
-json_query = {
+payload = {
     'query': """
         query BasicQueryTest($owner: String!) {
             repository(owner: $owner, name: "aggre-git") {
@@ -56,11 +58,18 @@ json_query = {
             }
         }
     """,
-    'variables': {'owner': 'michaelcurrin'}
+    'variables': {
+        'owner': 'michaelcurrin',
+        'name': 'aggre-git'
+    }
 }
 
+# Request headers - Github auth token is needed.
 headers = {'Authorization': f"token {config.ACCESS_TOKEN}"}
-resp = requests.post(config.BASE_URL, headers=headers, json=json_query,
-                     )
+
+# Send the POST request.
+resp = requests.post(config.BASE_URL, json=payload, headers=headers)
+
+# Pretty print the output.
 prettified = json.dumps(resp.json(), indent=4)
 print(prettified)
