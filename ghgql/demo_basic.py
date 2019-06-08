@@ -1,5 +1,5 @@
 """
-Basic application.
+Basic demo application.
 
 This is intended for newcomers to Python and/or GraphQL to see in one place
 what the minimum components are to do a request and print the response.
