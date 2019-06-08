@@ -1,5 +1,5 @@
 """
-Query.
+Query application.
 
 Dynamically select a query using a filepath, send as a request to Github
 and pretty print the results.

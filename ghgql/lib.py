@@ -1,3 +1,6 @@
+"""
+Library module.
+"""
 import json
 import os
 

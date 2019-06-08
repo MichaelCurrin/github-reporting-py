@@ -1,3 +1,6 @@
+"""
+Config module.
+"""
 BASE_URL = "https://api.github.com/graphql"
 ACCESS_TOKEN = ""
 
