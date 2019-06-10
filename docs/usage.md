@@ -34,12 +34,12 @@ $ python query.py queries/commits.gql
 
 ### Dynamic
 
-Run a specific query that needs variables. Specify them key-value pairs.
+Run a specific query that needs variables. Provide key-value pairs separated by spaces.
 
 Example:
 
 ```bash
-# You can view the query first to see what variables are needed. You will get
+# You can view the query text first, to see what variables are needed. As you will get
 # an API error printed to the console if you omit a required variable.
 $ view queries/commits_parametized.gql
 $ python query.py queries/commits_parametized.gql owner michaelcurrin name aggre-git
