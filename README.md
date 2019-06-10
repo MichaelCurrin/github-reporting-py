@@ -1,37 +1,59 @@
 # Github GraphQL Tool
-> Python tool for easy requests to the Github API V4 GraphQL endpoint
+> Python tool to easily report on data fetched from Github's GraphQL API
 
-The documentation is intended for installing and running on a Unix-style environment.
-
-## Installation
-
-The project requires only Python 3 and virtual environment. Follow the instructions in my [gist](https://gist.github.com/MichaelCurrin/3a4d14ba1763b4d6a1884f56a01412b7).
+Github's v4 API is no longer REST but GraphQL and this project explores that for reporting purposes. Such as creating text or CSV reports for given parameters, so you can understand the git history of one or more repos and how you or your team contribute to the repos.
 
 
-## Usage
-
-```bash
-$ cd <PATH/TO/REPO>
-$ source venv/bin/activate
-$ cd ghgql
-```
-
-
-### Demo
-
-Run the simple demo scripts. These are not that useful for reporting, but their code is mostly self-contained so it is easy to understand the querying the API works.
+## Example output
 
 ```bash
 $ PYTHONPATH=$(pwd) python demo/basic.py
-$ PYTHONPATH=$(pwd) python demo/parametized.py
+```
+```
+{
+    "data": {
+        "repository": {
+            "defaultBranchRef": {
+                "target": {
+                    "history": {
+                        "edges": [
+                            {
+                                "node": {
+                                    "abbreviatedOid": "5c8a856",
+                                    "committedDate": "2019-01-21T14:19:46Z",
+                                    "pushedDate": "2019-01-21T14:19:49Z",
+                                    "message": "docs: Update comments and docstring around Jira tickets",
+                                    "additions": 6,
+                                    "changedFiles": 1,
+                                    "deletions": 4,
+                                    "committer": {
+                                        "user": {
+                                            "login": "MichaelCurrin"
+                                        }
+                                    }
+                                }
+                            },
+                            ...
 ```
 
-### Run a query
 
-Run the [query script](ghql/query.py) which will execute a given file containing a valid Github GraphQL query.
+## GraphQL benefits
 
-For example:
+The GraphQL single endpoint allows fetching of large amounts of data with fewer queries than REST, getting just the fields and level of detail requested. Note that paging and rate limits still apply but should be easier to deal with.
 
-```bash
-$ python query.py queries/commits.gql
-```
+In particular, GraphQL makes easier to scale to many fetch a large numbers of commits, even across multiple repos or branches, using a single request. Whereas the REST API only gives the commit data at the branch tip. So to get a 1000 commits you need 1000 requests. This is slow and results in quick rate limiting (max 5000 requests per hour). I experience this in a previous project.
+
+
+## Requirements
+
+- Github account
+- Github API token with access to repos
+- Python 3
+
+
+## Documentation
+
+See the following guides for this project. Note that documentation only covers installing and running on a Unix-style environment.
+
+- [Installation](/docs/installation.md)
+- [Usage](/docs/Usage.md)
