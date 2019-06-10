@@ -51,8 +51,8 @@ def read_file(path):
     return data
 
 
-def query_by_filename(path):
+def query_by_filename(path, variables={}):
     query = read_file(path)
-    resp = fetch_github_data(query, prettyprint=True)
+    resp = fetch_github_data(query, variables, prettyprint=True)
 
     return resp
