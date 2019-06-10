@@ -22,8 +22,25 @@ $ PYTHONPATH=$(pwd) python demo/parametized.py
 
 Run the [query script](ghql/query.py) which will execute a given file containing a valid Github GraphQL query.
 
-For example:
+### Static
+
+Run specific query that does not take variables.
+
+Example:
 
 ```bash
 $ python query.py queries/commits.gql
+```
+
+### Dynamic
+
+Run a specific query that needs variables. Specify them key-value pairs.
+
+Example:
+
+```bash
+# You can view the query first to see what variables are needed. You will get
+# an API error printed to the console if you omit a required variable.
+$ view queries/commits_parametized.gql
+$ python query.py queries/commits_parametized.gql owner michaelcurrin name aggre-git
 ```
