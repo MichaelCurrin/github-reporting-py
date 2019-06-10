@@ -14,5 +14,11 @@ The project requires only Python 3 and virtual environment. Follow the instructi
 $ cd <PATH/TO/REPO>
 $ source venv/bin/activate
 $ cd ghgql
+```
+
+Run the demo scripts.
+
+```bash
 $ python demo_basic.py
+$ python demo_parametized.py
 ```
