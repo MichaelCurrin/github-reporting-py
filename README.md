@@ -34,6 +34,13 @@ $ PYTHONPATH=$(pwd) python demo/basic.py
                                 }
                             },
                             ...
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
 ```
 
 
@@ -56,4 +63,4 @@ In particular, GraphQL makes easier to scale to many fetch a large numbers of co
 See the following guides for this project. Note that documentation only covers installing and running on a Unix-style environment.
 
 - [Installation](/docs/installation.md)
-- [Usage](/docs/Usage.md)
+- [Usage](/docs/usage.md)
