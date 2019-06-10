@@ -16,9 +16,9 @@ $ source venv/bin/activate
 $ cd ghgql
 ```
 
-Run the demo scripts.
+Run the demo scripts to see sample output.
 
 ```bash
-$ python demo_basic.py
-$ python demo_parametized.py
+$ PYTHONPATH=$(pwd) python demo/basic.py
+$ PYTHONPATH=$(pwd) python demo/parametized.py
 ```
