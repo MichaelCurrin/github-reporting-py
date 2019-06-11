@@ -48,5 +48,5 @@ $ python query.py queries/commits_parametized.gql owner michaelcurrin name aggre
 Since the API allows a max of 100 items on page, paginate through the pages of results. The "after" indicator for the next page is added internally to the variables sent in the payload, so paging will happen automatically.
 
 ```bash
-$ python paginate.py
+$ python paginate.py # For now fixed to one query.
 ```
