@@ -8,6 +8,9 @@
       name
       target {
         ... on Commit {
+          # The hashed value seems repeated throughout the cursor results, except
+          # there is a number at the end after a space. Using just the number
+          # cause an error.
           history(first: 3, after: "5c8a8566c0bc6b2d42991cf3e1034773e37aabe2 2") {
             totalCount
             edges {
