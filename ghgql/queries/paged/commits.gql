@@ -1,0 +1,32 @@
+# Get a page of commits at a given offset, or the first page if the variable is omitted.
+query CommitsPaged($after: String) {
+  repository(owner: "michaelcurrin", name: "aggre-git") {
+    name
+    owner {
+      login
+    }
+    defaultBranchRef {
+      name
+      target {
+        ... on Commit {
+          # The hashed value seems repeated throughout the cursor results, except
+          # there is a number at the end after a space. Using just the number
+          # cause an error.
+          history(first: 3, after: $after) {
+            totalCount
+            edges {
+              node {
+                message
+              }
+              cursor
+            }
+            pageInfo {
+              endCursor
+              hasNextPage
+            }
+          }
+        }
+      }
+    }
+  }
+}
