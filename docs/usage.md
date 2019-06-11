@@ -10,11 +10,11 @@ $ cd ghgql
 
 ## Run demos
 
-Run the simple demo scripts. These are not that useful for reporting, but their code is mostly self-contained so it is easy to understand the querying the API works.
+Run the simple demo scripts. These are not that useful for reporting, but their code is mostly self-contained so it is easy to understand the querying the API works, with and without query variables in the payload.
 
 ```bash
 $ PYTHONPATH=$(pwd) python demo/basic.py
-$ PYTHONPATH=$(pwd) python demo/parametized.py
+$ PYTHONPATH=$(pwd) python demo/variables.py
 ```
 
 
