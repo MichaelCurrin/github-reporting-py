@@ -1,0 +1,33 @@
+# Get details for the authenticated Github user or owner of the API token.
+
+# Supply optional request name, not used in output but useful as a reference when debugging your queries.
+query MyDetails {
+  # Alias for convenient renaming of output.
+  me: viewer {
+    login
+    name
+    email
+
+    createdAt
+    bio
+    company
+    url
+
+    organizations(first: 10) {
+      totalCount
+    }
+    repositories {
+      totalCount
+      totalDiskUsage # Size in kb
+    }
+
+    # Alias since there are two pullRequests references here which would otherwise clash.
+    open_PRs: pullRequests (states: OPEN)  {
+      totalCount
+    }
+
+    closed_prs: pullRequests (states: CLOSED) {
+      totalCount
+    }
+  }
+}
