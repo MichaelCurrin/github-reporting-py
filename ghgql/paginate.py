@@ -11,7 +11,9 @@ def main():
     path = 'queries/paged/commits.gql'
     variables = {}
     for i in range(5):
-        print(f"Query #{i+1}")
+        after = variables.get('after', None) or "null"
+        print(f"Query #{i+1} - after: {after}")
+
         data = lib.query_by_filename(path, variables=variables)
         history = data['repository']['defaultBranchRef']['target']['history']
 
@@ -24,11 +26,7 @@ def main():
         if not has_next_page:
             print("No more pages")
             break
-        after = page_info['endCursor']
-        variables['after'] = after
-        print(f"Next page starts after: '{after}'")
-        print()
-
+        variables['after'] = page_info['endCursor']
 
 if __name__ == '__main__':
     main()
