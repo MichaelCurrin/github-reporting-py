@@ -1,0 +1,14 @@
+{
+  viewer {
+    login
+  }
+  # Override default of false. Calculate the cost for the query without evaluating it
+  # https://developer.github.com/v4/query/
+  rateLimit(dryRun: true) {
+    limit
+    cost
+    remaining
+    resetAt
+    nodeCount
+  }
+}
