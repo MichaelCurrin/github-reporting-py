@@ -6,8 +6,6 @@ and pretty print the results.
 """
 import sys
 
-import requests
-
 import config
 import lib
 

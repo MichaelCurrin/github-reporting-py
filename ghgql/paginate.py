@@ -3,8 +3,6 @@ Query with pagination application.
 """
 import sys
 
-import requests
-
 import config
 import lib
 
