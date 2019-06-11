@@ -2,14 +2,15 @@
 Parametized demo application.
 
 This is intended for newcomers to Python and/or GraphQL to see in one place
-what the minimum components are to do a request and print the response.
-This is just meant as a demo though, as it is too simple to be resuable or
-robust.
+what the minimum components are to do a request and print the response, using
+variables. This is just meant as a demo though, as it is too simple to be
+resuable or robust.
 
 See also the basic demo script in the same directory.
 
-This demo makes use of variables which are sent in the JSON payload. In
-the GQL explorer, the variables would go in the Query Variables pane.
+This script makes use of variables which are sent in the JSON payload. The
+variables are already setup so no arguments are needed for this script. In
+the GQL explorer, the variables data would go in the Query Variables pane.
 
 Query variables
     https://stackoverflow.com/questions/48693825/making-a-graphql-mutation-from-my-python-code-getting-error
