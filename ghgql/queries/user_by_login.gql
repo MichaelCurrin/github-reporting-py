@@ -1,0 +1,23 @@
+# Lookup a Github user by login.
+{
+  user(login: "MichaelCurrin") {
+    name
+    location
+    url
+    avatarUrl
+    bio
+
+    repositories {
+      totalCount
+    }
+    projects {
+      totalCount
+    }
+    issues {
+      totalCount
+    }
+    gists {
+      totalCount
+    }
+  }
+}
