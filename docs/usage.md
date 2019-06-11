@@ -24,7 +24,7 @@ Run the [query script](ghql/query.py) which will execute a given file containing
 
 ### Static
 
-Run specific query that does not take variables.
+Run a GraphQL query by filename. Choose a static one, that always gives the same output as it has no variables.
 
 Example:
 
@@ -43,4 +43,10 @@ Example:
 # an API error printed to the console if you omit a required variable.
 $ view queries/commits_parametized.gql
 $ python query.py queries/commits_parametized.gql owner michaelcurrin name aggre-git
+```
+
+Since the API allows a max of 100 items on page, paginate through the pages of results.
+
+```bash
+$ python paginate.py
 ```
