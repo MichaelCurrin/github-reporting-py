@@ -20,7 +20,7 @@ $ PYTHONPATH=$(pwd) python demo/variables.py
 
 ## Run a report
 
-Run the [query script](ghql/query.py) which will execute a given file containing a valid Github GraphQL query.
+Run the [query script](/ghgql/query.py) which will execute a given file containing a valid Github GraphQL query. See available input queries in the [queries](/ghgql/queries) directory.
 
 ### Static
 
@@ -29,7 +29,7 @@ Run a GraphQL query by filename. Choose a static one, that always gives the same
 Example:
 
 ```bash
-$ python query.py queries/commits.gql
+$ python query.py queries/commits/first_page.gql
 ```
 
 ### Dynamic
@@ -41,8 +41,8 @@ Example:
 ```bash
 # You can view the query text first, to see what variables are needed. As you will get
 # an API error printed to the console if you omit a required variable.
-$ view queries/commits_parametized.gql
-$ python query.py queries/commits_parametized.gql owner michaelcurrin name aggre-git
+$ view queries/commits/parametized.gql
+$ python query.py queries/commits/parametized.gql owner michaelcurrin name aggre-git
 ```
 
 Since the API allows a max of 100 items on page, paginate through the pages of results. The "after" indicator for the next page is added internally to the variables sent in the payload, so paging will happen automatically.
