@@ -1,5 +1,5 @@
-# Do a request for a short history of commits within a repo's default branch
-# and print the results.
+# Do a request for a short history of commits within a repo's default branch.
+# This adds parameters so that any repo can be targeted.
 query RecentCommits($owner: String!, $name: String!) {
   repository(owner: $owner, name: $name) {
     name

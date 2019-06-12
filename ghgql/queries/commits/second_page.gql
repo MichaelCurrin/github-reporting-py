@@ -1,3 +1,5 @@
+# Do a request for a short history of commits within a repo's default branch.
+# The target repo is fixed.
 # Get the second page of commits, using the after paramter.
 {
   repository(owner: "michaelcurrin", name: "aggre-git") {

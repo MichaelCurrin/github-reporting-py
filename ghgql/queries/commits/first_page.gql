@@ -1,5 +1,6 @@
-# Do a request for a short history of commits within a repo's default branch
-# and print the results.
+# Do a request for a short history of commits within a repo's default branch.
+# The target repo is fixed.
+# The after parameter is not used so the output is limited.
 query {
   repository(owner: "michaelcurrin", name: "aggre-git") {
     name
