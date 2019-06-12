@@ -2,4 +2,5 @@
     "python.pythonPath": "venv/bin/python",
     "terminal.integrated.cwd": "ghgql",
     "code-runner.cwd": "ghgql",
+    "python.linting.enabled": true,
 }
