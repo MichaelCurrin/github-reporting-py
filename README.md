@@ -5,7 +5,7 @@
 
 The aim of this project is to fetch stats about Github repos of interest and to generate text or CSV reports, using input parameters. The GraphQL API is used to get this data at scale, to make reporting on a large Gitub organization easy.
 
-This project is still in development. But the kind of reporting is to let you view the git commit history across multiple repos and to see how your organization or team members contribute (e.g. frequency and size of commits). The reports can also be aggregated such as with an Excel pivot table. 
+This project is still in development. But the kind of reporting is to let you view the git commit history across multiple repos and to see how your organization or team members contribute (e.g. frequency and size of commits). The reports can also be aggregated such as with an Excel pivot table.
 
 Don't use git reporting alone to judge your team's productivity or codebase, but reports can help you see patterns or stucks which can help you identify problems to solve or areas to improve on.
 
@@ -15,7 +15,7 @@ Another aim of this project is to introduce coders to processing GraphQL queries
 
 [Github](https://github.com) hosts code for developers and organizations and makes the code and history available through an API. Version 3 used [REST](https://www.restapitutorial.com/) but version 4 uses [GraphQL](https://graphql.org/) - this project explores using GraphQL for reporting purposes, in particular because GraphQL is more modern and can scale easier for download data.
 
-Test queries against Github data in the GraphQL [explorer](https://developer.github.com/v4/explorer/). The interactive view there makes it easy to explorer the schema.
+Test queries against Github data in the [GraphQL explorer](https://developer.github.com/v4/explorer/). The interactive view there makes it easy to explorer the schema.
 
 ## Sample output
 
@@ -63,7 +63,14 @@ $ PYTHONPATH=$(pwd) python demo/basic.py
 
 Using [GraphQL](https://graphql.org/) means only a single endpoint to query, using a POST request usually to get data. It allows fetching of large amounts of data with fewer queries than REST, getting just the fields and level of detail requested. Note that paging and rate limits still apply but should be easier to deal with.
 
-In particular, GraphQL makes it easier to scale to many fetch a large numbers of commits, even across multiple repos or branches, using a single request. Whereas the REST API only gives the commit data at the branch tip. So to get a 1000 commits you need 1000 requests. This is slow and results in quick rate limiting (max 5000 requests per hour). I experience this in a previous project.
+In particular, **GraphQL** makes it easier to scale to many fetch a large numbers of commits, even across multiple repos or branches, using a single request.  Although, there is a strict API limit of a **max of 100 items** in a list, so you need to use multiple requests to paginate through the data. But in a single request, you can still fetch 100 repos and the most recent 100 commits on each.
+
+This is still much better than the **REST API**, which only lets you query one repo at a time and only gives a single commit and a pointer to the previous commit (or _commits_, for a merge). This is slow and results in quick rate limiting (max 5000 requests per hour). I experienced this in a similar previous project which used a Python wrapper on the Github REST API.
+
+GraphQL is 100 times faster at getting commits and 100 times faster at getting repos, resulting in a gain of 10,000 times faster performance. For example, given a scenario to get 1,000 commits for the default branches of 100 repos, here are the number of requests required:
+
+- REST API: 100 repos x 1000 commits for each = **100,000** requests
+- GraphQL: 1 page of repos x 10 commit pages = **10** requests
 
 
 ## Requirements
