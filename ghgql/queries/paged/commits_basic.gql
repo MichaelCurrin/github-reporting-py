@@ -1,4 +1,5 @@
-# Get a page of commits at a given offset, or the first page if the variable is omitted.
+# Get a page of commits at a given offset, or the first page if the variable is
+# omitted or null.
 query CommitsPaged($after: String) {
   repository(owner: "michaelcurrin", name: "aggre-git") {
     name
