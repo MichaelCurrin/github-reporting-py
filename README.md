@@ -3,7 +3,11 @@
 
 ## Aim
 
-The aim of this project is to fetch stats about Github repos of interest and to generate text or CSV reports, using input parameters. The kind of reporting you get out could show the git history of one or more repos and how you or your team contribute to your repos. The reports can also be aggregated such as with an Excel pivot table.
+The aim of this project is to fetch stats about Github repos of interest and to generate text or CSV reports, using input parameters. The GraphQL API is used to get this data at scale, to make reporting on a large Gitub organization easy.
+
+This project is still in development. But the kind of reporting is to let you view the git commit history across multiple repos and to see how your organization or team members contribute (e.g. frequency and size of commits). The reports can also be aggregated such as with an Excel pivot table. 
+
+Don't use git reporting alone to judge your team's productivity or codebase, but reports can help you see patterns or stucks which can help you identify problems to solve or areas to improve on.
 
 Another aim of this project is to introduce coders to processing GraphQL queries using Python. The understanding can be applied to other GraphQL APIs.
 
