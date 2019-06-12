@@ -8,7 +8,7 @@ import lib
 
 
 def main():
-    path = 'queries/paged/commits.gql'
+    path = 'queries/paged/commits_basic.gql'
     variables = {}
     for i in range(5):
         after = variables.get('after', None) or "null"
