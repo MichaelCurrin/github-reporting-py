@@ -1,5 +1,5 @@
 """
-Query with pagination application.
+Pagination demo application.
 """
 import sys
 
@@ -27,6 +27,7 @@ def main():
             print("No more pages")
             break
         variables['after'] = page_info['endCursor']
+
 
 if __name__ == '__main__':
     main()
