@@ -1,0 +1,29 @@
+# Page through repos by most recent first.
+# Get a count of commits and show the latest commit's details.
+query CommitCountByRepo($login: String!, $after: String) {
+  repositoryOwner(login: $login) {
+    repositories(isFork: false, first: 1, after: $after, orderBy: {field: UPDATED_AT, direction: DESC}) {
+      totalCount
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        defaultBranch: defaultBranchRef {
+          name
+          commits: target {
+            ... on Commit {
+              history (first: 1) {
+                totalCount
+                latest: nodes {
+                  committedDate
+                  message
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
