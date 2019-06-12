@@ -1,3 +1,5 @@
+# Basic commits query for a single repo, to demonstrate paging.
+#
 # Get a page of commits at a given offset, or the first page if the variable is
 # omitted or null.
 query CommitsPaged($after: String) {
