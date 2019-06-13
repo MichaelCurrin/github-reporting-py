@@ -11,17 +11,9 @@ Don't use git reporting alone to judge your team's productivity or codebase, but
 
 Another aim of this project is to introduce coders to processing GraphQL queries using Python. The understanding can be applied to other GraphQL APIs.
 
-## Datasource
-
-[Github](https://github.com) hosts code for developers and organizations and makes the code and history available through an API. Version 3 used REST but version 4 uses GraphQL - this project explores using GraphQL API for reporting purposes, in particular because GraphQL is more modern and can scale easier for download data.
-
-*What a [REST](https://www.restapitutorial.com/) API? What is [GraphQL](https://graphql.org/)?*
-
-You can test queries against Github data in the [GraphQL explorer](https://developer.github.com/v4/explorer/). The interactive view there makes it easy to explorer the schema.
-
 ## Sample output
 
-One of the scripts in this Github GraphQL Tool project will give the following output:
+Example output from a script in this project.
 
 ```bash
 $ PYTHONPATH=$(pwd) python demo/basic.py
@@ -60,6 +52,19 @@ $ PYTHONPATH=$(pwd) python demo/basic.py
     }
 }
 ```
+
+## Datasource
+
+[Github](https://github.com) hosts code for developers and organizations and makes the code and history available through APIs. Here are Github's two latest ones:
+
+- Version 3 - [REST](https://www.restapitutorial.com/) API
+- Version 4 - [GraphQL](https://graphql.org/) API
+
+This project explores using the GraphQL API for reporting purposes, in particular because GraphQL is more modern and requires far fewer requests to get the same data.
+
+You can use _curl_ or a library like Python _requests_ to do command-line requests to the API.
+
+For easy debugging, autocompletion and exploring of the schema, use the [GraphQL explorer](https://developer.github.com/v4/explorer/).
 
 
 ## GraphQL benefits
