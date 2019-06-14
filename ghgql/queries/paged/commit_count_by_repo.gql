@@ -2,7 +2,7 @@
 # Get a count of commits and show the latest commit's details.
 query CommitCountByRepo($login: String!, $after: String) {
   repositoryOwner(login: $login) {
-    repositories(isFork: false, first: 1, after: $after, orderBy: {field: UPDATED_AT, direction: DESC}) {
+    repositories(isFork: false, first: 100, after: $after, orderBy: {field: UPDATED_AT, direction: DESC}) {
       totalCount
       pageInfo {
         hasNextPage
