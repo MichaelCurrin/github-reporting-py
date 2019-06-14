@@ -56,3 +56,22 @@ def query_by_filename(path, variables={}):
     resp = fetch_github_data(query, variables, prettyprint=True)
 
     return resp
+
+
+def process_args(args):
+    """
+    Process command-line arguments.
+
+    Separate args into filepath and optional key-value pairs, with spaces
+    between pairs and within pairs. Rather than setting allowed keys, any
+    key is allowed.
+    """
+    path = args.pop(0)
+    if args:
+        if len(args) % 2:
+            raise ValueError(f'Incomplete key-value pairs provided: {" ".join(args)}')
+        variables = dict(zip(args[::2], args[1::2]))
+    else:
+        variables = None
+
+    return path, variables
