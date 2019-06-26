@@ -12,10 +12,13 @@ HEADERS = {'Authorization': f"token {config.ACCESS_TOKEN}"}
 
 
 def prettify(data):
+    """
+    Return input data structure (list or dict) as a prettified JSON string.
+    """
     return json.dumps(data, indent=4, sort_keys=True)
 
 
-def fetch_github_data(query, variables={}, prettyprint=False):
+def fetch_github_data(query, variables={}):
     """
     Note that a request which returns an error will still give a 200 and can
     still contain some data. A 404 will not contain the data or errors keys.
@@ -51,9 +54,10 @@ def read_file(path):
     return data
 
 
+# TODO Rename to path.
 def query_by_filename(path, variables={}):
     query = read_file(path)
-    resp = fetch_github_data(query, variables, prettyprint=True)
+    resp = fetch_github_data(query, variables)
 
     return resp
 
@@ -66,6 +70,8 @@ def process_args(args):
     between pairs and within pairs. Rather than setting allowed keys, any
     key is allowed.
     """
+    # TODO Add help here.
+
     path = args.pop(0)
     if args:
         if len(args) % 2:
