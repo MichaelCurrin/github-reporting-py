@@ -1,13 +1,15 @@
 """
 Pagination demo application.
-"""
-import sys
 
-import config
+No arguments are used for this script.
+"""
 import lib
 
 
 def main():
+    """
+    Main command-line function.
+    """
     path = 'queries/paged/commits_basic.gql'
     variables = {}
     for i in range(5):
