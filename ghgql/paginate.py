@@ -33,8 +33,8 @@ def main(args):
         for repo in repositories['nodes']:
             latest_commit = repo['defaultBranch']['commits']['history']['latest']
             print(lib.prettify(latest_commit))
-        repo_page_info = repositories['pageInfo']
 
+        repo_page_info = repositories['pageInfo']
         if repo_page_info['hasNextPage']:
             variables['after'] = repo_page_info['endCursor']
         else:
