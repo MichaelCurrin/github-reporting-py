@@ -2,8 +2,14 @@
   viewer {
     login
   }
-  # Override default of false. Calculate the cost for the query without evaluating it
-  # https://developer.github.com/v4/query/
+  # If querying large volumes of data or many pages, it is probably useful
+  # to check the rate limit stats on the response.
+  #
+  # You can also do a dry run. If you set dryRun to true:
+  #   Calculate the cost for the query (stats are shown as if executed).
+  #   The query is not evaluated (no data is returned and there is no cost).
+  #   The 'rateLimit' field is the only key returned in 'data'.
+  # See https://developer.github.com/v4/query/
   rateLimit(dryRun: true) {
     limit
     cost
