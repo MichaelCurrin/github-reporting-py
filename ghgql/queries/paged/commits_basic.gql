@@ -24,6 +24,7 @@ query CommitsPaged($after: String) {
               cursor
             }
             pageInfo {
+              # endCursor value will be the same as the last cursor in history.
               endCursor
               hasNextPage
             }
