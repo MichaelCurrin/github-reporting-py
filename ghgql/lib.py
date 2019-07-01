@@ -3,12 +3,20 @@ Library module.
 """
 import json
 import os
+import sys
 
 import requests
 
 import config
 
 HEADERS = {'Authorization': f"token {config.ACCESS_TOKEN}"}
+
+
+def eprint(*args, **kwargs):
+    """
+    Print text to stderr.
+    """
+    print(*args, file=sys.stderr, **kwargs)
 
 
 def prettify(data):

@@ -13,7 +13,7 @@ def main(args):
     Main command-line function.
     """
     if len(args) != 2 or set(args).intersection({'-h', '--help'}):
-        print(f"Usage: {__file__} login LOGIN")
+        lib.eprint(f"Usage: {__file__} login LOGIN")
         sys.exit(1)
 
     path = 'queries/paged/about_repos.gql'
