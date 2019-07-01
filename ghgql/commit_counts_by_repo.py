@@ -15,7 +15,7 @@ def main(args):
     """
     Main command-line function.
     """
-    if not args or set(args).intersection({'-h', '--help'}):
+    if len(args) != 2 or set(args).intersection({'-h', '--help'}):
         print(f"Usage: {__file__}")
         sys.exit(1)
 
