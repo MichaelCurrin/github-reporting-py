@@ -1,2 +1,5 @@
-#!/bin/bash
-python ghgql/about_repos.py login 2uinc  > ghgql/var/about.txt
+#!/bin/bash -e
+OUT='var/about.txt'
+python about_repos.py login $1 > $OUT
+
+echo "Wrote to: $OUT"
