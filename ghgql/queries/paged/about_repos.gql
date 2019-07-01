@@ -1,6 +1,6 @@
 query AboutRepos($login: String!, $after: String) {
   repositoryOwner(login: $login) {
-    repositories(isFork: false, first: 100, after: $after, orderBy: {field: NAME, direction: ASC}) {
+    repositories(first: 100, after: $after, orderBy: {field: UPDATED_AT, direction: DESC}) {
       totalCount
       pageInfo {
         hasNextPage
