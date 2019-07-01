@@ -62,22 +62,27 @@ def query_by_filename(path, variables={}):
     return resp
 
 
+def process_variables(args):
+    """
+    Process command-line arguments containing a filename and key-value pairs.
+    """
+    if args:
+        if len(args) % 2:
+            raise ValueError(f'Incomplete key-value pairs provided: {" ".join(args)}')
+        return dict(zip(args[::2], args[1::2]))
+
+    return None
+
+
 def process_args(args):
     """
-    Process command-line arguments.
+    Process command-line arguments containing a filename and key-value pairs.
 
     Separate args into filepath and optional key-value pairs, with spaces
     between pairs and within pairs. Rather than setting allowed keys, any
     key is allowed.
     """
-    # TODO Add help here.
-
     path = args.pop(0)
-    if args:
-        if len(args) % 2:
-            raise ValueError(f'Incomplete key-value pairs provided: {" ".join(args)}')
-        variables = dict(zip(args[::2], args[1::2]))
-    else:
-        variables = None
+    variables = process_variables(args)
 
     return path, variables
