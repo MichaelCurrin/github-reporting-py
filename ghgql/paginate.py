@@ -19,7 +19,8 @@ def main(args):
         print(f"Usage: {__file__}")
         sys.exit(1)
 
-    path, variables = lib.process_args(args)
+    path = 'queries/paged/commit_count_by_repo.gql'
+    variables = lib.process_variables(args)
 
     first_iteration = True
     while True:
@@ -31,8 +32,33 @@ def main(args):
             first_iteration = False
 
         for repo in repositories['nodes']:
-            latest_commit = repo['defaultBranch']['commits']['history']['latest']
-            print(lib.prettify(latest_commit))
+            try:
+                repo_name = repo['name']
+                print(f"Name   : {repo_name}")
+
+                branch = repo.get('defaultBranch')
+                if branch:
+                    branch_name = branch['name']
+                    history = branch['commits']['history']
+                    total_commits = history['totalCount']
+                    commits = history['nodes']
+                    latest_commit = commits[0]
+
+                    date = latest_commit['committedDate'][:10]
+                    msg = latest_commit['message']
+
+                    print(f"Branch : {branch_name}")
+                    print(f"Commits: {total_commits:,d}")
+                    print(f"Latest commit:")
+                    print(f"  Date   : {date}")
+                    print(f"  Message:")
+                    print(msg)
+                    print()
+                else:
+                    print(f"Not branch or commit data")
+            except Exception:
+                print(repo)
+                raise
 
         repo_page_info = repositories['pageInfo']
         if repo_page_info['hasNextPage']:
