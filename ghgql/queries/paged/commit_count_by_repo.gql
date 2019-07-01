@@ -9,13 +9,14 @@ query CommitCountByRepo($login: String!, $after: String) {
         endCursor
       }
       nodes {
+        name
         defaultBranch: defaultBranchRef {
           name
           commits: target {
             ... on Commit {
               history (first: 1) {
                 totalCount
-                latest: nodes {
+                nodes {
                   committedDate
                   message
                 }
