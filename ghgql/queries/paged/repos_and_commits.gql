@@ -1,0 +1,38 @@
+query ReposAndCommitsPaged($login: String!, $afterRepo: String, $since: GitTimestamp) {
+  repositoryOwner(login: $login) {
+    repositories(first: 100, after: $afterRepo, orderBy: {field: UPDATED_AT, direction: DESC}) {
+      totalCount
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        name
+        defaultBranch: defaultBranchRef {
+          name
+          commits: target {
+            ... on Commit {
+              history(first: 100, since: $since) {
+                edges {
+                  node {
+                    abbreviatedOid
+                    committedDate
+                    committer {
+                      user {
+                        login
+                      }
+                    }
+                    changedFiles
+                    additions
+                    deletions
+                    message
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
