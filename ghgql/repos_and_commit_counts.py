@@ -1,5 +1,5 @@
 """
-Pagination application.
+Repo commit counts report application.
 
 Process a query which supports paging and contains repo commits and iterates
 over all the pages.
