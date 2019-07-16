@@ -104,10 +104,29 @@ def print_args_on_error(func):
     """
     def wrapper(*args, **kwargs):
         try:
-            func(*args, **kwargs)
+            return func(*args, **kwargs)
         except Exception:
+            print("ARGS")
             print(*args)
+            print("KWARGS")
             print(**kwargs)
             raise
 
     return wrapper
+
+
+def parse_bool(value):
+    if value is None:
+        return None
+
+    value = value.lower()
+    if value == 'true':
+        return True
+    if value == 'false':
+        return False
+
+
+def test():
+    assert parse_bool('true') is True
+    assert parse_bool('FALSE') is False
+    assert parse_bool(None) is None
