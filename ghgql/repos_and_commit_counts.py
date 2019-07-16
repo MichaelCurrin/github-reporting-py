@@ -21,6 +21,8 @@ def display(repo):
     repo_name = repo['name']
     print(f"Name         : {repo_name}")
 
+    total_commits = 0
+
     branch = repo.get('defaultBranch')
     if branch:
         branch_name = branch['name']
@@ -28,20 +30,21 @@ def display(repo):
         total_commits = history['totalCount']
 
         if total_commits:
-            print(f"Branch       : {branch_name}")
-            print(f"Commits      : {total_commits:,d}")
             latest_commit = history['nodes'][0]
-
             date = latest_commit['committedDate'][:10]
             msg = latest_commit['message']
 
+            print(f"Branch       : {branch_name}")
+            print(f"Commits      : {total_commits:,d}")
             print(f"Latest commit:")
             print(f"  {date}")
             print(textwrap.indent(msg, '  '))
         print()
     else:
         # Handle rare cases of an empty repo.
-        print(f"No branch or commit data")
+        print(f"No branch data")
+
+    return total_commits
 
 
 def main(args):
@@ -55,9 +58,13 @@ def main(args):
 
     path = 'queries/paged/repos_and_commit_counts.gql'
     variables = lib.process_variables(args)
+
     start = variables.pop('start', None)
     if start:
         variables['since'] = datetime.datetime.strptime(start, '%Y-%m-%d').isoformat()
+
+    is_fork_arg = variables.pop('isFork', None)
+    variables['isFork'] = lib.parse_bool(is_fork_arg)
 
     first_iteration = True
     while True:
@@ -68,8 +75,9 @@ def main(args):
             print(f"Total count: {repositories['totalCount']}")
             first_iteration = False
 
+        grand_total = 0
         for repo in repositories['nodes']:
-            display(repo)
+            grand_total += display(repo)
 
         repo_page_info = repositories['pageInfo']
         if repo_page_info['hasNextPage']:
@@ -77,6 +85,7 @@ def main(args):
         else:
             break
 
+    print(f"Total commits across repos: {grand_total}")
 
 if __name__ == '__main__':
     main(sys.argv[1:])
