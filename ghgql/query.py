@@ -20,8 +20,8 @@ def main(args):
         lib.eprint(
             "For parametized/dynamic queries, provide an optional list of\n"
             "key-value pairs, separated by a space.\n"
-            ' e.g. to send {"owner": "michaelcurrin"} in the variables, use\n'
-            "   QUERY_PATH owner michaelcurrin"
+            ' e.g. to send {"owner": "abc", "cursor": "xyz 1"} in the variables, use\n'
+            "   QUERY_PATH owner abc cursor 'xyz 1'"
         )
         sys.exit(1)
 
