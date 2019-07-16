@@ -47,7 +47,7 @@ def main(args):
 
         repo_page_info = repositories['pageInfo']
         if repo_page_info['hasNextPage']:
-            variables['after'] = repo_page_info['endCursor']
+            variables['cursor'] = repo_page_info['endCursor']
         else:
             break
 

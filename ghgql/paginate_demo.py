@@ -18,9 +18,9 @@ def main():
     In this situation, the only variable to send is 'cursor'.
     """
     path = 'queries/paged/commits_basic.gql'
-    variables = {'cursor': None}
+    variables = {}
     for i in range(5):
-        print(f"Query #{i+1} - cursor: {variables['cursor'] or 'null'}")
+        print(f"Query #{i+1} - cursor: {variables.get('cursor', 'null')}")
 
         data = lib.query_by_filename(path, variables=variables)
         history = data['repository']['defaultBranchRef']['target']['history']

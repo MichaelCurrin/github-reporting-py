@@ -3,8 +3,6 @@ Repo commit counts report application.
 
 Process a query which supports paging and contains repo commits and iterates
 over all the pages.
-
-This only works with a query with returns output in a specific format.
 """
 import sys
 
@@ -62,7 +60,7 @@ def main(args):
 
         repo_page_info = repositories['pageInfo']
         if repo_page_info['hasNextPage']:
-            variables['after'] = repo_page_info['endCursor']
+            variables['cursor'] = repo_page_info['endCursor']
         else:
             break
 
