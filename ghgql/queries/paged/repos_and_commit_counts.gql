@@ -1,3 +1,5 @@
+# Get commit counts for all repos owned by a Github account.
+#
 # Page through repos by most recent first.
 # Get a count of commits and show the latest commit's details.
 query CommitCountByRepo($login: String!, $cursor: String) {

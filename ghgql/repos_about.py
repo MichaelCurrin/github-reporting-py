@@ -16,7 +16,7 @@ def main(args):
         lib.eprint(f"Usage: {__file__} login LOGIN")
         sys.exit(1)
 
-    path = 'queries/paged/about_repos.gql'
+    path = 'queries/paged/repos_about.gql'
     variables = lib.process_variables(args)
 
     query_counter = 0

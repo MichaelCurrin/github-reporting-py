@@ -4,6 +4,7 @@ Repo commit counts report application.
 Process a query which supports paging and contains repo commits and iterates
 over all the pages.
 """
+import textwrap
 import sys
 
 import lib
@@ -14,10 +15,10 @@ def main(args):
     Main command-line function.
     """
     if len(args) != 2 or set(args).intersection({'-h', '--help'}):
-        print(f"Usage: {__file__}")
+        print(f"Usage: {__file__} login LOGIN")
         sys.exit(1)
 
-    path = 'queries/paged/commit_count_by_repo.gql'
+    path = 'queries/paged/repos_and_commit_counts.gql'
     variables = lib.process_variables(args)
 
     first_iteration = True
@@ -32,7 +33,7 @@ def main(args):
         for repo in repositories['nodes']:
             try:
                 repo_name = repo['name']
-                print(f"Name   : {repo_name}")
+                print(f"Name         : {repo_name}")
 
                 branch = repo.get('defaultBranch')
                 if branch:
@@ -45,12 +46,11 @@ def main(args):
                     date = latest_commit['committedDate'][:10]
                     msg = latest_commit['message']
 
-                    print(f"Branch : {branch_name}")
-                    print(f"Commits: {total_commits:,d}")
+                    print(f"Branch       : {branch_name}")
+                    print(f"Commits      : {total_commits:,d}")
                     print(f"Latest commit:")
-                    print(f"  Date   : {date}")
-                    print(f"  Message:")
-                    print(msg)
+                    print(f"  {date}")
+                    print(textwrap.indent(msg, '  '))
                     print()
                 else:
                     print(f"Not branch or commit data")
