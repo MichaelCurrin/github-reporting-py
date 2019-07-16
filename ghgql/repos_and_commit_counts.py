@@ -13,6 +13,37 @@ import textwrap
 import lib
 
 
+@lib.print_args_on_error
+def display(repo):
+    """
+    Display an easy to read summary of the repo and its commits.
+    """
+    repo_name = repo['name']
+    print(f"Name         : {repo_name}")
+
+    branch = repo.get('defaultBranch')
+    if branch:
+        branch_name = branch['name']
+        history = branch['commits']['history']
+        total_commits = history['totalCount']
+
+        if total_commits:
+            print(f"Branch       : {branch_name}")
+            print(f"Commits      : {total_commits:,d}")
+            latest_commit = history['nodes'][0]
+
+            date = latest_commit['committedDate'][:10]
+            msg = latest_commit['message']
+
+            print(f"Latest commit:")
+            print(f"  {date}")
+            print(textwrap.indent(msg, '  '))
+        print()
+    else:
+        # Handle rare cases of an empty repo.
+        print(f"No branch or commit data")
+
+
 def main(args):
     """
     Main command-line function.
@@ -38,34 +69,7 @@ def main(args):
             first_iteration = False
 
         for repo in repositories['nodes']:
-            try:
-                repo_name = repo['name']
-                print(f"Name         : {repo_name}")
-
-                branch = repo.get('defaultBranch')
-                if branch:
-                    branch_name = branch['name']
-                    history = branch['commits']['history']
-                    total_commits = history['totalCount']
-
-                    if total_commits:
-                        print(f"Branch       : {branch_name}")
-                        print(f"Commits      : {total_commits:,d}")
-                        latest_commit = history['nodes'][0]
-
-                        date = latest_commit['committedDate'][:10]
-                        msg = latest_commit['message']
-
-                        print(f"Latest commit:")
-                        print(f"  {date}")
-                        print(textwrap.indent(msg, '  '))
-                    print()
-                else:
-                    # Handle rare cases of an empty repo.
-                    print(f"No branch or commit data")
-            except Exception:
-                print(repo)
-                raise
+            display(repo)
 
         repo_page_info = repositories['pageInfo']
         if repo_page_info['hasNextPage']:

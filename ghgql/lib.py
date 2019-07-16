@@ -94,3 +94,20 @@ def process_args(args):
     variables = process_variables(args)
 
     return path, variables
+
+
+
+def print_args_on_error(func):
+    """
+    Decorator used to print variables given to a function if the function
+    call fails.
+    """
+    def wrapper(*args, **kwargs):
+        try:
+            func(*args, **kwargs)
+        except Exception:
+            print(*args)
+            print(**kwargs)
+            raise
+
+    return wrapper
