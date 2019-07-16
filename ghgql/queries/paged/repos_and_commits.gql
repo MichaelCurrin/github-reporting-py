@@ -1,4 +1,4 @@
-query ReposAndCommitsPaged($login: String!, $cursor: String, $since: GitTimestamp) {
+query ReposAndCommitsPaged($login: String!, $since: GitTimestamp, $cursor: String) {
   repositoryOwner(login: $login) {
     repositories(first: 100, after: $cursor, orderBy: {field: UPDATED_AT, direction: DESC}) {
       totalCount

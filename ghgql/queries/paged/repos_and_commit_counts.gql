@@ -2,7 +2,7 @@
 #
 # Page through repos by most recent first.
 # Get a count of commits and show the latest commit's details.
-query CommitCountByRepo($login: String!, $cursor: String) {
+query CommitCountByRepo($login: String!, $since: GitTimestamp, $cursor: String) {
   repositoryOwner(login: $login) {
     repositories(first: 100, after: $cursor, orderBy: {field: UPDATED_AT, direction: DESC}) {
       totalCount
@@ -16,7 +16,7 @@ query CommitCountByRepo($login: String!, $cursor: String) {
           name
           commits: target {
             ... on Commit {
-              history (first: 1) {
+              history (first: 1, since: $since) {
                 totalCount
                 nodes {
                   committedDate
