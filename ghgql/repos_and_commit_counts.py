@@ -66,7 +66,9 @@ def main(args):
     is_fork_arg = variables.pop('isFork', None)
     variables['isFork'] = lib.parse_bool(is_fork_arg)
 
+    grand_total = 0
     first_iteration = True
+
     while True:
         data = lib.query_by_filename(path, variables)
 
@@ -75,7 +77,6 @@ def main(args):
             print(f"Total count: {repositories['totalCount']}")
             first_iteration = False
 
-        grand_total = 0
         for repo in repositories['nodes']:
             grand_total += display(repo)
 
