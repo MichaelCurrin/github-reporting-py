@@ -1,6 +1,10 @@
 """
 Pagination demo application.
 
+Simple demo to show multiple queries done automatically using returned
+cursor value to fetch the next page. The number of pages is capped
+to make this a quick script.
+
 No arguments are used for this script.
 """
 import lib
@@ -9,26 +13,28 @@ import lib
 def main():
     """
     Main command-line function.
+
+    Do a query to the API using a configured GQL file and query variables.
+    In this situation, the only variable to send is 'cursor'.
     """
     path = 'queries/paged/commits_basic.gql'
-    variables = {}
+    variables = {'cursor': None}
     for i in range(5):
-        after = variables.get('after', None) or "null"
-        print(f"Query #{i+1} - after: {after}")
+        print(f"Query #{i+1} - cursor: {variables['cursor'] or 'null'}")
 
         data = lib.query_by_filename(path, variables=variables)
         history = data['repository']['defaultBranchRef']['target']['history']
 
-        messages = [edge['node']['message'] for edge in history['edges']]
-        for m in messages:
-            print(f"  {m}")
+        msgs = [edge['node']['message'] for edge in history['edges']]
+        for msg in msgs:
+            print(f"  {msg}")
 
         page_info = history['pageInfo']
         has_next_page = page_info['hasNextPage']
         if not has_next_page:
             print("No more pages")
             break
-        variables['after'] = page_info['endCursor']
+        variables['cursor'] = page_info['endCursor']
 
 
 if __name__ == '__main__':
