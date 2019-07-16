@@ -2,7 +2,7 @@
 #
 # Get a page of commits at a given offset, or the first page if the variable is
 # omitted or null.
-query CommitsPaged($after: String) {
+query CommitsPaged($cursor: String) {
   repository(owner: "michaelcurrin", name: "aggre-git") {
     name
     owner {
@@ -15,7 +15,7 @@ query CommitsPaged($after: String) {
           # The hashed value seems repeated throughout the cursor results, except
           # there is a number at the end after a space. Using just the number
           # cause an error.
-          history(first: 3, after: $after) {
+          history(first: 3, after: $cursor) {
             totalCount
             edges {
               node {

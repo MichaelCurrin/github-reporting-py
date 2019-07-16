@@ -1,6 +1,6 @@
-query ReposAndCommitsPaged($login: String!, $afterRepo: String, $since: GitTimestamp) {
+query ReposAndCommitsPaged($login: String!, $cursor: String, $since: GitTimestamp) {
   repositoryOwner(login: $login) {
-    repositories(first: 100, after: $afterRepo, orderBy: {field: UPDATED_AT, direction: DESC}) {
+    repositories(first: 100, after: $cursor, orderBy: {field: UPDATED_AT, direction: DESC}) {
       totalCount
       pageInfo {
         hasNextPage
