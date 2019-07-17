@@ -2,7 +2,7 @@
 #
 # Get a page of commits at a given offset, or the first page if the variable is
 # omitted or null.
-query CommitsPaged($cursor: String) {
+query CommitsBasicPaged($cursor: String) {
   repository(owner: "michaelcurrin", name: "aggre-git") {
     name
     owner {
