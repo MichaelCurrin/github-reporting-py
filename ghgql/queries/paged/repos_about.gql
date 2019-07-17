@@ -1,5 +1,5 @@
-query AboutRepos($login: String!, $cursor: String) {
-  repositoryOwner(login: $login) {
+query ReposAbout($owner: String!, $cursor: String) {
+  repositoryOwner(login: $owner) {
     repositories(first: 100, after: $cursor, orderBy: {field: UPDATED_AT, direction: DESC}) {
       totalCount
       pageInfo {
