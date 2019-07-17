@@ -1,25 +1,25 @@
 query ReposAbout($owner: String!, $cursor: String) {
-  repositoryOwner(login: $owner) {
-    repositories(first: 100, after: $cursor, orderBy: {field: UPDATED_AT, direction: DESC}) {
-      totalCount
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      nodes {
-        name
-        createdAt
-        updatedAt
-        description
-        primaryLanguage {
-          name
+    repositoryOwner(login: $owner) {
+        repositories(first: 100, after: $cursor, orderBy: { field: UPDATED_AT, direction: DESC }) {
+            totalCount
+            pageInfo {
+                hasNextPage
+                endCursor
+            }
+            nodes {
+                name
+                createdAt
+                updatedAt
+                description
+                primaryLanguage {
+                    name
+                }
+                languages(first: 100) {
+                    nodes {
+                        name
+                    }
+                }
+            }
         }
-        languages(first: 100) {
-          nodes {
-            name
-          }
-        }
-      }
     }
-  }
 }
