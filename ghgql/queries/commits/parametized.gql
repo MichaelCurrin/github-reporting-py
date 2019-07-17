@@ -1,34 +1,38 @@
 # Do a request for a short history of commits within a repo's default branch.
 # This adds parameters so that any repo can be targeted.
 query RecentCommits($owner: String!, $name: String!) {
-  repository(owner: $owner, name: $name) {
-    name
-    owner {
-      login
-    }
-    defaultBranchRef {
-      name
-      target {
-        ... on Commit {
-          history(first: 3) {
-            edges {
-              node {
-                abbreviatedOid
-                committedDate
-                committer {
-                  user {
-                    login
-                  }
-                }
-                changedFiles
-                additions
-                deletions
-                message
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+	repository(owner: $owner, name: $name) {
+		name
+		owner {
+			login
+		}
+		defaultBranchRef {
+			name
+			target {
+				... on Commit {
+					history(first: 3) {
+						nodes {
+							abbreviatedOid
+							authoredDate
+							author {
+								user {
+									login
+								}
+							}
+							committedDate
+							committer {
+								user {
+									login
+								}
+							}
+							changedFiles
+							additions
+							deletions
+							message
+						}
+					}
+				}
+			}
+		}
+	}
 }
