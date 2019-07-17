@@ -1,38 +1,44 @@
-query ReposAndCommitsPaged($login: String!, $since: GitTimestamp, $cursor: String) {
-  repositoryOwner(login: $login) {
-    repositories(first: 100, after: $cursor, orderBy: {field: UPDATED_AT, direction: DESC}) {
-      totalCount
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      nodes {
-        name
-        defaultBranch: defaultBranchRef {
-          name
-          commits: target {
-            ... on Commit {
-              history(first: 100, since: $since) {
-                edges {
-                  node {
-                    abbreviatedOid
-                    committedDate
-                    committer {
-                      user {
-                        login
-                      }
-                    }
-                    changedFiles
-                    additions
-                    deletions
-                    message
-                  }
-                }
-              }
+query ReposAndCommitsPaged($owner: String!, $since: GitTimestamp, $cursor: String) {
+    repositoryOwner(login: $owner) {
+        repositories(first: 100, after: $cursor, orderBy: { field: UPDATED_AT, direction: DESC }) {
+            totalCount
+            pageInfo {
+                hasNextPage
+                endCursor
             }
-          }
+            nodes {
+                name
+                defaultBranch: defaultBranchRef {
+                    name
+                    commits: target {
+                        ... on Commit {
+                            history(first: 100, since: $since) {
+                                edges {
+                                    node {
+                                        abbreviatedOid
+                                        authoredDate
+                                        author {
+                                            user {
+                                                login
+                                            }
+                                        }
+                                        committedDate
+                                        committer {
+                                            user {
+                                                login
+                                            }
+                                        }
+                                        changedFiles
+                                        additions
+                                        deletions
+                                        message
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
