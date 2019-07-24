@@ -4,45 +4,45 @@
 # practical. So this is just a preview and cannot be used to get all commits
 # across repos.
 query RecentCommitsForRepos($owner: String!, $since: GitTimestamp, $isFork: Boolean, $cursor: String) {
-	repositoryOwner(login: $owner) {
-		repositories(first: 100, isFork: $isFork, after: $cursor, orderBy: { field: UPDATED_AT, direction: DESC }) {
-			totalCount
-			pageInfo {
-				hasNextPage
-				endCursor
-			}
-			nodes {
-				name
-				defaultBranch: defaultBranchRef {
-					name
-					commits: target {
-						... on Commit {
-							history(first: 100, since: $since) {
-								totalCount
-								nodes {
-									abbreviatedOid
-									authoredDate
-									author {
-										user {
-											login
-										}
-									}
-									committedDate
-									committer {
-										user {
-											login
-										}
-									}
-									changedFiles
-									additions
-									deletions
-									message
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+    repositoryOwner(login: $owner) {
+        repositories(first: 100, isFork: $isFork, after: $cursor, orderBy: { field: UPDATED_AT, direction: DESC }) {
+            totalCount
+            pageInfo {
+                hasNextPage
+                endCursor
+            }
+            nodes {
+                name
+                defaultBranch: defaultBranchRef {
+                    name
+                    commits: target {
+                        ... on Commit {
+                            history(first: 100, since: $since) {
+                                totalCount
+                                nodes {
+                                    abbreviatedOid
+                                    authoredDate
+                                    author {
+                                        user {
+                                            login
+                                        }
+                                    }
+                                    committedDate
+                                    committer {
+                                        user {
+                                            login
+                                        }
+                                    }
+                                    changedFiles
+                                    additions
+                                    deletions
+                                    message
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
