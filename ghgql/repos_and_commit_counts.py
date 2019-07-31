@@ -46,18 +46,12 @@ def display(repo):
     return total_commits
 
 
-def main(args):
+def repos_and_commit_counts(path, variables):
     """
-    Main command-line function.
+    Print commit count for all repos owned by an account and then print grand total.
+
+    :return: None
     """
-    if not args or set(args).intersection({'-h', '--help'}):
-        print(f"Usage: {__file__} owner OWNER [start START_DATE]")
-        print(f"START_DATE: Count commits on or after this date, in YYYY-MM-DD format.")
-        sys.exit(1)
-
-    path = 'queries/repos/repos_and_commit_counts.gql'
-    variables = lib.process_variables(args)
-
     grand_total = 0
     first_iteration = True
 
@@ -79,6 +73,21 @@ def main(args):
             break
 
     print(f"Total commits across repos: {grand_total}")
+
+
+def main(args):
+    """
+    Main command-line function.
+    """
+    if not args or set(args).intersection({'-h', '--help'}):
+        print(f"Usage: {__file__} owner OWNER [start START_DATE]")
+        print(f"START_DATE: Count commits on or after this date, in YYYY-MM-DD format.")
+        sys.exit(1)
+
+    path = 'queries/repos/repos_and_commit_counts.gql'
+    variables = lib.process_variables(args)
+    repos_and_commit_counts(path, variables)
+
 
 if __name__ == '__main__':
     main(sys.argv[1:])
