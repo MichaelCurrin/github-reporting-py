@@ -1,7 +1,8 @@
-# Basic commits query for a single repo, to demonstrate paging.
+# Basic commits paging query.
 #
-# Get a page of commits at a given offset, or the first page if the variable is
-# omitted or null.
+# Get a page of a few commits with minimal data for a hardcoded repo, mainly to
+# demonstrate paging. Get a page of commits at a given offset, or the first
+# page if the variable is omitted or null.
 query CommitsBasicPaged($cursor: String) {
     repository(owner: "michaelcurrin", name: "aggre-git") {
         name
