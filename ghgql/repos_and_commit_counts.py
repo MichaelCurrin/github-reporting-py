@@ -55,7 +55,7 @@ def main(args):
         print(f"START_DATE: Count commits on or after this date, in YYYY-MM-DD format.")
         sys.exit(1)
 
-    path = 'queries/paged/repos_and_commit_counts.gql'
+    path = 'queries/repos/repos_and_commit_counts.gql'
     variables = lib.process_variables(args)
 
     grand_total = 0

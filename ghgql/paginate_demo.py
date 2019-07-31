@@ -17,7 +17,7 @@ def main():
     Do a query to the API using a configured GQL file and query variables.
     In this situation, the only variable to send is 'cursor'.
     """
-    path = 'queries/paged/commits_basic.gql'
+    path = 'queries/commit_test/commits_basic.gql'
     variables = {}
     for i in range(5):
         print(f"Query #{i+1} - cursor: {variables.get('cursor', 'null')}")
