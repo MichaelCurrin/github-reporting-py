@@ -97,3 +97,9 @@ See the following guides so you can use this project to generate some reports fo
 
 - [Installation](/docs/installation.md)
 - [Usage](/docs/usage.md)
+
+
+### Github
+
+- [GraphQL resource limitations](https://developer.github.com/v4/guides/resource-limitations/)
+    * > Individual calls cannot request more than 500,000 total nodes.
