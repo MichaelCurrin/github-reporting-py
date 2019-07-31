@@ -1,3 +1,4 @@
+# Get summary data about repos owned by an account, using paging.
 query ReposAbout($owner: String!, $cursor: String) {
     repositoryOwner(login: $owner) {
         repositories(first: 100, after: $cursor, orderBy: { field: UPDATED_AT, direction: DESC }) {

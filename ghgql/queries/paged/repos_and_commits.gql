@@ -1,3 +1,4 @@
+# Get details of latest 100 commits for all repos owned by an account, using repo paging.
 query ReposAndCommitsPaged($owner: String!, $since: GitTimestamp, $cursor: String) {
     repositoryOwner(login: $owner) {
         repositories(first: 100, after: $cursor, orderBy: { field: UPDATED_AT, direction: DESC }) {
