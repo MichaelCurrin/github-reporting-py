@@ -1,6 +1,7 @@
 """
 Library module.
 """
+import datetime
 import json
 import os
 import sys
@@ -26,11 +27,14 @@ def prettify(data):
     return json.dumps(data, indent=4, sort_keys=True)
 
 
-def fetch_github_data(query, variables={}):
+def fetch_github_data(query, variables=None):
     """
     Note that a request which returns an error will still give a 200 and can
     still contain some data. A 404 will not contain the data or errors keys.
     """
+    if not variables:
+        variables = {}
+
     payload = {
         'query': query,
         'variables': variables,
@@ -77,7 +81,18 @@ def process_variables(args):
     if args:
         if len(args) % 2:
             raise ValueError(f'Incomplete key-value pairs provided: {" ".join(args)}')
-        return dict(zip(args[::2], args[1::2]))
+        variables = dict(zip(args[::2], args[1::2]))
+
+        start = variables.pop('start', None)
+        if start:
+            variables['since'] = datetime.datetime.strptime(start, '%Y-%m-%d')\
+                                 .isoformat()
+
+        is_fork_arg = variables.pop('isFork', None)
+        if is_fork_arg:
+            variables['isFork'] = parse_bool(is_fork_arg)
+
+        return variables
 
     return None
 
@@ -116,14 +131,13 @@ def print_args_on_error(func):
 
 
 def parse_bool(value):
-    if value is None:
-        return None
-
     value = value.lower()
     if value == 'true':
         return True
     if value == 'false':
         return False
+
+    raise ValueError(f"Could not parse value to bool. Got: {value}")
 
 
 def test():
