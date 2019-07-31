@@ -3,9 +3,9 @@
 # Pages through repos but do not page through pages of commits, as nested cursors for
 # the repo and commit level does not seem possible. So this cannot go beyond the
 # most page of commits.
-query ReposAndCommitsPaged($owner: String!, $since: GitTimestamp, $cursor: String) {
+query ReposAndRecentCommitsPaged($owner: String!, $since: GitTimestamp, $isFork: Boolean, $cursor: String) {
 	repositoryOwner(login: $owner) {
-		repositories(first: 100, after: $cursor, orderBy: { field: UPDATED_AT, direction: DESC }) {
+		repositories(first: 100, after: $cursor, isFork: $isFork, orderBy: { field: UPDATED_AT, direction: DESC }) {
 			totalCount
 			pageInfo {
 				hasNextPage
