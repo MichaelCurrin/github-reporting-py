@@ -67,6 +67,7 @@ def read_file(path):
 
 
 # TODO Rename to path.
+# TODO Refactor so the file only has to be read once for a set of paged queries.
 def query_by_filename(path, variables={}):
     query = read_file(path)
     resp = fetch_github_data(query, variables)
