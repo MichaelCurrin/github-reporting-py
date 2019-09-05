@@ -68,11 +68,18 @@ def read_file(path):
 
 # TODO Rename to path.
 # TODO Refactor so the file only has to be read once for a set of paged queries.
-def query_by_filename(path, variables={}):
+def query_by_filename(path, variables=None):
+    if not variables:
+        variables = {}
     query = read_file(path)
     resp = fetch_github_data(query, variables)
 
     return resp
+
+
+def timestamp(date):
+    """Convert YYYY-MM-DD" string into GitTimesstamp string"""
+    return datetime.datetime.strptime(date, '%Y-%m-%d').isoformat()
 
 
 def process_variables(args):
@@ -86,8 +93,7 @@ def process_variables(args):
 
         start = variables.pop('start', None)
         if start:
-            variables['since'] = datetime.datetime.strptime(start, '%Y-%m-%d')\
-                                 .isoformat()
+            variables['since'] = timestamp(start)
 
         is_fork_arg = variables.pop('isFork', None)
         if is_fork_arg:
