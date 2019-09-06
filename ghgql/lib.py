@@ -5,11 +5,13 @@ import datetime
 import json
 import os
 import sys
+from pathlib import Path
 
 import requests
 
 import config
 
+APP_DIR = Path().absolute()
 HEADERS = {'Authorization': f"token {config.ACCESS_TOKEN}"}
 
 
