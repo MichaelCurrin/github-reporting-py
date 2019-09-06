@@ -32,6 +32,7 @@
 {%- if value %}{{ value | tojson }}{% else %}null{% endif -%}
 {% endmacro %}
 
+{# The name of a fragment must be unique, so base it on repo name after some cleanup. #}
 {%- macro repo_fragment(owner, name, since, after, commits=100) %}
 	{{ name.replace("-", "_")}}: repository(owner: "{{ owner }}", name: "{{ name}}")	{
 		name
