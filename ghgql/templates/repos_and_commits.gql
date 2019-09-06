@@ -55,10 +55,10 @@
 	}
 {% endmacro -%}
 
-{# Args: owner, repo_names, since, after, dry_run #}
+{# Args: owner, repos, since, dry_run. #}
 query ReposAndCommitsPaged {
 	{{ rate_limits(dry_run) }}
-	{% for name in repo_names %}
-		{{ repo_fragment(owner, name, since, after) }}
+	{% for repo in repos %}
+		{{ repo_fragment(owner, repo.name, since, repo.cursor) }}
 	{% endfor %}
 }
