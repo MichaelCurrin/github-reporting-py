@@ -60,6 +60,7 @@ def fetch_github_data(query, variables=None):
     return data
 
 
+# TODO Use app dir so it can be run from anywhere.
 def read_file(path):
     assert os.access(path, os.R_OK), f"Cannot find file: {path}"
     with open(path) as f_in:
