@@ -1,0 +1,64 @@
+{%- macro rate_limits(dry_run) %}
+	rateLimit(dryRun: {% if dry_run %}true{% else %}false{% endif %}) {
+		limit
+		cost
+		remaining
+		resetAt
+		nodeCount
+	}
+{% endmacro -%}
+
+{% macro commit_fields() %}
+						abbreviatedOid
+						authoredDate
+						author {
+							user {
+								login
+							}
+						}
+						committedDate
+						committer {
+							user {
+								login
+							}
+						}
+						changedFiles
+						additions
+						deletions
+						message
+{% endmacro %}
+
+{% macro stringify(value) %}
+{%- if value %}{{ value | tojson }}{% else %}null{% endif -%}
+{% endmacro %}
+
+{%- macro repo_fragment(owner, name, since, after, commits=100) %}
+	{{ name.replace("-", "_")}}: repository(owner: "{{ owner }}", name: "{{ name}}")	{
+		name
+		description
+		defaultBranchRef {
+			name
+			target {
+				... on Commit {
+					history(first: {{ commits }}, since: {{ stringify(since) }}, after: {{ stringify(after) }}) {
+						nodes {
+							{{ commit_fields() }}
+						}
+						pageInfo {
+							endCursor
+							hasNextPage
+						}
+					}
+				}
+			}
+		}
+	}
+{% endmacro -%}
+
+{# Args: owner, repo_names, since, after. #}
+query ReposAndCommitsPaged {
+	{{ rate_limits(dry_run=True) }}
+	{% for name in repo_names %}
+		{{ repo_fragment(owner, name, since, after) }}
+	{% endfor %}
+}
