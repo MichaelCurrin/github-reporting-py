@@ -51,9 +51,8 @@ def main():
 
     repos = [{'name': name, 'cursor': None} for name in repo_names]
 
-    with open(QUERY_PATH) as f_in:
-        template = Template(f_in.read())
-    print (render(template, owner, repos, since))
+    template = lib.read_template(QUERY_PATH)
+    print(render(template, owner, repos, since))
 
 
 if __name__ == '__main__':

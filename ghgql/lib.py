@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 import requests
+from jinja2 import Template
 
 import config
 
@@ -62,11 +63,16 @@ def fetch_github_data(query, variables=None):
 
 # TODO Use app dir so it can be run from anywhere.
 def read_file(path):
-    assert os.access(path, os.R_OK), f"Cannot find file: {path}"
     with open(path) as f_in:
-        data = f_in.read()
+        text = f_in.read()
 
-    return data
+    return text
+
+
+def read_template(path):
+    text = read_file(path)
+
+    return Template(text)
 
 
 # TODO Rename to path.
