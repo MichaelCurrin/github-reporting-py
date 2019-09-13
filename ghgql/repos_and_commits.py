@@ -24,6 +24,9 @@ arguments. But since the whole query is built from scratch on each request based
 on required repos, it is easy to substitute in values that would normally be in
 the JSON data payload like "owner".
 """
+import csv
+from collections import defaultdict
+
 from jinja2 import Template
 
 import lib
@@ -31,6 +34,8 @@ import lib
 
 TEMPLATE_DIR = lib.APP_DIR / 'templates'
 QUERY_PATH = TEMPLATE_DIR / 'repos_and_commits.gql'
+# TODO: From config.
+CSV_PATH = lib.APP_DIR / 'var' / 'commits.csv'
 
 
 def render(template, owner, repos, since, dry_run=False):
@@ -42,17 +47,80 @@ def render(template, owner, repos, since, dry_run=False):
     )
 
 
+def parse_commit(value):
+    author = value['committer']['user']
+    author_login = author['login'] if author is not None else None
+
+    committer = value['committer']['user']
+    committer_login = committer['login'] if committer is not None else None
+
+    return dict(
+        commit_id=value['abbreviatedOid'],
+        author_date=value['authoredDate'],
+        author_login=author_login,
+
+        commited_date=value['committedDate'],
+        commiter_login=committer_login,
+
+        changed_files=value['changedFiles'],
+        additions=value['additions'],
+        deletions=value['deletions'],
+        message=value['message'],
+    )
+
+
 def main():
     since_input = '2019-08-01'
 
     since = lib.timestamp(since_input) if since_input else None
     owner = 'michaelcurrin'
-    repo_names = ['twitterverse', 'aggre-git']
+    repo_names = ['twitterverse', 'docsify-template']
 
     repos = [{'name': name, 'cursor': None} for name in repo_names]
 
     template = lib.read_template(QUERY_PATH)
-    print(render(template, owner, repos, since))
+    # Response if key-value pairs where the key has to be unique for the query
+    # but is not needed when parsing results.
+    query = render(template, owner, repos, since)
+    results = lib.fetch_github_data(query)
+    rateLimit = results.pop('rateLimit')
+
+    # TODO: Clear a repo when it has been finished and write to disc, so that
+    # is known in the CSV to the last success.
+    output_data = defaultdict(list)
+    for repo_data in results.values():
+        name = repo_data['name']
+        branch = repo_data['defaultBranchRef']
+        branch_name = branch['name']
+
+        raw_commits = branch['target']['history']['nodes']
+        if raw_commits:
+            for c in raw_commits:
+                parsed_commit_data = parse_commit(c)
+                out_commit = dict(
+                    repo_name=name,
+                    branch_name=branch_name,
+                    **parsed_commit_data,
+                )
+                output_data[name].append(out_commit)
+        # else it is exhausted so can be removed
+
+        page_info = repo_data['defaultBranchRef']['target']['history']['pageInfo']
+
+    # print(lib.prettify(output_data))
+
+    wrote_header = False
+    with open(CSV_PATH, 'w') as f_out:
+        fieldnames = None
+        for repo_title, commits in output_data.items():
+            print(repo_title)
+            if not fieldnames:
+                fieldnames = commits[0].keys()
+            writer = csv.DictWriter(f_out, fieldnames=fieldnames)
+            if not wrote_header:
+                writer.writeheader()
+                wrote_header = True
+            writer.writerows(commits)
 
 
 if __name__ == '__main__':
