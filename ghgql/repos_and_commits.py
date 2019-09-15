@@ -78,7 +78,7 @@ def parse_commit(value):
 def write(path, rows):
     wrote_header = False
 
-    with open(CSV_PATH, 'w') as f_out:
+    with open(path, 'w') as f_out:
         fieldnames = None
 
         for repo_title, commits in rows.items():
