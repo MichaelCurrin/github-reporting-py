@@ -101,7 +101,6 @@ def process_results(results):
     :return output_data:
     """
     rate_limit = results.pop('rateLimit')
-    print(lib.text.prettify(rate_limit))
 
     # TODO: Clear a repo when it has been finished and write to disc, so that
     # is known in the CSV to the last success.
@@ -128,7 +127,7 @@ def process_results(results):
         print(page_info)
 
 
-    return output_data
+    return output_data, rate_limit
 
 
 def get_results(template, owner, repos, since, dry_run):
@@ -149,15 +148,18 @@ def main():
     Main command-line function.
     """
     since_input = '2019-08-01'
+    since_input = None
 
     since = lib.time.timestamp(since_input) if since_input else None
     owner = 'michaelcurrin'
     repo_names = ['twitterverse', 'docsify-template']
 
-    repos = [{'name': name, 'cursor': None} for name in repo_names]
-
     template = lib.read_template(QUERY_PATH)
-    out_data = get_results(template, owner, repos, since, dry_run=False)
+
+    repos = [{'name': name, 'cursor': None} for name in repo_names]
+    out_data, rate_limit = get_results(template, owner, repos, since, dry_run=False)
+    print(lib.text.prettify(rate_limit))
+
     write(CSV_PATH, out_data)
 
 
