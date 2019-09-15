@@ -9,10 +9,10 @@ specified.
 import sys
 import textwrap
 
-import lib
+import lib.text
 
 
-@lib.print_args_on_error
+@lib.text.print_args_on_error
 def display(repo):
     """
     Display an easy to read summary of the repo and its commits.

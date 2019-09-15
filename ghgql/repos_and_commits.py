@@ -27,7 +27,7 @@ the JSON data payload like "owner".
 import csv
 from collections import defaultdict
 
-import lib
+import lib.text
 
 
 TEMPLATE_DIR = lib.APP_DIR / 'templates'
@@ -101,7 +101,7 @@ def process_results(results):
     :return output_data:
     """
     rate_limit = results.pop('rateLimit')
-    print(lib.prettify(rate_limit))
+    print(lib.text.prettify(rate_limit))
 
     # TODO: Clear a repo when it has been finished and write to disc, so that
     # is known in the CSV to the last success.

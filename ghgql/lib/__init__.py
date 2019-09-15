@@ -1,33 +1,17 @@
 """
 Library module.
 """
-import json
-import sys
 from pathlib import Path
 
 import requests
 from jinja2 import Template
 
 import config
-from . import time
+from . import text, time
 
 
 APP_DIR = Path().absolute()
 HEADERS = {'Authorization': f"token {config.ACCESS_TOKEN}"}
-
-
-def eprint(*args, **kwargs):
-    """
-    Print text to stderr.
-    """
-    print(*args, file=sys.stderr, **kwargs)
-
-
-def prettify(data):
-    """
-    Return input data structure (list or dict) as a prettified JSON string.
-    """
-    return json.dumps(data, indent=4, sort_keys=True)
 
 
 def fetch_github_data(query, variables=None):
@@ -50,12 +34,12 @@ def fetch_github_data(query, variables=None):
 
     errors = resp.get('errors', None)
     if errors:
-        message = prettify(errors)
+        message = text.prettify(errors)
         raise ValueError(f"Error requesting Github. Errors:\n{message}")
 
     data = resp.get('data', None)
     if data is None:
-        message = prettify(resp)
+        message = text.prettify(resp)
         raise ValueError(f"Error requesting Github. Details:\n{message}")
 
     return data
@@ -101,7 +85,7 @@ def process_variables(args):
 
         is_fork_arg = variables.pop('isFork', None)
         if is_fork_arg:
-            variables['isFork'] = parse_bool(is_fork_arg)
+            variables['isFork'] = text.parse_bool(is_fork_arg)
 
         return variables
 
@@ -120,37 +104,3 @@ def process_args(args):
     variables = process_variables(args)
 
     return path, variables
-
-
-def print_args_on_error(func):
-    """
-    Decorator used to print variables given to a function if the function
-    call fails.
-    """
-    def wrapper(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except Exception:
-            print("ARGS")
-            print(*args)
-            print("KWARGS")
-            print(**kwargs)
-            raise
-
-    return wrapper
-
-
-def parse_bool(value):
-    value = value.lower()
-    if value == 'true':
-        return True
-    if value == 'false':
-        return False
-
-    raise ValueError(f"Could not parse value to bool. Got: {value}")
-
-
-def test():
-    assert parse_bool('true') is True
-    assert parse_bool('FALSE') is False
-    assert parse_bool(None) is None

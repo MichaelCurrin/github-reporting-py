@@ -5,7 +5,7 @@ Print results for the about repos query for a given login.
 """
 import sys
 
-import lib
+import lib.text
 
 
 def main(args):
@@ -13,7 +13,7 @@ def main(args):
     Main command-line function.
     """
     if len(args) != 2 or set(args).intersection({'-h', '--help'}):
-        lib.eprint(f"Usage: {__file__} login LOGIN")
+        lib.text.eprint(f"Usage: {__file__} login LOGIN")
         sys.exit(1)
 
     path = 'queries/repos/repos_about.gql'
