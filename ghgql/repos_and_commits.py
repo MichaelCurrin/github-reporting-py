@@ -75,25 +75,6 @@ def parse_commit(value):
     )
 
 
-def write(path, rows):
-    wrote_header = False
-
-    with open(path, 'w') as f_out:
-        fieldnames = None
-
-        for repo_title, commits in rows.items():
-            print(repo_title)
-            if not fieldnames:
-                fieldnames = commits[0].keys()
-            writer = csv.DictWriter(f_out, fieldnames=fieldnames)
-            if not wrote_header:
-                writer.writeheader()
-                wrote_header = True
-            writer.writerows(commits)
-
-    print(f"Wrote: {path}")
-
-
 def process_results(results):
     """
     :param results: dict where each key is a repo name or a metadata field.
@@ -143,6 +124,25 @@ def get_results(template, owner, repos, since, dry_run):
     return process_results(results)
 
 
+def write(path, rows):
+    wrote_header = False
+
+    with open(path, 'w') as f_out:
+        fieldnames = None
+
+        for repo_title, commits in rows.items():
+            print(repo_title)
+            if not fieldnames:
+                fieldnames = commits[0].keys()
+            writer = csv.DictWriter(f_out, fieldnames=fieldnames)
+            if not wrote_header:
+                writer.writeheader()
+                wrote_header = True
+            writer.writerows(commits)
+
+    print(f"Wrote: {path}")
+
+
 def main():
     """
     Main command-line function.
@@ -157,6 +157,7 @@ def main():
     template = lib.read_template(QUERY_PATH)
 
     repos = [{'name': name, 'cursor': None} for name in repo_names]
+    print("Query")
     out_data, rate_limit = get_results(template, owner, repos, since, dry_run=False)
     print(lib.text.prettify(rate_limit))
 
