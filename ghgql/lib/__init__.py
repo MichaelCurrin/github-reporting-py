@@ -48,15 +48,15 @@ def fetch_github_data(query, variables=None):
 # TODO Use app dir so it can be run from anywhere.
 def read_file(path):
     with open(path) as f_in:
-        text = f_in.read()
+        file_text = f_in.read()
 
-    return text
+    return file_text
 
 
 def read_template(path):
-    text = read_file(path)
+    file_text = read_file(path)
 
-    return Template(text)
+    return Template(file_text)
 
 
 # TODO Rename to path.
