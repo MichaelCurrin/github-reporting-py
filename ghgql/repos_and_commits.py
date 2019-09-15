@@ -65,8 +65,8 @@ def parse_commit(value):
         author_date=author_date,
         author_login=author_login,
 
-        commited_date=commit_date,
-        commiter_login=committer_login,
+        committed_date=commit_date,
+        committer_login=committer_login,
 
         changed_files=value['changedFiles'],
         additions=value['additions'],
@@ -82,6 +82,8 @@ def process_results(results):
     :return output_data:
     """
     rate_limit = results.pop('rateLimit')
+
+    next_repos = []
 
     # TODO: Clear a repo when it has been finished and write to disc, so that
     # is known in the CSV to the last success.
@@ -107,7 +109,6 @@ def process_results(results):
         page_info = repo_data['defaultBranchRef']['target']['history']['pageInfo']
         print(page_info)
 
-
     return output_data, rate_limit
 
 
@@ -128,12 +129,23 @@ def write(path, rows):
     wrote_header = False
 
     with open(path, 'w') as f_out:
-        fieldnames = None
+        fieldnames = (
+            'repo_name',
+            'branch_name',
+            'commit_id',
+            'author_date',
+            'author_login',
+            'committed_date',
+            'committer_login',
+            'changed_files',
+            'additions',
+            'deletions',
+            'message',
+        )
 
         for repo_title, commits in rows.items():
             print(f"{repo_title:20}| {len(commits):5,d}")
-            if not fieldnames:
-                fieldnames = commits[0].keys()
+
             writer = csv.DictWriter(f_out, fieldnames=fieldnames)
             if not wrote_header:
                 writer.writeheader()
@@ -141,6 +153,34 @@ def write(path, rows):
             writer.writerows(commits)
 
     print(f"Wrote: {path}")
+
+
+def do_query(template, owner, repos, since, dry_run):
+    """
+    Fetch, parse and write commits for a batch of commits.
+
+    The number of commits returned for each repo cannot be more than 100 in
+    a single request, because of pagination in the API.
+    """
+    print("Query")
+    out_data, rate_limit = get_results(template, owner, repos, since, dry_run)
+    print(lib.text.prettify(rate_limit))
+
+    write(CSV_PATH, out_data)
+
+
+def do_queries(template, owner, repo_names, since, dry_run=False):
+    """
+    Fetch commit data for all named repos, using multiple queries.
+
+    Data is written out after each request.
+    TODO: Write data when there are no more commits for a repo.
+    TODO: Write header.
+    TODO: Single single CSV writer and pass it around or are the context block issues?
+    """
+    repos = [{'name': name, 'cursor': None} for name in repo_names]
+
+    do_query(template, owner, repos, since, dry_run)
 
 
 def main():
@@ -156,12 +196,7 @@ def main():
 
     template = lib.read_template(QUERY_PATH)
 
-    repos = [{'name': name, 'cursor': None} for name in repo_names]
-    print("Query")
-    out_data, rate_limit = get_results(template, owner, repos, since, dry_run=False)
-    print(lib.text.prettify(rate_limit))
-
-    write(CSV_PATH, out_data)
+    do_queries(template, owner, repo_names, since, dry_run=False)
 
 
 if __name__ == '__main__':
