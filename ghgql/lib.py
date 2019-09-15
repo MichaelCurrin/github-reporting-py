@@ -137,7 +137,6 @@ def process_args(args):
     return path, variables
 
 
-
 def print_args_on_error(func):
     """
     Decorator used to print variables given to a function if the function
