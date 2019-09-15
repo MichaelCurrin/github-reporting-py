@@ -50,16 +50,18 @@ def render(template, owner, repos, since, dry_run=False):
 def parse_commit(value):
     author = value['committer']['user']
     author_login = author['login'] if author is not None else None
+    author_date = lib.as_date(value['authoredDate'])
 
     committer = value['committer']['user']
     committer_login = committer['login'] if committer is not None else None
+    commit_date = lib.as_date(value['committedDate'])
 
     return dict(
         commit_id=value['abbreviatedOid'],
-        author_date=value['authoredDate'],
+        author_date=author_date,
         author_login=author_login,
 
-        commited_date=value['committedDate'],
+        commited_date=commit_date,
         commiter_login=committer_login,
 
         changed_files=value['changedFiles'],
