@@ -94,7 +94,7 @@ def main():
     # but is not needed when parsing results.
     query = render(template, owner, repos, since)
     results = lib.fetch_github_data(query)
-    rateLimit = results.pop('rateLimit')
+    rate_limit = results.pop('rateLimit')
 
     # TODO: Clear a repo when it has been finished and write to disc, so that
     # is known in the CSV to the last success.
