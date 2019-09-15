@@ -94,24 +94,14 @@ def write(path, rows):
     print(f"Wrote: {path}")
 
 
-def main():
+def process_results(results):
     """
-    Main command-line function.
+    :param results: dict where each key is a repo name or a metadata field.
+
+    :return output_data:
     """
-    since_input = '2019-08-01'
-
-    since = lib.timestamp(since_input) if since_input else None
-    owner = 'michaelcurrin'
-    repo_names = ['twitterverse', 'docsify-template']
-
-    repos = [{'name': name, 'cursor': None} for name in repo_names]
-
-    template = lib.read_template(QUERY_PATH)
-    # Response if key-value pairs where the key has to be unique for the query
-    # but is not needed when parsing results.
-    query = render(template, owner, repos, since)
-    results = lib.fetch_github_data(query)
     rate_limit = results.pop('rateLimit')
+    print(lib.prettify(rate_limit))
 
     # TODO: Clear a repo when it has been finished and write to disc, so that
     # is known in the CSV to the last success.
@@ -133,9 +123,42 @@ def main():
                 output_data[name].append(out_commit)
         # else it is exhausted so can be removed
 
+        # TODO: Use.
         page_info = repo_data['defaultBranchRef']['target']['history']['pageInfo']
+        print(page_info)
 
-    write(CSV_PATH, output_data)
+
+    return output_data
+
+
+def get_results(template, owner, repos, since, dry_run):
+    """
+    Fetch commit data using parameters and template and return parsed results.
+
+    Response if key-value pairs where the key has to be unique for the query
+    but is not needed when parsing results.
+    """
+    query = render(template, owner, repos, since, dry_run)
+    results = lib.fetch_github_data(query)
+
+    return process_results(results)
+
+
+def main():
+    """
+    Main command-line function.
+    """
+    since_input = '2019-08-01'
+
+    since = lib.timestamp(since_input) if since_input else None
+    owner = 'michaelcurrin'
+    repo_names = ['twitterverse', 'docsify-template']
+
+    repos = [{'name': name, 'cursor': None} for name in repo_names]
+
+    template = lib.read_template(QUERY_PATH)
+    out_data = get_results(template, owner, repos, since, dry_run=False)
+    write(CSV_PATH, out_data)
 
 
 if __name__ == '__main__':
