@@ -27,8 +27,6 @@ the JSON data payload like "owner".
 import csv
 from collections import defaultdict
 
-from jinja2 import Template
-
 import lib
 
 
