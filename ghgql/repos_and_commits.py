@@ -39,6 +39,9 @@ CSV_PATH = lib.APP_DIR / 'var' / 'commits.csv'
 
 
 def render(template, owner, repos, since, dry_run=False):
+    """
+    Prepare and return template for repo commits query.
+    """
     return template.render(
         owner=owner,
         repos=repos,
@@ -48,6 +51,9 @@ def render(template, owner, repos, since, dry_run=False):
 
 
 def parse_commit(value):
+    """
+    Extract fields from nested data as returned from API and return as flat dict.
+    """
     author = value['committer']['user']
     author_login = author['login'] if author is not None else None
     author_date = lib.as_date(value['authoredDate'])
@@ -72,6 +78,9 @@ def parse_commit(value):
 
 
 def main():
+    """
+    Main command-line function.
+    """
     since_input = '2019-08-01'
 
     since = lib.timestamp(since_input) if since_input else None
