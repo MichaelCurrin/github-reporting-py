@@ -32,7 +32,7 @@ import lib
 
 TEMPLATE_DIR = lib.APP_DIR / 'templates'
 QUERY_PATH = TEMPLATE_DIR / 'repos_and_commits.gql'
-# TODO: From config.
+# TODO: Var from config.
 CSV_PATH = lib.APP_DIR / 'var' / 'commits.csv'
 
 
@@ -73,6 +73,25 @@ def parse_commit(value):
         deletions=value['deletions'],
         message=value['message'],
     )
+
+
+def write(path, rows):
+    wrote_header = False
+
+    with open(CSV_PATH, 'w') as f_out:
+        fieldnames = None
+
+        for repo_title, commits in rows.items():
+            print(repo_title)
+            if not fieldnames:
+                fieldnames = commits[0].keys()
+            writer = csv.DictWriter(f_out, fieldnames=fieldnames)
+            if not wrote_header:
+                writer.writeheader()
+                wrote_header = True
+            writer.writerows(commits)
+
+    print(f"Wrote: {path}")
 
 
 def main():
@@ -116,20 +135,7 @@ def main():
 
         page_info = repo_data['defaultBranchRef']['target']['history']['pageInfo']
 
-    # print(lib.prettify(output_data))
-
-    wrote_header = False
-    with open(CSV_PATH, 'w') as f_out:
-        fieldnames = None
-        for repo_title, commits in output_data.items():
-            print(repo_title)
-            if not fieldnames:
-                fieldnames = commits[0].keys()
-            writer = csv.DictWriter(f_out, fieldnames=fieldnames)
-            if not wrote_header:
-                writer.writeheader()
-                wrote_header = True
-            writer.writerows(commits)
+    write(CSV_PATH, output_data)
 
 
 if __name__ == '__main__':
