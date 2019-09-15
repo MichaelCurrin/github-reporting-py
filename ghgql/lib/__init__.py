@@ -1,7 +1,6 @@
 """
 Library module.
 """
-import datetime
 import json
 import sys
 from pathlib import Path
@@ -10,6 +9,8 @@ import requests
 from jinja2 import Template
 
 import config
+from . import time
+
 
 APP_DIR = Path().absolute()
 HEADERS = {'Authorization': f"token {config.ACCESS_TOKEN}"}
@@ -85,22 +86,6 @@ def query_by_filename(path, variables=None):
     return resp
 
 
-def timestamp(date):
-    """
-    Convert string matching "YYYY-MM-DD" into GitTimestamp string.
-    """
-    return datetime.datetime.strptime(date, '%Y-%m-%d').isoformat()
-
-
-def as_date(datetime_str: str) -> datetime.date:
-    """
-    Convert string which starts with "YYYY-MM-DD" to a date object.
-    """
-    date_str = datetime_str[:10]
-
-    return datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
-
-
 def process_variables(args):
     """
     Process command-line arguments containing a filename and key-value pairs.
@@ -112,7 +97,7 @@ def process_variables(args):
 
         start = variables.pop('start', None)
         if start:
-            variables['since'] = timestamp(start)
+            variables['since'] = time.timestamp(start)
 
         is_fork_arg = variables.pop('isFork', None)
         if is_fork_arg:
