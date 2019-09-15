@@ -131,7 +131,7 @@ def write(path, rows):
         fieldnames = None
 
         for repo_title, commits in rows.items():
-            print(repo_title)
+            print(f"{repo_title:20}| {len(commits):5,d}")
             if not fieldnames:
                 fieldnames = commits[0].keys()
             writer = csv.DictWriter(f_out, fieldnames=fieldnames)
