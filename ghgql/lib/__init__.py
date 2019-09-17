@@ -13,6 +13,8 @@ from . import text, time
 
 APP_DIR = Path().absolute()
 VAR_DIR = APP_DIR / 'var'
+COUNTS_CSV_PATH = VAR_DIR / 'counts.csv'
+
 HEADERS = {'Authorization': f"token {config.ACCESS_TOKEN}"}
 
 
@@ -47,12 +49,33 @@ def fetch_github_data(query, variables=None):
     return data
 
 
-# TODO Use app dir so it can be run from anywhere.
 def read_file(path):
     with open(path) as f_in:
         file_text = f_in.read()
 
     return file_text
+
+
+def read_template(path):
+    return Template(read_file(path))
+
+
+# TODO Rename to path.
+# TODO Refactor so the file only has to be read once for a set of paged queries.
+def query_by_filename(path, variables=None):
+    if not variables:
+        variables = {}
+    query = read_file(path)
+    resp = fetch_github_data(query, variables)
+
+    return resp
+
+
+def read_csv(path):
+    with open(path) as f_in:
+        reader = csv.DictReader(f_in)
+
+        return list(reader)
 
 
 def write_csv(path, rows):
@@ -65,23 +88,6 @@ def write_csv(path, rows):
     print("Wrote CSV:")
     print(f" - {path}")
     print(f" - {len(rows)} rows")
-
-
-def read_template(path):
-    file_text = read_file(path)
-
-    return Template(file_text)
-
-
-# TODO Rename to path.
-# TODO Refactor so the file only has to be read once for a set of paged queries.
-def query_by_filename(path, variables=None):
-    if not variables:
-        variables = {}
-    query = read_file(path)
-    resp = fetch_github_data(query, variables)
-
-    return resp
 
 
 def process_variables(args):
