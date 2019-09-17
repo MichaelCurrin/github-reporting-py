@@ -7,7 +7,7 @@ this does not handle queries which use paging.
 """
 import sys
 
-import lib
+import lib.text
 
 
 def main(args):
@@ -15,9 +15,9 @@ def main(args):
     Main command-line function.
     """
     if not args or set(args).intersection({'-h', '--help'}):
-        lib.eprint(f"Usage: {__file__} QUERY_PATH [KEY VALUE[,KEY VALUE,...]]")
-        lib.eprint("QUERY_PATH: Path to file containing query e.g. queries/commits.gql")
-        lib.eprint(
+        lib.text.eprint(f"Usage: {__file__} QUERY_PATH [KEY VALUE[,KEY VALUE,...]]")
+        lib.text.eprint("QUERY_PATH: Path to file containing query e.g. queries/commits.gql")
+        lib.text.eprint(
             "For parametized/dynamic queries, provide an optional list of\n"
             "key-value pairs, separated by a space.\n"
             ' e.g. to send {"owner": "abc", "repo": "xyz 1"} in the variables, use\n'
@@ -28,7 +28,7 @@ def main(args):
     path, variables = lib.process_args(args)
 
     data = lib.query_by_filename(path, variables=variables)
-    print(lib.prettify(data))
+    print(lib.text.prettify(data))
 
 
 if __name__ == '__main__':
