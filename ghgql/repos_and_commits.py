@@ -32,8 +32,7 @@ import lib.text
 
 TEMPLATE_DIR = lib.APP_DIR / 'templates'
 QUERY_PATH = TEMPLATE_DIR / 'repos_and_commits.gql'
-# TODO: Var from config.
-CSV_PATH = lib.APP_DIR / 'var' / 'commits.csv'
+CSV_PATH = lib.VAR_DIR / 'commits.csv'
 
 
 def render(template, owner, repos, since, dry_run=False):
@@ -162,7 +161,6 @@ def do_query(template, owner, repos, since, dry_run):
     The number of commits returned for each repo cannot be more than 100 in
     a single request, because of pagination in the API.
     """
-    print("Query")
     out_data, rate_limit = get_results(template, owner, repos, since, dry_run)
     print(lib.text.prettify(rate_limit))
 
@@ -180,6 +178,7 @@ def do_queries(template, owner, repo_names, since, dry_run=False):
     """
     repos = [{'name': name, 'cursor': None} for name in repo_names]
 
+    print("Query #1")
     do_query(template, owner, repos, since, dry_run)
 
 
