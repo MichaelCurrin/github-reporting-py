@@ -1,6 +1,7 @@
 """
 Library module.
 """
+import csv
 from pathlib import Path
 
 import requests
@@ -11,6 +12,7 @@ from . import text, time
 
 
 APP_DIR = Path().absolute()
+VAR_DIR = APP_DIR / 'var'
 HEADERS = {'Authorization': f"token {config.ACCESS_TOKEN}"}
 
 
@@ -51,6 +53,18 @@ def read_file(path):
         file_text = f_in.read()
 
     return file_text
+
+
+def write_csv(path, rows):
+    fieldnames = rows[0].keys()
+    with open(path, 'w') as f_out:
+        writer = csv.DictWriter(f_out, fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+
+    print("Wrote CSV:")
+    print(f" - {path}")
+    print(f" - {len(rows)} rows")
 
 
 def read_template(path):

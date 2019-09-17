@@ -2,26 +2,25 @@
 Repo commit counts report application.
 
 Process a query which supports paging and contains repo commits and iterates
-over all the pages. Get all repos owned by user and print the count of commits
+over all the pages. Get all repos owned by user and the count of commits
 on the default branch in each repo. An optional start date cutoff may be
 specified.
+
+The data is formatted and written out to a CSV report.
 """
 import sys
-import textwrap
 
 import lib.text
 
 
+CSV_PATH = lib.VAR_DIR / 'counts.csv'
+
+
 @lib.text.print_args_on_error
-def display(repo):
+def format_repo(repo):
     """
-    Display an easy to read summary of the repo and its commits.
+    Format summary repo data and return as dict.
     """
-    repo_name = repo['name']
-    print(f"Name         : {repo_name}")
-
-    total_commits = 0
-
     branch = repo.get('defaultBranch')
     if branch:
         branch_name = branch['name']
@@ -30,41 +29,45 @@ def display(repo):
 
         if total_commits:
             latest_commit = history['nodes'][0]
-            date = latest_commit['committedDate'][:10]
-            msg = latest_commit['message']
-
-            print(f"Branch       : {branch_name}")
-            print(f"Commits      : {total_commits:,d}")
-            print(f"Latest commit:")
-            print(f"  {date}")
-            print(textwrap.indent(msg, '  '))
-        print()
+            last_commit_date = lib.time.as_date(latest_commit['committedDate'])
+            last_commit_msg = latest_commit['message'].split("\n")[0]
     else:
-        # Handle rare cases of an empty repo.
-        print(f"No branch data")
+        # Handle case of an empty repo.
+        branch_name = None
+        total_commits = 0
+        last_commit_date = None
+        last_commit_msg = None
 
-    return total_commits
+    return dict(
+        repo_name=repo['name'],
+        branch_name=branch_name,
+        total_commits=total_commits,
+        last_commit_date=last_commit_date,
+        last_commit_msg=last_commit_msg,
+    )
 
 
-def repos_and_commit_counts(path, variables):
+def get_repos_and_commit_counts(path, variables):
     """
-    Print commit count for all repos owned by an account and then print grand total.
+    Get commit counts for all repos owned by an account.
 
-    :return: None
+    :return: dict
     """
-    grand_total = 0
     first_iteration = True
+
+    repo_data = []
 
     while True:
         resp_data = lib.query_by_filename(path, variables)
         repositories = resp_data['repositoryOwner']['repositories']
 
         if first_iteration:
-            print(f"Total count: {repositories['totalCount']}")
+            print(f"Fetching data for repos: {repositories['totalCount']}")
             first_iteration = False
 
         for repo in repositories['nodes']:
-            grand_total += display(repo)
+            formatted_repo_data = format_repo(repo)
+            repo_data.append(formatted_repo_data)
 
         repo_page_info = repositories['pageInfo']
         if repo_page_info['hasNextPage']:
@@ -72,7 +75,7 @@ def repos_and_commit_counts(path, variables):
         else:
             break
 
-    print(f"Total commits across repos: {grand_total}")
+    return repo_data
 
 
 def main(args):
@@ -86,7 +89,9 @@ def main(args):
 
     path = 'queries/repos/repos_and_commit_counts.gql'
     variables = lib.process_variables(args)
-    repos_and_commit_counts(path, variables)
+    out_data = get_repos_and_commit_counts(path, variables)
+
+    lib.write_csv(CSV_PATH, out_data)
 
 
 if __name__ == '__main__':
