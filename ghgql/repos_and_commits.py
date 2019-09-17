@@ -167,7 +167,7 @@ def do_query(template, owner, repos, since, dry_run):
     write(CSV_PATH, out_data)
 
 
-def do_queries(template, owner, repo_names, since, dry_run=False):
+def make_report(owner, repo_names, since, dry_run=False):
     """
     Fetch commit data for all named repos, using multiple queries.
 
@@ -176,6 +176,8 @@ def do_queries(template, owner, repo_names, since, dry_run=False):
     TODO: Write header.
     TODO: Single single CSV writer and pass it around or are the context block issues?
     """
+    template = lib.read_template(QUERY_PATH)
+
     repos = [{'name': name, 'cursor': None} for name in repo_names]
 
     print("Query #1")
@@ -193,9 +195,7 @@ def main():
     owner = 'michaelcurrin'
     repo_names = ['twitterverse', 'docsify-template']
 
-    template = lib.read_template(QUERY_PATH)
-
-    do_queries(template, owner, repo_names, since, dry_run=False)
+    make_report(owner, repo_names, since, dry_run=False)
 
 
 if __name__ == '__main__':

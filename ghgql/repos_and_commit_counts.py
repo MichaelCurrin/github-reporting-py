@@ -8,12 +8,13 @@ specified.
 
 The data is formatted and written out to a CSV report.
 """
+import math
 import sys
 
 import lib.text
 
 
-CSV_PATH = lib.VAR_DIR / 'counts.csv'
+ITEMS_PER_PAGE = 100
 
 
 @lib.text.print_args_on_error
@@ -29,21 +30,21 @@ def format_repo(repo):
 
         if total_commits:
             latest_commit = history['nodes'][0]
-            last_commit_date = lib.time.as_date(latest_commit['committedDate'])
-            last_commit_msg = latest_commit['message'].split("\n")[0]
+            last_committed_date = lib.time.as_date(latest_commit['committedDate'])
+            last_commit_msg_subject = latest_commit['message'].split("\n")[0]
     else:
         # Handle case of an empty repo.
         branch_name = None
         total_commits = 0
-        last_commit_date = None
-        last_commit_msg = None
+        last_committed_date = None
+        last_commit_msg_subject = None
 
     return dict(
         repo_name=repo['name'],
         branch_name=branch_name,
         total_commits=total_commits,
-        last_commit_date=last_commit_date,
-        last_commit_msg=last_commit_msg,
+        last_committed_date=last_committed_date,
+        last_commit_msg_subject=last_commit_msg_subject,
     )
 
 
@@ -57,12 +58,22 @@ def get_repos_and_commit_counts(path, variables):
 
     repo_data = []
 
+    print("Fetching repos and commit counts")
+
+    count = 0
     while True:
+        count += 1
+        print(f"Query #{count}")
+
         resp_data = lib.query_by_filename(path, variables)
         repositories = resp_data['repositoryOwner']['repositories']
 
         if first_iteration:
-            print(f"Fetching data for repos: {repositories['totalCount']}")
+            grand_total = repositories['totalCount']
+            print("Completed first page.")
+            print("Data to fetch:")
+            print(f" - repos: {grand_total:,d}")
+            print(f" - pages: {math.ceil(grand_total/ITEMS_PER_PAGE):,d}")
             first_iteration = False
 
         for repo in repositories['nodes']:
@@ -91,7 +102,7 @@ def main(args):
     variables = lib.process_variables(args)
     out_data = get_repos_and_commit_counts(path, variables)
 
-    lib.write_csv(CSV_PATH, out_data)
+    lib.write_csv(lib.COUNTS_CSV_PATH, out_data)
 
 
 if __name__ == '__main__':
