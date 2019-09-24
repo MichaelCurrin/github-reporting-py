@@ -8,6 +8,7 @@ specified.
 
 The data is formatted and written out to a CSV report.
 """
+import datetime
 import math
 import sys
 
@@ -18,11 +19,18 @@ ITEMS_PER_PAGE = 100
 
 
 @lib.text.print_args_on_error
-def format_repo(repo):
+def format_repo(repo, owner_name):
     """
     Format summary repo data and return as dict.
     """
     branch = repo.get('defaultBranch')
+
+    # Handle case of an empty repo.
+    branch_name = None
+    total_commits = 0
+    last_committed_date = None
+    last_commit_msg_subject = None
+
     if branch:
         branch_name = branch['name']
         history = branch['commits']['history']
@@ -31,15 +39,11 @@ def format_repo(repo):
         if total_commits:
             latest_commit = history['nodes'][0]
             last_committed_date = lib.time.as_date(latest_commit['committedDate'])
+            # TODO: Check this.
             last_commit_msg_subject = latest_commit['message'].split("\n")[0]
-    else:
-        # Handle case of an empty repo.
-        branch_name = None
-        total_commits = 0
-        last_committed_date = None
-        last_commit_msg_subject = None
 
     return dict(
+        owner_name=owner_name,
         repo_name=repo['name'],
         branch_name=branch_name,
         total_commits=total_commits,
@@ -55,6 +59,8 @@ def get_repos_and_commit_counts(path, variables):
     :return: dict
     """
     first_iteration = True
+
+    owner_name = variables['owner']
 
     repo_data = []
 
@@ -77,7 +83,7 @@ def get_repos_and_commit_counts(path, variables):
             first_iteration = False
 
         for repo in repositories['nodes']:
-            formatted_repo_data = format_repo(repo)
+            formatted_repo_data = format_repo(repo, owner_name)
             repo_data.append(formatted_repo_data)
 
         repo_page_info = repositories['pageInfo']
@@ -98,11 +104,11 @@ def main(args):
         print(f"START_DATE: Count commits on or after this date, in YYYY-MM-DD format.")
         sys.exit(1)
 
-    path = 'queries/repos/repos_and_commit_counts.gql'
+    path = f'queries/repos/repos_and_commit_counts.gql'
     variables = lib.process_variables(args)
     out_data = get_repos_and_commit_counts(path, variables)
 
-    lib.write_csv(lib.COUNTS_CSV_PATH, out_data)
+    lib.write_csv(lib.COUNTS_CSV_PATH_TODAY, out_data)
 
 
 if __name__ == '__main__':
