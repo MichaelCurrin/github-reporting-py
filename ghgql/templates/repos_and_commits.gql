@@ -32,9 +32,10 @@
 {%- if value %}{{ value | tojson }}{% else %}null{% endif -%}
 {% endmacro %}
 
+
 {# The name of a fragment must be unique, so base it on repo name after some cleanup. #}
-{%- macro repo_fragment(owner, name, since, after, commits=100) %}
-	{{ name.replace("-", "_")}}: repository(owner: "{{ owner }}", name: "{{ name}}")	{
+{%- macro repo_fragment(owner, clean_name, name, since, after, commits=100) %}
+	{{ clean_name }}: repository(owner: "{{ owner }}", name: "{{ name}}")	{
 		name
 		description
 		defaultBranchRef {
@@ -60,6 +61,6 @@
 query ReposAndCommitsPaged {
 	{{ rate_limits(dry_run) }}
 	{% for repo in repos %}
-		{{ repo_fragment(owner, repo.name, since, repo.cursor) }}
+		{{ repo_fragment(owner, repo.clean_name, repo.name, since, repo.cursor) }}
 	{% endfor %}
 }
