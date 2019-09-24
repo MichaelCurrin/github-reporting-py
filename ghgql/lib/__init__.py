@@ -1,21 +1,31 @@
 """
 Library module.
 """
+import datetime
+from time import sleep
 import csv
+import json
 from pathlib import Path
 
 import requests
 from jinja2 import Template
 
 import config
+# TODO Rename time to not conflict with builtin.
 from . import text, time
 
 
 APP_DIR = Path().absolute()
 VAR_DIR = APP_DIR / 'var'
 COUNTS_CSV_PATH = VAR_DIR / 'counts.csv'
+COUNTS_CSV_PATH_TODAY = VAR_DIR / f'counts-{datetime.date.today()}.csv'
+
+ERROR_QUERY_PATH = VAR_DIR / 'error_query.gql'
+ERROR_PAYLOAD_PATH = VAR_DIR / 'error_payload.gql'
+
 
 HEADERS = {'Authorization': f"token {config.ACCESS_TOKEN}"}
+MAX_ATTEMPTS = 3
 
 
 def fetch_github_data(query, variables=None):
@@ -30,21 +40,43 @@ def fetch_github_data(query, variables=None):
         'query': query,
         'variables': variables,
     }
-    resp = requests.post(
-        config.BASE_URL,
-        json=payload,
-        headers=HEADERS
-    ).json()
 
-    errors = resp.get('errors', None)
-    if errors:
-        message = text.prettify(errors)
-        raise ValueError(f"Error requesting Github. Errors:\n{message}")
+    for i in range(MAX_ATTEMPTS):
+        try:
+            resp = requests.post(
+                config.BASE_URL,
+                json=payload,
+                headers=HEADERS
+            ).json()
 
-    data = resp.get('data', None)
-    if data is None:
-        message = text.prettify(resp)
-        raise ValueError(f"Error requesting Github. Details:\n{message}")
+            errors = resp.get('errors', None)
+            if errors:
+                print(f"Writing query to: {ERROR_QUERY_PATH}")
+                write_file(query, ERROR_QUERY_PATH)
+                print(f"Writing payload to: {ERROR_PAYLOAD_PATH}")
+                write_file(payload, ERROR_PAYLOAD_PATH)
+                message = text.prettify(errors)
+                raise ValueError(f"Error requesting Github. Errors:\n{message}")
+
+            data = resp.get('data', None)
+            if data is None:
+                message = text.prettify(resp)
+                raise ValueError(f"Error requesting Github. Details:\n{message}")
+        except ValueError as e:
+            text.eprint(f"Requested failed - attempt #{i+1}/{MAX_ATTEMPTS}")
+            if i+1 == MAX_ATTEMPTS:
+                raise
+            text.eprint(e)
+
+            if 'rate' in str(e):
+                print("RATE LIMIT")
+            # TODO Sleep for set time or perhaps short time if too frequence between requests.
+            seconds = 10
+            text.eprint(f"Sleeping {seconds} s...")
+            sleep(seconds*1000)
+            text.eprint("Retrying...")
+        else:
+            break
 
     return data
 
@@ -54,6 +86,17 @@ def read_file(path):
         file_text = f_in.read()
 
     return file_text
+
+
+def write_file(content, path):
+    """
+    Write a list or str to a given filepath.
+    """
+    if isinstance(content, (list, dict)):
+        content = json.dumps(content)
+
+    with open(path, 'w') as f_out:
+        f_out.writelines(content)
 
 
 def read_template(path):
@@ -99,6 +142,7 @@ def process_variables(args):
             raise ValueError(f'Incomplete key-value pairs provided: {" ".join(args)}')
         variables = dict(zip(args[::2], args[1::2]))
 
+        # TODO: Make this clear that you use start and it becomes since.
         start = variables.pop('start', None)
         if start:
             variables['since'] = time.timestamp(start)
