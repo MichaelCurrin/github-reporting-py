@@ -5,7 +5,7 @@
 # most page of commits.
 query ReposAndRecentCommitsPaged($owner: String!, $since: GitTimestamp, $isFork: Boolean, $cursor: String) {
 	repositoryOwner(login: $owner) {
-		repositories(first: 100, after: $cursor, isFork: $isFork, orderBy: { field: UPDATED_AT, direction: DESC }) {
+		repositories(first: 3, after: $cursor, isFork: $isFork) {
 			totalCount
 			pageInfo {
 				hasNextPage
