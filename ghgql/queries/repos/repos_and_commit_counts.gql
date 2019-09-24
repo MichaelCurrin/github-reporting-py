@@ -4,7 +4,7 @@
 # Get a count of commits and show the latest commit's details.
 query RepoCommitCountsPaged($owner: String!, $since: GitTimestamp, $isFork: Boolean, $cursor: String) {
     repositoryOwner(login: $owner) {
-        repositories(first: 100, isFork: $isFork, after: $cursor, orderBy: { field: UPDATED_AT, direction: DESC }) {
+        repositories(first: 100, isFork: $isFork, after: $cursor, orderBy: { field: PUSHED_AT, direction: DESC }) {
             totalCount
             pageInfo {
                 hasNextPage
@@ -28,6 +28,12 @@ query RepoCommitCountsPaged($owner: String!, $since: GitTimestamp, $isFork: Bool
                                     }
                                     committedDate
                                     committer {
+                                        user {
+                                            login
+                                        }
+                                    }
+                                    authoredDate
+                                    author {
                                         user {
                                             login
                                         }
