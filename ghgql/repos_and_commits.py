@@ -25,8 +25,10 @@ on required repos, it is easy to substitute in values that would normally be in
 the JSON data payload like "owner".
 """
 import csv
+import sys
 from collections import defaultdict
 
+import read_counts
 import lib.text
 
 
@@ -90,7 +92,8 @@ def process_results(results):
     for repo_data in results.values():
         name = repo_data['name']
         branch = repo_data['defaultBranchRef']
-        branch_name = branch['name']
+
+        branch_name = branch.get('name')
 
         raw_commits = branch['target']['history']['nodes']
         if raw_commits:
@@ -167,6 +170,19 @@ def do_query(template, owner, repos, since, dry_run):
     write(CSV_PATH, out_data)
 
 
+def clean(name):
+    """
+    Prepare name for query.
+
+    Remove numeric characters which cause the query to break if at the start.
+    """
+    name = name.replace("-", "_").replace('.', 'X')
+
+    if name[0].isnumeric():
+        name = f"X{name[1:]}"
+
+    return name
+
 def make_report(owner, repo_names, since, dry_run=False):
     """
     Fetch commit data for all named repos, using multiple queries.
@@ -178,25 +194,36 @@ def make_report(owner, repo_names, since, dry_run=False):
     """
     template = lib.read_template(QUERY_PATH)
 
-    repos = [{'name': name, 'cursor': None} for name in repo_names]
+    # TODO: Split in batches.
+    repo_names = repo_names[:30]
+    repos = [{'name': name, 'clean_name': clean(name), 'cursor': None} for name in repo_names]
 
     print("Query #1")
     do_query(template, owner, repos, since, dry_run)
 
 
-def main():
+def main(args):
     """
     Main command-line function.
     """
-    since_input = '2019-08-01'
-    since_input = None
+    if not args or set(args).intersection({'-h', '--help'}):
+        print(f"Usage: {__file__} owner OWNER [start START_DATE]")
+        print(f"START_DATE: Count commits on or after this date, in YYYY-MM-DD format.")
+        sys.exit(1)
 
-    since = lib.time.timestamp(since_input) if since_input else None
-    owner = 'michaelcurrin'
-    repo_names = ['twitterverse', 'docsify-template']
+    variables = lib.process_variables(args)
 
-    make_report(owner, repo_names, since, dry_run=False)
+    start = variables.get('start', None)
+
+    # repo_names = ['twitterverse', 'docsify-template']
+    # start_date = lib.time.as_date(start)
+
+    owner_name, repo_names = read_counts.repo_names(start)
+
+    start_ts = lib.time.timestamp(start) if str(start) else None
+
+    make_report(owner_name, repo_names, start_ts, dry_run=False)
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1:])
