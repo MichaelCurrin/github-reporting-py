@@ -5,6 +5,7 @@ import json
 import sys
 
 
+# TODO: Also write to log to make it easier to keep track of later.
 def eprint(*args, **kwargs):
     """
     Print text to stderr.
