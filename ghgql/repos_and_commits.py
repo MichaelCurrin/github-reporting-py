@@ -29,6 +29,7 @@ import sys
 from collections import defaultdict
 
 import read_counts
+import lib.git
 import lib.text
 
 
@@ -47,34 +48,6 @@ def render(template, owner, repos, since, dry_run=False):
         since=since,
         dry_run=dry_run
     )
-
-
-def parse_commit(value):
-    """
-    Extract fields from nested data as returned from API and return as flat dict.
-    """
-    author = value['committer']['user']
-    author_login = author['login'] if author is not None else None
-    author_date = lib.time.as_date(value['authoredDate'])
-
-    committer = value['committer']['user']
-    committer_login = committer['login'] if committer is not None else None
-    commit_date = lib.time.as_date(value['committedDate'])
-
-    return dict(
-        commit_id=value['abbreviatedOid'],
-        author_date=author_date,
-        author_login=author_login,
-
-        committed_date=commit_date,
-        committer_login=committer_login,
-
-        changed_files=value['changedFiles'],
-        additions=value['additions'],
-        deletions=value['deletions'],
-        message=value['message'],
-    )
-
 
 def process_results(results):
     """
@@ -98,7 +71,7 @@ def process_results(results):
         raw_commits = branch['target']['history']['nodes']
         if raw_commits:
             for c in raw_commits:
-                parsed_commit_data = parse_commit(c)
+                parsed_commit_data = lib.git.parse_commit(c)
                 out_commit = dict(
                     repo_name=name,
                     branch_name=branch_name,
