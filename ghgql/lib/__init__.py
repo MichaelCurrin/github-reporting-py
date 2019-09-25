@@ -50,6 +50,7 @@ def fetch_github_data(query, variables=None):
             ).json()
 
             errors = resp.get('errors', None)
+            # TODO: Abort immediately on bad syntax or bad/missing variable.
             if errors:
                 print(f"Writing query to: {ERROR_QUERY_PATH}")
                 write_file(query, ERROR_QUERY_PATH)
