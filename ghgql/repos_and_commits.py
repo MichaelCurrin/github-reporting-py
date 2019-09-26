@@ -188,9 +188,6 @@ def main(args):
 
     start = variables.get('start', None)
 
-    # repo_names = ['twitterverse', 'docsify-template']
-    # start_date = lib.time.as_date(start)
-
     owner_name, repo_names = read_counts.repo_names(start)
 
     start_ts = lib.time.timestamp(start) if str(start) else None
