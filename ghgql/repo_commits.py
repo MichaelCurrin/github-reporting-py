@@ -63,8 +63,10 @@ def main():
     """
     parser = argparse.ArgumentParser("Repo commits report")
 
-    parser.add_argument('owner', metavar="OWNER")
-    parser.add_argument('repo_name', metavar="REPO_NAME")
+    parser.add_argument('owner',
+                        metavar="OWNER")
+    parser.add_argument('repo_name',
+                        metavar="REPO_NAME")
     parser.add_argument('-s', '--start',
                         metavar="YYYY-MM-DD")
 
