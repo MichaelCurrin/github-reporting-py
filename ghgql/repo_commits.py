@@ -63,12 +63,20 @@ def main():
     """
     parser = argparse.ArgumentParser("Repo commits report")
 
-    parser.add_argument('owner',
-                        metavar="OWNER")
-    parser.add_argument('repo_name',
-                        metavar="REPO_NAME")
-    parser.add_argument('-s', '--start',
-                        metavar="YYYY-MM-DD")
+    parser.add_argument(
+        'owner',
+        metavar="OWNER"
+    )
+    parser.add_argument(
+        'repo_name',
+        metavar="REPO_NAME"
+    )
+    parser.add_argument(
+        '-s', '--start',
+        metavar="DATE",
+        help="Optionally filter to commits from this date"
+        " onwards. format 'YYYY-MM-DD'."
+    )
 
     args = parser.parse_args()
     if args.start:
