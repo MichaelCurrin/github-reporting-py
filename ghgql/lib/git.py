@@ -29,3 +29,13 @@ def parse_commit(value):
         deletions=value['deletions'],
         message=value['message'],
     )
+
+
+def prepare_row(commit, repo_name, branch_name):
+    parsed_commit_data = parse_commit(commit)
+
+    return dict(
+        repo_name=repo_name,
+        branch_name=branch_name,
+        **parsed_commit_data,
+    )

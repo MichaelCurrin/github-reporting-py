@@ -13,26 +13,12 @@ import lib.git
 QUERY_PATH = 'queries/repos/repo_commits.gql'
 
 
-def process_commits(raw_commits, name, branch_name):
-    output_data = []
-    for c in raw_commits:
-        parsed_commit_data = lib.git.parse_commit(c)
-        out_commit = dict(
-            repo_name=name,
-            branch_name=branch_name,
-            **parsed_commit_data,
-        )
-        output_data.append(out_commit)
-
-    return output_data
-
-
 def get_commits(variables):
     # TODO: Validate for specific keys.
     results = []
     counter = 0
 
-    name = variables['name']
+    repo_name = variables['name']
     branch_name = None
 
     while True:
@@ -53,7 +39,8 @@ def get_commits(variables):
             print(f" - pages: {math.ceil(commit_history['totalCount'] / 100)}")
 
         raw_commits = branch['target']['history']['nodes']
-        commits = process_commits(raw_commits, name, branch_name)
+        commits = [lib.git.prepare_row(c, repo_name, branch_name) for c in
+                   raw_commits]
         results.extend(commits)
 
         print(f"Processed page: #{counter}")
