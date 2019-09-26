@@ -4,11 +4,11 @@ Library time module.
 import datetime
 
 
-def timestamp(date):
+def timestamp(date_str):
     """
     Convert string matching "YYYY-MM-DD" into GitTimestamp string.
     """
-    return datetime.datetime.strptime(date, '%Y-%m-%d').isoformat()
+    return datetime.datetime.strptime(date_str, '%Y-%m-%d').isoformat()
 
 
 def as_date(datetime_str: str) -> datetime.date:
