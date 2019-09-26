@@ -58,7 +58,7 @@ def get_commits(variables):
 
         print(f"Processed page: #{counter}")
 
-        page_info = repo_data['defaultBranchRef']['target']['history']['pageInfo']
+        page_info = commit_history['pageInfo']
         if page_info['hasNextPage']:
             variables['cursor'] = page_info['endCursor']
         else:
