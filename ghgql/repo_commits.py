@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Repo commits application.
 
