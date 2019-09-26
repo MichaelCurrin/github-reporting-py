@@ -4,6 +4,7 @@ Repo commits application.
 
 Fetch commits for a given repo and optional start date.
 """
+import math
 import sys
 
 import lib
@@ -27,22 +28,39 @@ def process_commits(raw_commits, name, branch_name):
 
 
 def get_commits(variables):
-    # TODO: Validte for specific keys.
-    name = variables['name']
+    # TODO: Validate for specific keys.
+    results = []
+    counter = 0
 
-    resp = lib.query_by_filename(QUERY_PATH, variables)
-    repo_data = resp['repository']
+    while True:
+        counter += 1
 
-    branch = repo_data['defaultBranchRef']
-    branch_name = branch.get('name')
+        resp = lib.query_by_filename(QUERY_PATH, variables)
 
-    commit_history = branch['target']['history']
-    total_count = commit_history['totalCount']
+        name = variables['name']
 
-    raw_commits = branch['target']['history']['nodes']
-    commits = process_commits(raw_commits, name, branch_name)
+        repo_data = resp['repository']
 
-    page_info = repo_data['defaultBranchRef']['target']['history']['pageInfo']
+        branch = repo_data['defaultBranchRef']
+        branch_name = branch.get('name')
+
+        commit_history = branch['target']['history']
+        if not variables.get('cursor', None):
+            print("Expected")
+            print(f" - commits: {commit_history['totalCount']}")
+            print(f" - pages: {math.ceil(commit_history['totalCount'] / 100)}")
+
+        raw_commits = branch['target']['history']['nodes']
+        commits = process_commits(raw_commits, name, branch_name)
+        results.extend(commits)
+
+        print(f"Processed page: #{counter}")
+
+        page_info = repo_data['defaultBranchRef']['target']['history']['pageInfo']
+        if page_info['hasNextPage']:
+            variables['cursor'] = page_info['endCursor']
+        else:
+            break
 
     return commits
 
@@ -58,7 +76,7 @@ def main(args):
         sys.exit(1)
 
     variables = lib.process_variables(args)
-    print(get_commits(variables))
+    get_commits(variables)
 
 
 if __name__ == '__main__':
