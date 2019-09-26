@@ -56,7 +56,7 @@ def get_commits(owner, repo_name, start=None):
         else:
             break
 
-    return commits
+    return results
 
 
 def main():
