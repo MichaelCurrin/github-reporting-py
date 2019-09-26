@@ -32,17 +32,19 @@ def get_commits(variables):
     results = []
     counter = 0
 
+    name = variables['name']
+    branch_name = None
+
     while True:
         counter += 1
 
         resp = lib.query_by_filename(QUERY_PATH, variables)
 
-        name = variables['name']
-
         repo_data = resp['repository']
 
         branch = repo_data['defaultBranchRef']
-        branch_name = branch.get('name')
+        if not branch_name:
+            branch_name = branch.get('name')
 
         commit_history = branch['target']['history']
         if not variables.get('cursor', None):
