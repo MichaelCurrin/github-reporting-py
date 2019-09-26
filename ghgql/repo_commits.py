@@ -4,8 +4,8 @@ Repo commits application.
 
 Fetch commits for a given repo and optional start date.
 """
+import argparse
 import math
-import sys
 
 import lib
 import lib.git
@@ -13,14 +13,17 @@ import lib.git
 QUERY_PATH = 'queries/repos/repo_commits.gql'
 
 
-def get_commits(variables):
-    # TODO: Validate for specific keys.
+def get_commits(owner, repo_name, since=None):
     results = []
     counter = 0
 
-    repo_name = variables['name']
     branch_name = None
 
+    variables = dict(
+        owner=owner,
+        repo_name=repo_name,
+        since=since,
+    )
     while True:
         counter += 1
 
@@ -54,19 +57,23 @@ def get_commits(variables):
     return commits
 
 
-def main(args):
+def main():
     """
     Main command-line function.
     """
-    if not args or set(args).intersection({'-h', '--help'}):
-        print(
-            f"Usage: {__file__} owner OWNER name REPO_NAME [start START_DATE]")
-        print(f"START_DATE: Count commits on or after this date, in YYYY-MM-DD format.")
-        sys.exit(1)
+    parser = argparse.ArgumentParser("Repo commits report")
 
-    variables = lib.process_variables(args)
-    get_commits(variables)
+    parser.add_argument('owner', metavar="OWNER")
+    parser.add_argument('repo_name', metavar="REPO_NAME")
+    parser.add_argument('-s', '--start',
+                        metavar="YYYY-MM-DD")
+
+    args = parser.parse_args()
+    if args.start:
+        args.start = lib.time.timestamp(args.start)
+
+    get_commits(args.owner, args.repo_name, args.start)
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main()
