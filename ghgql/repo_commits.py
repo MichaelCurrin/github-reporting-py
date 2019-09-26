@@ -13,17 +13,19 @@ import lib.git
 QUERY_PATH = 'queries/repos/repo_commits.gql'
 
 
-def get_commits(owner, repo_name, since=None):
+def get_commits(owner, repo_name, start=None):
     results = []
-    counter = 0
 
     branch_name = None
+    since = lib.time.timestamp(start) if start else None
 
     variables = dict(
         owner=owner,
         repo_name=repo_name,
         since=since,
     )
+
+    counter = 0
     while True:
         counter += 1
 
@@ -79,8 +81,6 @@ def main():
     )
 
     args = parser.parse_args()
-    if args.start:
-        args.start = lib.time.timestamp(args.start)
 
     get_commits(args.owner, args.repo_name, args.start)
 
