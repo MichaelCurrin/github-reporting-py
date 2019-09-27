@@ -99,8 +99,8 @@ def main():
     parser.add_argument(
         '-s', '--start',
         metavar="DATE",
-        help="Optionally filter to commits from this date"
-        " onwards. format 'YYYY-MM-DD'."
+        help="Optionally filter to commits from this date onwards."
+            " Format: 'YYYY-MM-DD'."
     )
 
     args = parser.parse_args()
