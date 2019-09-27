@@ -5,15 +5,24 @@ Repo commits application.
 Fetch commits for a given repo and optional start date.
 """
 import argparse
+import datetime
 import math
 
 import lib
 import lib.git
 
+
 QUERY_PATH = 'queries/repos/repo_commits.gql'
+CSV_OUT_PATH = lib.VAR_DIR / f'repo-commits-{datetime.date.today()}.csv'
 
 
 def get_commits(owner, repo_name, start=None):
+    """
+    Fetch all commits for a given repo and optional start date.
+
+    Uses paging if there is more than 1 page of 100 commits to fetch.
+    Returns a list of zero or more dict objects with commit data.
+    """
     results = []
 
     branch_name = None
@@ -82,7 +91,8 @@ def main():
 
     args = parser.parse_args()
 
-    get_commits(args.owner, args.repo_name, args.start)
+    repo_commits = get_commits(args.owner, args.repo_name, args.start)
+    lib.write_csv(CSV_OUT_PATH, repo_commits)
 
 
 if __name__ == '__main__':
