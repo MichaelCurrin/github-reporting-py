@@ -91,14 +91,13 @@ def main():
 
     args = parser.parse_args()
 
+    repo_commits = get_commits(args.owner, args.repo_name, args.start)
     path = lib.VAR_DIR / CSV_OUT_NAME.format(
         repo_name=args.repo_name,
         start=args.start if args.start else "INIT",
         end=datetime.date.today()
     )
-
-    repo_commits = get_commits(args.owner, args.repo_name, args.start)
-    lib.write_csv(path, repo_commits)
+    lib.write_csv(path, repo_commits, append=False)
 
 
 if __name__ == '__main__':

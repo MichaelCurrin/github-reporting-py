@@ -99,6 +99,9 @@ def write_file(content, path):
     with open(path, 'w') as f_out:
         f_out.writelines(content)
 
+    print("Wrote text file")
+    print(" - path: {path}")
+
 
 def read_template(path):
     return Template(read_file(path))
@@ -122,11 +125,24 @@ def read_csv(path):
         return list(reader)
 
 
-def write_csv(path, rows):
+def write_csv(path, rows, append=False):
+    """
+    Write a CSV file to a path with given rows and header from first row.
+
+    Default behavior is to overrwrite an existing file. Append to existing file
+    if append is flag True. Either way, the header will only be added on a new
+    file. Appending is useful when adding sections to a report, but overwriting
+    is better when rerunning an entire report.
+    """
+    is_new_file = not path.exists()
+    mode = 'a' if append else 'w'
+
     fieldnames = rows[0].keys()
-    with open(path, 'w') as f_out:
+
+    with open(path, mode) as f_out:
         writer = csv.DictWriter(f_out, fieldnames)
-        writer.writeheader()
+        if is_new_file:
+            writer.writeheader()
         writer.writerows(rows)
 
     print("Wrote CSV:")
