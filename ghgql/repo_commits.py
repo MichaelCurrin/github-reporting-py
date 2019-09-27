@@ -68,6 +68,17 @@ def get_commits(owner, repo_name, start=None):
     return results
 
 
+def write_commits_csv(owner, repo_name, start=None):
+    repo_commits = get_commits(owner, repo_name, start)
+    filename = CSV_OUT_NAME.format(
+        repo_name=repo_name,
+        start=start if start else "INIT",
+        end=datetime.date.today()
+    )
+    path = lib.VAR_DIR / filename
+    lib.write_csv(path, repo_commits, append=False)
+
+
 def main():
     """
     Main command-line function.
@@ -90,14 +101,11 @@ def main():
     )
 
     args = parser.parse_args()
-
-    repo_commits = get_commits(args.owner, args.repo_name, args.start)
-    path = lib.VAR_DIR / CSV_OUT_NAME.format(
-        repo_name=args.repo_name,
-        start=args.start if args.start else "INIT",
-        end=datetime.date.today()
+    write_commits_csv(
+        args.owner,
+        args.repo_name,
+        args.start
     )
-    lib.write_csv(path, repo_commits, append=False)
 
 
 if __name__ == '__main__':
