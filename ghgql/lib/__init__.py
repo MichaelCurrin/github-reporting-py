@@ -135,11 +135,15 @@ def write_csv(path, rows, append=False):
     file. Appending is useful when adding sections to a report, but overwriting
     is better when rerunning an entire report.
     """
+    if not rows:
+        print("No rows to write")
+        print()
+        return
+
     is_new_file = not path.exists()
     mode = 'a' if append else 'w'
 
     fieldnames = rows[0].keys()
-
     with open(path, mode) as f_out:
         writer = csv.DictWriter(f_out, fieldnames)
         if is_new_file:
@@ -147,9 +151,9 @@ def write_csv(path, rows, append=False):
         writer.writerows(rows)
 
     print("Wrote CSV:")
-    print(f" - {path}")
-    print(f" - {len(rows)} rows")
-
+    print(f" - {path.name}")
+    print(f" - {len(rows)} rows {'appended' if mode else ''}")
+    print()
 
 def process_variables(args):
     """
