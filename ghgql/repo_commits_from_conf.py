@@ -21,9 +21,14 @@ def report_config():
     owner = COMMIT_REPORT_CONF['owner']
     repo_names = COMMIT_REPORT_CONF['repo_names']
 
-    start_date = COMMIT_REPORT_CONF['start_date']
-    if start_date:
-        start_date = str(start_date)
+    input_start_date = COMMIT_REPORT_CONF['start_date']
+    if input_start_date is None:
+        start_date = None
+    elif isinstance(input_start_date, int):
+        start_date = lib.time.days_ago(input_start_date)
+    else:
+        # YAML parses to datetime objects so stringify.
+        start_date = str(input_start_date)
 
     return owner, repo_names, start_date
 
@@ -37,6 +42,10 @@ def commits_to_csv(owner, repo_names, start_date=None):
         start_date=start_date if start_date else "INIT",
     )
     path = lib.VAR_DIR / filename
+
+    print(f"Start: {start_date if start_date else 'first commit'}")
+    print()
+
     for repo_name in repo_names:
         commits = repo_commits.get_commits(owner, repo_name, start_date)
         lib.write_csv(path, commits, append=True)
