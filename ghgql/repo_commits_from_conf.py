@@ -15,6 +15,9 @@ CSV_OUT_NAME = 'repos-commits--configured--end-{end_date}--start-{start_date}.cs
 
 
 def report_config():
+    """
+    Get commit report values from config.
+    """
     owner = COMMIT_REPORT_CONF['owner']
     repo_names = COMMIT_REPORT_CONF['repo_names']
 
@@ -26,6 +29,9 @@ def report_config():
 
 
 def commits_to_csv(owner, repo_names, start_date=None):
+    """
+    Fetch commits for given repos and append to a CSV after each repo is done.
+    """
     filename = CSV_OUT_NAME.format(
         end_date=datetime.date.today(),
         start_date=start_date if start_date else "INIT",
