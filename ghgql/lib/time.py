@@ -4,14 +4,17 @@ Library time module.
 import datetime
 
 
-def as_git_timestamp(date_str: str) -> datetime.date:
+def as_git_timestamp(value: [datetime.date, datetime.datetime, str]) -> str:
     """
-    Convert string matching "YYYY-MM-DD" into GitTimestamp string.
+    Convert date to GitTimestamp string.
 
     The output format is the datetime formatted string required by Github's
-    GraphQL.
+    GraphQL. Any time in the input value is dropped so the result is for
+    midnight.
     """
-    return datetime.datetime.strptime(date_str, '%Y-%m-%d').isoformat()
+    dt = datetime.datetime.strptime(str(value), '%Y-%m-%d')
+
+    return dt.isoformat()
 
 
 def as_date(datetime_str: str) -> datetime.date:
