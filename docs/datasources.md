@@ -26,11 +26,8 @@ For easy debugging, autocompletion and exploring of the schema, use the [GraphQL
 
 Using [GraphQL](https://graphql.org/) means only a single endpoint to query, using a POST request usually to get data. It allows fetching of large amounts of data with fewer queries than REST, getting just the fields and level of detail requested. Note that paging and rate limits still apply but should be easier to deal with.
 
-In particular, **GraphQL** makes it easier to scale to many fetch a large numbers of commits, even across multiple repos or branches, using a single request.  Although, there is a strict API limit of a **max of 100 items** in a list, so you need to use multiple requests to paginate through the data. But in a single request, you can still fetch 100 repos and the most recent 100 commits on each.
+**GraphQL** makes it easy to scale to many fetch a 100 commits for a repo using a single repo (due to API's limit of 100 items on a page), while using **REST API** would take 100 requests. See the reports covered in the [Multiple Repos](usage.md#multiple-repos) section of the usage doc.
 
-This is still much better than the **REST API**, which only lets you query one repo at a time and only gives a single commit and a pointer to the previous commit (or _commits_, for a merge). This is slow and results in quick rate limiting (max 5000 requests per hour). I experienced this in a similar previous project which used a Python wrapper on the Github REST API.
+You can get higher volume of commits in a single query. The breadth option of getting more repos does work, but you do not get the depth of more than 100 commits for any one repo because GQL does not support nest paging (of repos and commits). With the limited approach, you get 100 commits each for a 100 repos using the [repos_recent_commits.py](/ghgql/repos_recent_commits.py) script and associated GQL query and then to page through all repos. The script iterates through the pages so all repos can be covered.
 
-GraphQL is 100 times faster at getting commits and 100 times faster at getting repos, resulting in a gain of 10,000 times faster performance. For example, given a scenario to get 1,000 commits for the default branches of 100 repos, here are the number of requests required:
-
-- **REST API**: 100 repos x 1000 commits for each = *100,000 requests*
-- **GraphQL API**: 1 page of repos x 10 commit pages = *10 requests*
+Alternatively, you can build up the query using templating and a known list of repos. Part of this project explored this. However, loading proved problematic. The number of commits and repos had to be dropped significantly below 100 in order stop the query returning error messages probably due to Github's limit on resources. The lower scale of the report of 3 repos at a time with about 40 commits proved to be not that worthwhile, so the experimental feature was left unfinished.
