@@ -68,7 +68,7 @@ def get_commits(owner, repo_name, start=None):
     return results
 
 
-def write_commits_csv(owner, repo_name, start=None):
+def commits_to_csv(owner, repo_name, start=None):
     """
     Write a CSV of all commits of repo, starting from optional start date.
     """
@@ -104,7 +104,7 @@ def main():
     )
 
     args = parser.parse_args()
-    write_commits_csv(
+    commits_to_csv(
         args.owner,
         args.repo_name,
         args.start
