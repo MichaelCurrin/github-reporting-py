@@ -5,6 +5,7 @@ from pathlib import Path
 
 import yaml
 
+
 ETC_DIR = Path() / 'etc'
 LOCAL_CONF_PATH = ETC_DIR / 'app.local.yml'
 TEMPLATE_CONF_PATH = ETC_DIR / 'app.template.yml'
@@ -14,7 +15,7 @@ BASE_URL = "https://api.github.com/graphql"
 
 def _load_yaml(path):
     with open(path) as f_in:
-        conf = yaml.load(f_in)
+        conf = yaml.safe_load(f_in)
 
     return conf
 
