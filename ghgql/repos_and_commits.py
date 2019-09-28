@@ -190,7 +190,7 @@ def main(args):
 
     owner_name, repo_names = read_counts.repo_names(start)
 
-    start_ts = lib.time.timestamp(start) if str(start) else None
+    start_ts = lib.time.as_git_timestamp(start) if str(start) else None
 
     make_report(owner_name, repo_names, start_ts, dry_run=False)
 

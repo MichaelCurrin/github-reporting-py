@@ -168,7 +168,7 @@ def process_variables(args):
         # TODO: Make this clear that you use start and it becomes since.
         start = variables.pop('start', None)
         if start:
-            variables['since'] = time.timestamp(start)
+            variables['since'] = time.as_git_timestamp(start)
 
         is_fork_arg = variables.pop('isFork', None)
         if is_fork_arg:

@@ -44,7 +44,7 @@ def get_commits(owner, repo_name, start_date=None):
     """
     print("/".join((owner, repo_name)))
 
-    since = lib.time.timestamp(start_date) if start_date else None
+    since = lib.time.as_git_timestamp(start_date) if start_date else None
 
     query_variables = dict(
         owner=owner,
