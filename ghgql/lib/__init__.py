@@ -155,6 +155,7 @@ def write_csv(path, rows, append=False):
     print(f" - {len(rows)} rows {'appended' if mode else ''}")
     print()
 
+
 def process_variables(args):
     """
     Process command-line arguments containing a filename and key-value pairs.
