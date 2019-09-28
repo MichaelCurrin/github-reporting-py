@@ -14,9 +14,10 @@ import config
 # TODO Rename time to not conflict with builtin.
 from . import text, time
 
-
+# FIXME this only happens to work in lib so should be more robust
 APP_DIR = Path().absolute()
 VAR_DIR = APP_DIR / 'var'
+
 COUNTS_CSV_PATH = VAR_DIR / 'counts.csv'
 COUNTS_CSV_PATH_TODAY = VAR_DIR / f'counts-{datetime.date.today()}.csv'
 
