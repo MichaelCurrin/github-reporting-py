@@ -13,7 +13,7 @@ import lib.git
 
 
 QUERY_PATH = 'queries/repos/repo_commits.gql'
-CSV_OUT_NAME = 'repo-commits--{repo_name}--end-{end}--start-{start}.csv'
+CSV_OUT_NAME = 'repo-commits--{repo_name}--end-{end_date}--start-{start_date}.csv'
 
 
 def get_commits(owner, repo_name, start_date=None):
@@ -77,8 +77,8 @@ def commits_to_csv(owner, repo_name, start_date=None):
     repo_commits = get_commits(owner, repo_name, start_date)
     filename = CSV_OUT_NAME.format(
         repo_name=repo_name,
+        end_date=datetime.date.today(),
         start_date=start_date if start_date else "INIT",
-        end=datetime.date.today()
     )
     path = lib.VAR_DIR / filename
     lib.write_csv(path, repo_commits, append=False)
