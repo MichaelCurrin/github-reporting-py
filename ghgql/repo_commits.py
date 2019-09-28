@@ -42,6 +42,8 @@ def get_commits(owner, repo_name, start_date=None):
     Uses paging if there is more than 1 page of 100 commits to fetch. Returns a
     list of zero or more dict objects with commit data.
     """
+    print("/".join((owner, repo_name)))
+
     since = lib.time.timestamp(start_date) if start_date else None
 
     query_variables = dict(
@@ -60,7 +62,6 @@ def get_commits(owner, repo_name, start_date=None):
         commits, total_commits, cursor = process_response(resp, repo_name)
 
         if counter == 1:
-            print("Summary")
             print(f" - commits: {total_commits}")
             print(f" - pages: {math.ceil(total_commits / 100)}")
 
