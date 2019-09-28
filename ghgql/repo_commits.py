@@ -13,7 +13,7 @@ import lib.git
 
 
 QUERY_PATH = 'queries/repos/repo_commits.gql'
-CSV_OUT_NAME = 'repo-commits--{repo_name}--start-{start}--end-{end}.csv'
+CSV_OUT_NAME = 'repo-commits--{repo_name}--end-{end}--start-{start}.csv'
 
 
 def get_commits(owner, repo_name, start=None):
