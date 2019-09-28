@@ -71,6 +71,8 @@ def get_commits(owner, repo_name, start_date=None):
 def commits_to_csv(owner, repo_name, start_date=None):
     """
     Write a CSV of all commits in a repo.
+
+    Existing file will be overwritten.
     """
     repo_commits = get_commits(owner, repo_name, start_date)
     filename = CSV_OUT_NAME.format(
