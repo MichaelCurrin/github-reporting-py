@@ -86,7 +86,7 @@ def main():
     """
     Main command-line function.
     """
-    parser = argparse.ArgumentParser("Repo commits report")
+    parser = argparse.ArgumentParser(description="Repo commits report")
 
     parser.add_argument(
         'owner',
