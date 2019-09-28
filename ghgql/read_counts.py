@@ -1,7 +1,7 @@
 """
 Read counts script.
 
-Read the repos and counts CSV and return date
+Read the repos and counts CSV and return data.
 """
 import lib
 
