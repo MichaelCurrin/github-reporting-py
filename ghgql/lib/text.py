@@ -15,9 +15,11 @@ def eprint(*args, **kwargs):
 
 def prettify(data):
     """
-    Return input data structure (list or dict) as a prettified JSON string.
+    Return input data structure (list or dict) as a prettified JSON-formatted string.
+
+    Default is set here to stringify values like datetime values.
     """
-    return json.dumps(data, indent=4, sort_keys=True)
+    return json.dumps(data, indent=4, sort_keys=True, default=str)
 
 
 def print_args_on_error(func):
