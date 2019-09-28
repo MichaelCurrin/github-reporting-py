@@ -16,7 +16,7 @@ QUERY_PATH = 'queries/repos/repo_commits.gql'
 CSV_OUT_NAME = 'repo-commits--{repo_name}--end-{end}--start-{start}.csv'
 
 
-def get_commits(owner, repo_name, start=None):
+def get_commits(owner, repo_name, start_date=None):
     """
     Fetch all commits for a given repo and optional start date.
 
@@ -26,7 +26,7 @@ def get_commits(owner, repo_name, start=None):
     results = []
 
     branch_name = None
-    since = lib.time.timestamp(start) if start else None
+    since = lib.time.timestamp(start_date) if start_date else None
 
     variables = dict(
         owner=owner,
@@ -68,14 +68,14 @@ def get_commits(owner, repo_name, start=None):
     return results
 
 
-def commits_to_csv(owner, repo_name, start=None):
+def commits_to_csv(owner, repo_name, start_date=None):
     """
-    Write a CSV of all commits of repo, starting from optional start date.
+    Write a CSV of all commits in a repo.
     """
-    repo_commits = get_commits(owner, repo_name, start)
+    repo_commits = get_commits(owner, repo_name, start_date)
     filename = CSV_OUT_NAME.format(
         repo_name=repo_name,
-        start=start if start else "INIT",
+        start_date=start_date if start_date else "INIT",
         end=datetime.date.today()
     )
     path = lib.VAR_DIR / filename
