@@ -1,5 +1,6 @@
 # Python compiled binaries.
 __pycache__
 
-config_local.py
+ghgql/etc/app.local.yml
+
 ghgql/var/
