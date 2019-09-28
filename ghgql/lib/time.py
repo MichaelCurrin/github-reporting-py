@@ -21,3 +21,10 @@ def as_date(datetime_str: str) -> datetime.date:
     date_str = datetime_str[:10]
 
     return datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
+
+
+def days_ago(days: int) -> datetime.date:
+    """
+    Lookback a given number of days from today and return a date object.
+    """
+    return datetime.date.today() - datetime.timedelta(days=days) + datetime.timedelta(days=1)
