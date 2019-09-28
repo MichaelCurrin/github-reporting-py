@@ -185,12 +185,10 @@ def main(args):
         sys.exit(1)
 
     variables = lib.process_variables(args)
-
     start = variables.get('start', None)
 
+    start_ts = lib.time.as_git_timestamp(start) if start else None
     owner_name, repo_names = read_counts.repo_names(start)
-
-    start_ts = lib.time.as_git_timestamp(start) if str(start) else None
 
     make_report(owner_name, repo_names, start_ts, dry_run=False)
 
