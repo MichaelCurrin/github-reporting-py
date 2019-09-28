@@ -20,17 +20,14 @@ def process_response(resp, repo_name):
     """
     Format response for a request of repo commits
     """
-    repo_data = resp['repository']
+    branch = resp['repository']['defaultBranchRef']
 
-    branch = repo_data['defaultBranchRef']
     branch_name = branch.get('name')
 
     commit_history = branch['target']['history']
-    total_commits = commit_history['totalCount']
-
-    raw_commits = branch['target']['history']['nodes']
     commits = [lib.git.prepare_row(c, repo_name, branch_name)
-               for c in raw_commits]
+               for c in commit_history['nodes']]
+    total_commits = commit_history['totalCount']
 
     page_info = commit_history['pageInfo']
     cursor = page_info['endCursor'] if page_info['hasNextPage'] else None
