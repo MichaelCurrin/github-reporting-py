@@ -1,9 +1,9 @@
 """
 Pagination demo application.
 
-Simple demo to show multiple queries done automatically using returned
-cursor value to fetch the next page. The number of pages is capped
-to make this a quick script.
+Simple demo to show multiple queries done automatically using returned cursor
+value to fetch the next page. The number of pages is capped to make this a quick
+script.
 
 No arguments are used for this script.
 """
