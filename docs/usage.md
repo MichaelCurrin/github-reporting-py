@@ -38,21 +38,26 @@ These are not that useful for reporting, but their code is mostly self-contained
 
 This is the main purpose of this project is to produce CSV reports about repos. The reports are saved to the [var](/ghgql/var) directory. A filename will be shown in the printed output.
 
-### About repos report
+### Repo summary reports
 
-Get metadata and commit count for all repos in an organization. This uses paging, so if you organization has 1000 repos, it will take 10 requests to get each page of 100 repos.
+#### Metadata
+
+Get metadata for all repos under a user or organization and print to the screen.
 
 ```bash
 $ ./repos_about.py --help
 ```
 
-For example:
+Open the report.
+
+#### Commit counts
+
+Get the latest commit and the total commit count for all repos under a user or organization and write to a CSV.
 
 ```bash
-$ ./repos_about.py michaelcurrin
+$ ./repos_and_commit_counts.py --help
 ```
 
-Open the report.
 
 ### Commit reports
 

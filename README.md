@@ -13,17 +13,15 @@ Many of the reports in this project can do a single request to get data that oth
 
 #### Commit reports
 
-The commit report scripts let you view the _git_ commit history across multiple repos and to see how your organization or team members contribute.
+View the _git_ commit history across multiple repos and to see how your organization or team members contribute. However, don't use this _git_ reporting in isolation to judge the productivity of your team members or the activity of the codebase. These reports can help you see patterns or blockers and that can help you identify problems to solve or areas to improve on.
 
-Don't use git reporting alone to judge your team's productivity or codebase, but reports can help you see patterns or blockers and that can help you identify problems to solve or areas to improve on.
+See the [Commit reports](/docs/usage.md#commit-reports) section of the Usage doc to run reports.
 
-See the [Commit reports](/docs/usage.md#commit-reports) section of the Usage doc.
+#### Repo summary reports
 
-#### Repo summaries report
+Get metadata about reports or counts of commits.
 
-The Repos About report does gets summary data and metadata for all repos under a given Github user or organization.
-
-See the [About repos report](/docs/usage.md#about-repos-report) section of the Usage doc.
+See the [Repo summary reports](/docs/usage.md#repo-summary-reports) section of the Usage doc to run reports.
 
 
 ### Reference
