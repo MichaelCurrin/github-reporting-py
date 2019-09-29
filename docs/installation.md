@@ -20,7 +20,7 @@ Create your access token in your Github account settings. Ensure it has access t
 2. Go to [OAuth Apps](https://github.com/settings/developers).
 3. Create an app. e.g. "Git Reporting".
 4. Go to the [Tokens](https://github.com/settings/tokens) page.
-5. Create a new token. The following scopes are recommended to be set:
+5. Create a new token. Only read access is needed for this project. The following scopes are recommended to be set:
     * ☑ `repo`
         - Tick the top level for access to _private_ repos. If you are fine with just public repos, then just tick `repo:status` and `public:repo`.
     * ☐ `admin:org`
