@@ -67,7 +67,7 @@ The CSV output is commit-level data from one or more repos. Each row in the repo
 - `repo_name`: Name of repo where the commit was made.
 - `branch_name`:  Name of branch where the commit was made.
 - `commit_id`: Short commit hash.
-- `author_date`: Date the commit was _authored_. This usually the same as the _committed_ date, but not always and sometimes one of the two can be missing.
+- `author_date`: Date the commit was _authored_.
 - `author_login`: Username of the commit's author.
 - `committed_date`: Date the commit was _committed_.
 - `committer_login` : Username of the commit's committer.
@@ -75,6 +75,12 @@ The CSV output is commit-level data from one or more repos. Each row in the repo
 - `additions`: Number of lines added.
 - `deletions`: Number of lines removed.
 - `message`: Commit message.
+
+A note on _author_ vs _committer_ - they are usually the same, but not always. And sometimes one of the two users can be missing. Therefore both are shown in the report output.
+
+An explanation from the [commit history](https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History) part of the _git_ docs:
+
+> You may be wondering what the difference is between author and committer. The author is the person who originally wrote the work, whereas the committer is the person who last applied the work. So, if you send in a patch to a project and one of the core members applies the patch, both of you get credit — you as the author, and the core member as the committer.
 
 You can run the Python script with command-line arguments to get data for a single repo, or use another script and the app config file to get data for multiple repos.
 
@@ -84,7 +90,6 @@ Run a report for a single repo using details on the command line.
 
 ```bash
 $ ./repo_commits.py --help
-...
 ```
 
 Example.
