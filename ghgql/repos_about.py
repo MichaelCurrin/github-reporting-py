@@ -2,7 +2,9 @@
 """
 About repos application.
 
-Print results for the about repos query for a given login.
+Get the metadata for a repos of a given login and print.
+
+TODO: Write to CSV.
 """
 import sys
 
@@ -14,7 +16,7 @@ def main(args):
     Main command-line function.
     """
     if len(args) != 2 or set(args).intersection({'-h', '--help'}):
-        lib.text.eprint(f"Usage: {__file__} login LOGIN")
+        lib.text.eprint(f"Usage: {__file__} owner OWNER")
         sys.exit(1)
 
     path = 'queries/repos/repos_about.gql'
