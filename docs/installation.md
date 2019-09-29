@@ -22,7 +22,7 @@ Create your access token in your Github account settings. Ensure it has access t
 4. Go to the [Tokens](https://github.com/settings/tokens) page.
 5. Create a new token. The following scopes are recommended to be set:
     * ☑ `repo`
-        - Tick the top level for access to _private_ repos. If you are fine with just public repos, then just tick `repo:status` and `public:repo.
+        - Tick the top level for access to _private_ repos. If you are fine with just public repos, then just tick `repo:status` and `public:repo`.
     * ☐ `admin:org`
         - ☑ `read:org`
     * ☐ `write:discussion`
