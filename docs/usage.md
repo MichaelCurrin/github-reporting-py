@@ -118,7 +118,7 @@ For example:
       start_date: 2019-09-01
       owner: michaelcurrin
       repo_names:
-      - twitterverse
+        - twitterverse
     ```
 - Get commits from 30 days ago up to today, for multiple repos.
     ```yaml
@@ -126,8 +126,8 @@ For example:
       start_date: 30
       owner: michaelcurrin
       repo_names:
-      - twitterverse
-      - github-graphql-tool
+        - twitterverse
+        - github-graphql-tool
     ```
 
 Run the report, with no arguments.
