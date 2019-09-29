@@ -21,16 +21,16 @@ Create your access token in your Github account settings. Ensure it has access t
 3. Create an app. e.g. "Git Reporting".
 4. Go to the [Tokens](https://github.com/settings/tokens) page.
 5. Create a new token. The following scopes are recommended to be set:
-    * ☑ repo
-        - Tick the top level for access to private repos. Otherwise just tick _repo:status_ and _public:repo_.
-    * ☐ admin:org
-        - ☑ read:org
-    * ☐ write:discussion
-        - ☑ read:discussion
-    * ☐ user
-        - ☑ read
-        - ☑ email
-6. Find the generated token value, which you'll use in the next step. Do not navigate away yet as the token cannot be viewed online later.
+    * ☑ `repo`
+        - Tick the top level for access to _private_ repos. If you are fine with just public repos, then just tick `repo:status` and `public:repo.
+    * ☐ `admin:org`
+        - ☑ `read:org`
+    * ☐ `write:discussion`
+        - ☑ `read:discussion`
+    * ☐ `user`
+        - ☑ `read`
+        - ☑ `email`
+6. Find the generated token value, which you'll use in the next step. Do not navigate away yet,as the token **cannot** be viewed online later. You can generate a new value for the token anytime and that will make the old value inactive.
 
 ### Add token to the project
 
