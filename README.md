@@ -5,25 +5,17 @@
 
 ### Reporting
 
-The aim of this project is to fetch stats about Github repos of interest and to generate text or CSV reports, using input parameters.
+The aim of this project is to fetch stats about Github repos of interest and generate reports.
 
-The GraphQL API is used to get this data at scale, which makes reporting on a large Github organization easy.
+The GraphQL API is used to get this data at scale, which enables quick reporting on a even large Github organization or user account with many repos. This project's reports generally fetch data in a single request that otherwise take 100 or more requests to the REST API. Additionally, some of the report script in this project have pagination built in, to get data beyond the first page.
 
-Many of the reports in this project can do a single request to get data that otherwise take 100 or more requests to the REST API. Additionally, some of the report script in this project have pagination built into get data beyond the first page.
+The response data is parsed and then printed on the screen or written to CSV reports.
+
+Here is an outline of the report scripts available in this project, with links to them in usage document.
 
 - [Demos reports](/docs/usage.md#demo-reports) - A few simple scripts.
 - [Repo summary reports](/docs/usage.md#repo-summary-reports) - Get metadata about reports or counts of commits.
 - [Commit reports](/docs/usage.md#commit-reports) - Get the _git_ commit history across multiple repos and to see how your organization or team members contribute.
-
-
-See the [Commit reports]) section of the Usage doc to run reports.
-
-#### Repo summary reports
-
-
-
-See the  section of the Usage doc to run reports.
-
 
 ### Python-GraphQL Reference
 
