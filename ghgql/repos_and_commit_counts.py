@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Repo commit counts report application.
 
@@ -8,7 +9,6 @@ specified.
 
 The data is formatted and written out to a CSV report.
 """
-import datetime
 import math
 import sys
 
@@ -16,10 +16,11 @@ import lib.text
 
 
 ITEMS_PER_PAGE = 100
+QUERY_PATH = 'queries/repos/repos_and_commit_counts.gql'
 
 
 @lib.text.print_args_on_error
-def format_repo(repo, owner_name):
+def format_repo(repo):
     """
     Format summary repo data and return as dict.
     """
@@ -58,13 +59,8 @@ def get_repos_and_commit_counts(path, variables):
 
     :return: dict
     """
-    first_iteration = True
-
-    owner_name = variables['owner']
-
-    repo_data = []
-
     print("Fetching repos and commit counts")
+    repo_data = []
 
     count = 0
     while True:
@@ -74,16 +70,15 @@ def get_repos_and_commit_counts(path, variables):
         resp_data = lib.query_by_filename(path, variables)
         repositories = resp_data['repositoryOwner']['repositories']
 
-        if first_iteration:
+        if count == 1:
             grand_total = repositories['totalCount']
             print("Completed first page.")
             print("Data to fetch:")
             print(f" - repos: {grand_total:,d}")
             print(f" - pages: {math.ceil(grand_total/ITEMS_PER_PAGE):,d}")
-            first_iteration = False
 
         for repo in repositories['nodes']:
-            formatted_repo_data = format_repo(repo, owner_name)
+            formatted_repo_data = format_repo(repo)
             repo_data.append(formatted_repo_data)
 
         repo_page_info = repositories['pageInfo']
@@ -95,20 +90,24 @@ def get_repos_and_commit_counts(path, variables):
     return repo_data
 
 
+def counts_report(variables):
+    out_data = get_repos_and_commit_counts(QUERY_PATH, variables)
+    lib.write_csv(lib.COUNTS_CSV_PATH_TODAY, out_data)
+
+
 def main(args):
     """
     Main command-line function.
     """
     if not args or set(args).intersection({'-h', '--help'}):
         print(f"Usage: {__file__} owner OWNER [start START_DATE]")
-        print(f"START_DATE: Count commits on or after this date, in YYYY-MM-DD format.")
+        print("START_DATE: Count commits on or after this date, in YYYY-MM-DD"
+              " format. This only affects the commit count and not whether the"
+              " repo is shown.")
         sys.exit(1)
 
-    path = f'queries/repos/repos_and_commit_counts.gql'
     variables = lib.process_variables(args)
-    out_data = get_repos_and_commit_counts(path, variables)
-
-    lib.write_csv(lib.COUNTS_CSV_PATH_TODAY, out_data)
+    counts_report(variables)
 
 
 if __name__ == '__main__':
