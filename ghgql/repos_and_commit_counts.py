@@ -43,7 +43,7 @@ def format_repo(repo, owner_name):
             last_commit_msg_subject = latest_commit['message'].split("\n")[0]
 
     return dict(
-        owner_name=owner_name,
+        owner_name=repo['owner']['login'],
         repo_name=repo['name'],
         branch_name=branch_name,
         total_commits=total_commits,
