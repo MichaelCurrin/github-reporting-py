@@ -36,21 +36,29 @@ Create your access token in your Github account settings. Ensure it has access t
 
 ```bash
 $ cd ghgql/etc
+```
+
+Create a local config using the template.
+
+```bash
 $ cp app.template.py app.local.yml
 ```
 
 Open the created file with a command, or your IDE.
 
 ```bash
-$ edit etc/app.local.yml
+$ edit app.local.yml
+# VS Code
+$ code app.local.yml
 ```
 
-Paste your token value. e.g.
+Paste your Github token value, without quotes e.g.
+
 ```yaml
 access_token: ABCDEF0123456789
 ```
 
-If you want to do run the commit report on configured details, fill in the commit report section now or later.
+Leave the other section as is for now.
 
 Save and exit.
 
