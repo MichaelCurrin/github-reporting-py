@@ -7,9 +7,9 @@
 
 The aim of this project is to fetch stats about Github repos of interest and to generate text or CSV reports, using input parameters.
 
-The GraphQL API is used to get this data at scale, to make reporting on a large Github organization easy.
+The GraphQL API is used to get this data at scale, whiches reporting on a large Github organization easy.
 
-Many of the reports in this project can do a single request to get data that otherwise take 100 or more requests to the REST API. On top of that, some of the reports do pagination to get additional data past the first page of results.
+Many of the reports in this project can do a single request to get data that otherwise take 100 or more requests to the REST API. Additionally, some of the report script in this project have pagination built into get data beyond the first page.
 
 #### Commit reports
 
