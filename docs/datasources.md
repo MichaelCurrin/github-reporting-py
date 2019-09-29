@@ -29,7 +29,9 @@ For easy debugging, autocompletion and exploring of the schema, use the [GraphQL
 
 Using [GraphQL](https://graphql.org/) means only a single endpoint to query, using a POST request usually to get data. It allows fetching of large amounts of data with fewer queries than REST, getting just the fields and level of detail requested. Note that paging and rate limits still apply but should be easier to deal with.
 
-**GraphQL** makes it easy to scale to many fetch a 100 commits for a repo using a single repo (due to API's limit of 100 items on a page), while using **REST API** would take 100 requests. See the reports covered in the [Multiple Repos](/docs/usage.md#multiple-repos) section of the usage doc.
+**GraphQL** makes it easy to scale to many fetch a 100 commits for a repo using a single request (due to API's limit of 100 items on a page), while using **REST API** would take 100 requests. So getting data with GraphQL is about 100 times faster. i.e. The requests done in one minute using GraphQL would take 1 hour and 40 minutes using the REST API. Getting objects from the REST API using one request at time is tedious and slow, even when using a Github API library. It is especially slow when getting a history of commits - Github's REST API only returns _one_ commit at a time (along with a URL pointing to the next commit to query).
+
+See the report covered in the [Multiple Repos](/docs/usage.md#multiple-repos) section of the usage doc, which shows how to get pages of commits, going through multiple repos in a sequence.
 
 You can get higher volume of commits in a single query. The breadth option of getting more repos does work, but you do not get the depth of more than 100 commits for any one repo because GQL does not support nest paging (of repos and commits). With the limited approach, you get 100 commits each for a 100 repos using the [repos_recent_commits.py](/ghgql/repos_recent_commits.py) script and associated GQL query and then to page through all repos. The script iterates through the pages so all repos can be covered.
 

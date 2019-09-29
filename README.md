@@ -1,6 +1,10 @@
 # Github GraphQL Tool
 > Python tool to easily report on data fetched from Github's GraphQL API
 
+A project to explore the Github GraphQL API for fun and to output data on repos, users and commits for reporting.
+
+Why GraphQL and not REST API? This project arose because of speed and rate limit issues with using the REST API for large volumes of commit data. But, the GraphQL is about **100 times faster**, in cases such as getting a page of 100 commits rather than one commit from the REST API commit endpoint. See the Datasources doc's [GraphQL benefits](/docs/datasouces.md#graphql-benefits) section for more details.
+
 ## Aims
 
 ### Reporting
