@@ -47,6 +47,6 @@ You need the following to run this project:
 
 See the following guides so you can use this project to generate some reports for yourself on users or repos you are interested in. Note that these only cover the case of a Unix-style environment.
 
-- [Installation](/docs/installation.md) - get setup
-- [Usage](/docs/usage.md) - run reports
-- [Datasources](/docs/datasources.md) - info and links around APIs
+- [Installation](/docs/installation.md) - Setup project environment and configs.
+- [Usage](/docs/usage.md) - Run scripts to generate reports.
+- [Datasources](/docs/datasources.md) - Info and links around APIs.
