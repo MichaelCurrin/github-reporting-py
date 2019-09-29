@@ -84,31 +84,28 @@ Run a report for a single repo using details on the command line.
 
 ```bash
 $ ./repo_commits.py --help
-usage: repo_commits.py [-h] [-s DATE] OWNER REPO_NAME
-
 ...
 ```
 
 Example.
 
 ```bash
-# ./repo_commits.py OWNER         REPO_NAME
 $ ./repo_commits.py michaelcurrin twitterverse
 ```
 
 Set a start date to only get commits from that date onwards. This can make the script run much quicker if you choose a recent date.
 
 ```bash
-# ./repo_commits.py OWNER         REPO_NAME    --start DATE
 $ ./repo_commits.py michaelcurrin twitterverse --start 2019-04-01
 ```
 
 Open the report.
 
+To update the report output, use different command-line arguments. The repo name and the start date are used in the filename, so you can run the report with different parameters and get multiple CSV reports.
+
 #### Multiple repos
 
 Set the details in the `etc/app.local.yml` file's commit report section, if not set already.
-
 
 For example:
 
@@ -137,6 +134,8 @@ $ ./repo_commits_from_conf.py
 ```
 
 Open the report.
+
+To change the report output, update and save the config then rerun the report.
 
 
 ### Experimental scripts
