@@ -146,13 +146,13 @@ def write_csv(path, rows, append=False):
     fieldnames = rows[0].keys()
     with open(path, mode) as f_out:
         writer = csv.DictWriter(f_out, fieldnames)
-        if is_new_file:
+        if is_new_file or not append:
             writer.writeheader()
         writer.writerows(rows)
 
     print("Wrote CSV:")
     print(f" - {path.name}")
-    print(f" - {len(rows)} rows {'appended' if mode else ''}")
+    print(f" - {len(rows)} rows {'appended' if append else ''}")
     print()
 
 
