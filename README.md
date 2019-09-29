@@ -1,57 +1,36 @@
 # Github GraphQL Tool
 > Python tool to easily report on data fetched from Github's GraphQL API
 
-## Aim
+## Aims
 
-The aim of this project is to fetch stats about Github repos of interest and to generate text or CSV reports, using input parameters. The GraphQL API is used to get this data at scale, to make reporting on a large Github organization easy.
+### Reporting
 
-This project is still in development. But the kind of reporting is to let you view the git commit history across multiple repos and to see how your organization or team members contribute (e.g. frequency and size of commits). The reports can also be aggregated such as with an Excel pivot table.
+The aim of this project is to fetch stats about Github repos of interest and to generate text or CSV reports, using input parameters.
+
+The GraphQL API is used to get this data at scale, to make reporting on a large Github organization easy.
+
+Many of the reports in this project can do a single request to get data that otherwise take 100 or more requests to the REST API. On top of that, some of the reports do pagination to get additional data past the first page of results.
+
+#### Commit reports
+
+The commit report scripts let you view the _git_ commit history across multiple repos and to see how your organization or team members contribute.
 
 Don't use git reporting alone to judge your team's productivity or codebase, but reports can help you see patterns or blockers and that can help you identify problems to solve or areas to improve on.
 
-Another aim of this project is to introduce coders to processing GraphQL queries using Python. The understanding can be applied to other GraphQL APIs.
+See the [Commit reports](/docs/usage.md#commit-reports) section of the Usage doc.
 
-## Example output
+#### Repo summaries report
 
-Output from a very basic demo script. It queries the Github GraphQL API with fixed parameters, parses the JSON data in the response printed and prints it.
+The Repos About report does gets summary data and metadata for all repos under a given Github user or organization.
 
-```bash
-$ python -m python demo.basic
-```
-```
-{
-    "data": {
-        "repository": {
-            "defaultBranchRef": {
-                "target": {
-                    "history": {
-                        "edges": [
-                            {
-                                "node": {
-                                    "abbreviatedOid": "5c8a856",
-                                    "committedDate": "2019-01-21T14:19:46Z",
-                                    "pushedDate": "2019-01-21T14:19:49Z",
-                                    "message": "docs: Update comments and docstring around Jira tickets",
-                                    "additions": 6,
-                                    "changedFiles": 1,
-                                    "deletions": 4,
-                                    "committer": {
-                                        "user": {
-                                            "login": "MichaelCurrin"
-                                        }
-                                    }
-                                }
-                            },
-                            ...,
-                            ...,
-                        ]
-                    }
-                }
-            }
-        }
-    }
-}
-```
+See the [About repos report](/docs/usage.md#about-repos-report) section of the Usage doc.
+
+
+### Reference
+
+Another aim of this project is to introduce coders to running _GraphQL_ queries using Python. The understanding of querying Github can be applied to other _GraphQL_ APIs.
+
+The project includes Python scripts and _GraphQL_ queries of varying complexity. Some reports multiple pages of data. Some accept command-line arguments. One reads required report data from a config file.
 
 
 ## Project Requirements
@@ -68,6 +47,6 @@ You need the following to run this project:
 
 See the following guides so you can use this project to generate some reports for yourself on users or repos you are interested in. Note that these only cover the case of a Unix-style environment.
 
-- [Datasources](/docs/datasources.md)
-- [Installation](/docs/installation.md)
-- [Usage](/docs/usage.md)
+- [Installation](/docs/installation.md) - get setup
+- [Usage](/docs/usage.md) - run reports
+- [Datasources](/docs/datasources.md) - info and links around APIs
