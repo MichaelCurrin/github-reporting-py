@@ -10,19 +10,26 @@ No arguments are used for this script.
 import lib
 
 
+QUERY_PATH = 'queries/commit_tests/commits_basic.gql'
+MAX_PAGES = 5
+
+
 def main():
     """
     Main command-line function.
 
-    Do a query to the API using a configured GQL file and query variables.
-    In this situation, the only variable to send is 'cursor'.
+    Do a query to the API using a configured GQL file and query variables. In
+    this situation, the only variable to send is 'cursor' which is an used as an
+    offeset in paging.
+
+    See the 'Cursors in GraphQL' section in docs/datasources.md for an
+    explanation on cursors.
     """
-    path = 'queries/commit_test/commits_basic.gql'
     variables = {}
-    for i in range(5):
+    for i in range(MAX_PAGES):
         print(f"Query #{i+1} - cursor: {variables.get('cursor', 'null')}")
 
-        data = lib.query_by_filename(path, variables=variables)
+        data = lib.query_by_filename(QUERY_PATH, variables=variables)
         history = data['repository']['defaultBranchRef']['target']['history']
 
         msgs = [edge['node']['message'] for edge in history['edges']]
