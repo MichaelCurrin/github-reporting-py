@@ -1,7 +1,7 @@
 """
 Read counts script.
 
-Read the repos and counts CSV and return data.
+Read the existing CSV of repos and counts and return data.
 """
 import lib
 
@@ -56,10 +56,6 @@ def test():
     print('repo_names')
     owner, names = repo_names()
     print(owner, len(names))
-
-# If you care about volume
-# Best to filter by date first and then sort results rather than sort afterwards
-# If you just need more recent then repo_names with start is fine without filtering source data.
 
 
 if __name__ == '__main__':
