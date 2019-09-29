@@ -32,7 +32,9 @@ Create your access token in your Github account settings. Ensure it has access t
         - ☑ `email`
 6. Find the generated token value, which you'll use in the next step. Do not navigate away yet,as the token **cannot** be viewed online later. You can generate a new value for the token anytime and that will make the old value inactive.
 
-### Add token to the project
+### Add a token to the config
+
+Navigate to the directory which contains the project's configs (based on the Unix convention of using the _/etc_ directory for configs).
 
 ```bash
 $ cd ghgql/etc
