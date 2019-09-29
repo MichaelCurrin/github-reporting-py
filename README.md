@@ -11,17 +11,18 @@ The GraphQL API is used to get this data at scale, which makes reporting on a la
 
 Many of the reports in this project can do a single request to get data that otherwise take 100 or more requests to the REST API. Additionally, some of the report script in this project have pagination built into get data beyond the first page.
 
-#### Commit reports
+- [Demos reports](/docs/usage.md#demo-reports) - A few simple scripts.
+- [Repo summary reports](/docs/usage.md#repo-summary-reports) - Get metadata about reports or counts of commits.
+- [Commit reports](/docs/usage.md#commit-reports) - Get the _git_ commit history across multiple repos and to see how your organization or team members contribute.
 
-View the _git_ commit history across multiple repos and to see how your organization or team members contribute. However, don't use this _git_ reporting in isolation to judge the productivity of your team members or the activity of the codebase. These reports can help you see patterns or blockers and that can help you identify problems to solve or areas to improve on.
 
-See the [Commit reports](/docs/usage.md#commit-reports) section of the Usage doc to run reports.
+See the [Commit reports]) section of the Usage doc to run reports.
 
 #### Repo summary reports
 
-Get metadata about reports or counts of commits.
 
-See the [Repo summary reports](/docs/usage.md#repo-summary-reports) section of the Usage doc to run reports.
+
+See the  section of the Usage doc to run reports.
 
 
 ### Python-GraphQL Reference

@@ -19,7 +19,7 @@ Note: If you use the _VS Code_ IDE and open a terminal _after_ the Python Extens
 
 Run the simple demo scripts, which take no inputs or configs (other than access token). They showcase querying the GraphQL and printing the JSON responses to the screen.
 
-These are not that useful for reporting, but their code is mostly self-contained so it is easy to understand the querying the API works.
+These are not that useful for reporting, but their code is mostly self-contained so it is easy to understand how the API works in a single script or function.
 
 - This uses no variables in the request payload.
     ```bash
@@ -58,10 +58,11 @@ Get the latest commit and the total commit count for all repos under a user or o
 $ ./repos_and_commit_counts.py --help
 ```
 
-
 ### Commit reports
 
-Get commit-level data from one or more repos. Each row in the report is a commit. The following fields are in the headers of the commit repos.
+Use the commit reports to get the _git_ commit history across multiple repos and to see how your organization or team members contribute. Don't use this _git_ reporting in isolation to judge the productivity of your team members or the activity of the codebase. These reports can help you see patterns or blockers and that can help you identify problems to solve or areas to improve on.
+
+The CSV output is commit-level data from one or more repos. Each row in the report is a commit. The following fields are in the headers of the commit repos:
 
 - `repo_name`: Name of repo where the commit was made.
 - `branch_name`:  Name of branch where the commit was made.
