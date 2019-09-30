@@ -29,9 +29,9 @@ These are not that useful for reporting, but their code is mostly self-contained
     ```bash
     $ python -m demo.variables
     ```
-- Demo of pagination - get multiple pages of data.
+- Demo of pagination - get multiple pages of data. Just uses one import in order to handle reading a query and sending variables with payload to the API.
     ```bash
-    $ python paginate_demo.py
+    $ python -m demo.paginate
     ```
 
 ## Main reports
