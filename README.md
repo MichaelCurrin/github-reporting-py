@@ -1,9 +1,14 @@
 # Github GraphQL Tool
 > Python tool to easily report on data fetched from Github's GraphQL API
 
-A project to explore the Github GraphQL API for fun and to output data on repos, users and commits for reporting.
+A project to explore the Github GraphQL API for fun and to output data on repos, users and commits for reporting. 
+
+If you came here just to look at GraphQL queries that get data from Github, see the [queries](/ghgql/queries) directory. You can paste those in Github's [GraphQL Explorer](https://developer.github.com/v4/explorer/) and run them against public data. For some queries you need to ad JSON params in the query variables section.
+
+If you want to download the results as text or CSV files or automate the requests for many pages of data, then follow the [aims](#aims) and [documentation](#documentation) sections below to setup the project then run the command-line Python scripts to generate the reports. The scripts use the GQL queries internally.
 
 Why GraphQL and not REST API? This project arose because of speed and rate limit issues with using the REST API for large volumes of commit data. But, the GraphQL is about **100 times faster**, in cases such as getting a page of 100 commits rather than one commit from the REST API commit endpoint. See the Datasources doc's [GraphQL benefits](/docs/datasources.md#graphql-benefits) section for more details.
+
 
 ## Aims
 
