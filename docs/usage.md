@@ -84,9 +84,9 @@ An explanation from the [commit history](https://git-scm.com/book/en/v2/Git-Basi
 
 You can run the Python script with command-line arguments to get data for a single repo, or use another script and the app config file to get data for multiple repos.
 
-#### Single repo
+#### Single repo report
 
-Run a report for a single repo using details on the command line.
+Run a report for a single repo using details passed on the command line.
 
 ```bash
 $ ./repo_commits.py --help
@@ -95,20 +95,20 @@ $ ./repo_commits.py --help
 Example.
 
 ```bash
-$ ./repo_commits.py michaelcurrin twitterverse
+$ ./repo_commits.py michaelcurrin github-graphql-tool
 ```
 
 Set a start date to only get commits from that date onwards. This can make the script run much quicker if you choose a recent date.
 
 ```bash
-$ ./repo_commits.py michaelcurrin twitterverse --start 2019-04-01
+$ ./repo_commits.py michaelcurrin github-graphql-tool --start 2019-04-01
 ```
 
 Open the report.
 
 To update the report output, use different command-line arguments. The repo name and the start date are used in the filename, so you can run the report with different parameters and get multiple CSV reports.
 
-#### Multiple repos
+#### Multiple repos report
 
 Set the details in the `etc/app.local.yml` file's commit report section, if not set already.
 
@@ -120,7 +120,7 @@ For example:
       start_date: 2019-09-01
       owner: michaelcurrin
       repo_names:
-        - twitterverse
+        - github-graphql-tool
     ```
 - Get commits from 30 days ago up to today, for multiple repos.
     ```yaml
@@ -128,8 +128,8 @@ For example:
       start_date: 30
       owner: michaelcurrin
       repo_names:
-        - twitterverse
         - github-graphql-tool
+        - twitterverse
     ```
 
 Run the report, with no arguments.
