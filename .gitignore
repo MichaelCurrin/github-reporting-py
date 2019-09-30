@@ -1,6 +1,8 @@
 # Python compiled binaries.
 __pycache__
 
+venv
+
 ghgql/etc/app.local.yml
 
 ghgql/var/
