@@ -15,7 +15,7 @@ If you came here just to look at GraphQL queries that get data from Github, see 
 
 If you want to download the results as text or CSV files or automate the requests for many pages of data, then follo the [documentation](#documentation) section below to setup the project then run the command-line Python scripts which generate the reports. The scripts use the GQL queries internally.
 
-Why GraphQL and not REST API? This project arose because of speed and rate limit issues with using the REST API for large volumes of commit data. But, the GraphQL is about **100 times faster**, in many cases such as getting a page of 100 commits rather than one commit from the REST API commit endpoint. See the Datasources doc's [GraphQL benefits](/docs/datasources.md#graphql-benefits) section for more details.
+Why _GraphQL_ and not the _REST_ API? This project arose because of speed and rate limit issues with using _REST_ API for large volumes of commit data for _Github_. But, the _GraphQL_ API is about **100 times faster**, in many cases such as getting a page of 100 commits rather than one commit from the REST API commit endpoint. See the Datasources doc's [GraphQL benefits](/docs/datasources.md#graphql-benefits) section for more details.
 
 ### GraphQL + Python reference
 
