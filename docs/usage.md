@@ -58,6 +58,8 @@ Get the latest commit and the total commit count for all repos under a user or o
 $ ./repos_and_commit_counts.py --help
 ```
 
+Open the report.
+
 ### Commit reports
 
 Use the commit reports to get the _git_ commit history across multiple repos and to see how your organization or team members contribute. Don't use this _git_ reporting in isolation to judge the productivity of your team members or the activity of the codebase. These reports can help you see patterns or blockers and that can help you identify problems to solve or areas to improve on.
@@ -92,13 +94,13 @@ Run a report for a single repo using details passed on the command line.
 $ ./repo_commits.py --help
 ```
 
-Example.
+Example:
 
 ```bash
 $ ./repo_commits.py michaelcurrin github-graphql-tool
 ```
 
-Set a start date to only get commits from that date onwards. This can make the script run much quicker if you choose a recent date.
+Set a start date to only get commits from that date onwards. This can make the script run much quicker if you choose a recent date. Example:
 
 ```bash
 $ ./repo_commits.py michaelcurrin github-graphql-tool --start 2019-04-01
