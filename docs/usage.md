@@ -23,7 +23,7 @@ These are not that useful for reporting, but their code is mostly self-contained
 
 - This uses no variables in the request payload.
     ```bash
-    $ python -m python demo.basic
+    $ python -m demo.basic
     ```
 - This does send variables (in JSON format) on request payload. They are just hardcoded for purposes of keeping this script simple.
     ```bash
