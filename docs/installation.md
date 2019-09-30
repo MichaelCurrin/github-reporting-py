@@ -43,7 +43,7 @@ $ cd ghgql/etc
 Create a local config using the template.
 
 ```bash
-$ cp app.template.py app.local.yml
+$ cp app.template.yml app.local.yml
 ```
 
 Open the created file with a command, or your IDE.
