@@ -66,21 +66,21 @@ Use the commit reports to get the _git_ commit history across multiple repos and
 
 The CSV output is commit-level data from one or more repos. Each row in the report is a commit.
 
-A note on _author_ vs _committer_ for a commit - details for shown in the report output for both, for the most flexibility. They are usually the same person, but sometimes one username can be different or one can be be missing. In the case of a merged Pull Request, both login fields can be blank, though there is still a date repeated in both date columns.
-
 The following fields are in the headers of the commit repos:
 
 - `repo_name`: Name of repo where the commit was made.
 - `branch_name`:  Name of branch where the commit was made.
 - `commit_id`: Short commit hash.
-- `author_date`: Date the commit was _authored_.
-- `author_login`: Username of the commit's author.
-- `committed_date`: Date the commit was _committed_.
-- `committer_login` : Username of the commit's committer.
+- `author_date`: Date the commit was _authored_ (originally written).
+- `author_login`: Username of the author (who originally wrote the commit).
+- `committed_date`: Date the commit was _committed_. You probably want to use the author fields above rather than these commit fields but they are provided anyway.
+- `committer_login`: Username of the commit's committer.
 - `changed_files`: Number of files changed.
 - `additions`: Number of lines added.
 - `deletions`: Number of lines removed.
 - `message`: Commit message.
+
+A futher note on _author_ vs _committer_ for a commit - details for shown in the report output for both, for the most flexibility. They are usually the same person, but sometimes one username can be different or one can be be missing. In the case of a merged Pull Request, both login fields can be blank, though there is still a date repeated in both date columns.
 
 An explanation from the [commit history](https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History) part of the _git_ docs:
 
