@@ -2,12 +2,11 @@
 """
 Repo commit counts - report application.
 
-Generate a report of commit counts for all repos owned by a given user and write
-out to a CSV. Only the default branch of each repo is used. An optional cutoff
-start date may be specified.
+Generate a report which shows all repos under an owner and a total commit count
+against each, using the default branch. Optionally exclude commits after a given
+start date.
 
-Request are done using GQL query which supports paging and contains repo commits
-and iterates over all the pages.
+This script uses paging to get each page of repos.
 """
 import math
 import sys
