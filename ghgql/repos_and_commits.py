@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Repos and commits report.
 
@@ -10,7 +11,9 @@ to build up a list of repos to query and using paging and a cursor for each to
 get their commits. When there is nothing to get from a repo, it falls away and
 can be replaced by another. Note that the total number of repos should not be so
 high that the request fails. Querying 100 repos (and 100 commits each) is very
-likely to fail based on tests, therefore a lower count is used.
+likely to fail based on tests, therefore a lower count is used. If efficiency
+is not important, rather use the Repos About query's list of repo names and then
+run a report against each repo sequentially.
 
 Jinja templating is used to build up the GQL query neatly.
 
@@ -56,8 +59,6 @@ def process_results(results):
     :return output_data:
     """
     rate_limit = results.pop('rateLimit')
-
-    next_repos = []
 
     # TODO: Clear a repo when it has been finished and write to disc, so that
     # is known in the CSV to the last success.

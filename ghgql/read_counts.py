@@ -1,7 +1,7 @@
 """
 Read counts script.
 
-Read the existing CSV of repos and counts and return data.
+Read the existing CSV of repo counts and return data.
 """
 import lib
 
