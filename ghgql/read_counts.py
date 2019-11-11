@@ -1,7 +1,10 @@
 """
 Read counts script.
 
-Read the existing CSV of repo counts and return data.
+Read the existing CSV of repo counts and return.
+
+If this script is run alone, the contents of the CSV is printed out with some
+pretty formatting.
 """
 import lib
 
