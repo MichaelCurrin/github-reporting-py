@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Repo commits from config report application.
+Report generator - repo commits from config.
 """
 import argparse
 import datetime
@@ -68,7 +68,14 @@ def main():
     owner, repo_names, start_date = report_config()
 
     if args.dry_run:
-        print(lib.text.prettify((owner, repo_names, start_date)))
+        pretty_text = lib.text.prettify(
+            dict(
+                owner=owner,
+                repo_names=repo_names,
+                start_date=start_date
+            )
+        )
+        print(pretty_text)
     else:
         commits_to_csv(
             owner,
