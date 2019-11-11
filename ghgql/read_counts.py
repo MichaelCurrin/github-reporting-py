@@ -11,10 +11,10 @@ import lib
 
 def read(start=None):
     """
-    Read CSV, order by date, parse date then return.
+    Read CSV, order by oldest first, parse last committed date then return.
 
-    If start is set datetime.date object, then filter results to only that date
-    or after.
+    If start is set with a datetime.date object, then filter results to only
+    that date or after.
 
     Remove any rows for empty repos.
     """
@@ -38,6 +38,9 @@ def read(start=None):
 
 
 def repo_names(start=None):
+    """
+    Return a list of repo names extracted from the input CSV.
+    """
     repos_summary = read(start)
 
     owner_name = repos_summary[0]['owner_name']
@@ -47,7 +50,7 @@ def repo_names(start=None):
 
 def test():
     """
-    Read CSV and print as a report followed by a total count of repos.
+    Test the read and repo_names functions.
     """
     rows = read()
     print(f"Total: {len(rows)}")
