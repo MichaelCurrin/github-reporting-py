@@ -80,7 +80,7 @@ The following fields are in the headers of the commit repos:
 - `deletions`: Number of lines removed.
 - `message`: Commit message.
 
-A futher note on _author_ vs _committer_ for a commit - details for shown in the report output for both, for the most flexibility. They are usually the same person, but sometimes one username can be different or one can be be missing. In the case of a merged Pull Request, both login fields can be blank, though there is still a date repeated in both date columns.
+A further note on _author_ vs _committer_ for a commit - details for shown in the report output for both, for the most flexibility. They are usually the same person, but sometimes one username can be different or one can be be missing. In the case of a merged Pull Request, both login fields can be blank, though there is still a date repeated in both date columns.
 
 An explanation from the [commit history](https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History) part of the _git_ docs:
 
