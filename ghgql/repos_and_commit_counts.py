@@ -20,9 +20,9 @@ QUERY_PATH = 'queries/repos/repos_and_commit_counts.gql'
 
 
 @lib.text.print_args_on_error
-def format_repo(repo):
+def format_repo(repo) -> dict:
     """
-    Format summary repo data and return as dict.
+    Format summary repo data and return as key-value pairs,
     """
     branch = repo.get('defaultBranch')
 
@@ -54,14 +54,14 @@ def format_repo(repo):
     )
 
 
-def get_repos_and_commit_counts(path, variables):
+def get_repos_and_commit_counts(path, variables) -> list:
     """
     Get commit counts for all repos owned by an account.
 
-    :return: dict
+    :return out_repos: list where each item contains a dict of repo info.
     """
     print("Fetching repos and commit counts")
-    repo_data = []
+    out_repos = []
 
     count = 0
     while True:
@@ -69,26 +69,26 @@ def get_repos_and_commit_counts(path, variables):
         print(f"Query #{count}")
 
         resp_data = lib.query_by_filename(path, variables)
-        repositories = resp_data['repositoryOwner']['repositories']
+        fetched_repos = resp_data['repositoryOwner']['repositories']
 
         if count == 1:
-            grand_total = repositories['totalCount']
+            grand_total = fetched_repos['totalCount']
             print("Completed first page.")
             print("Data to fetch:")
             print(f" - repos: {grand_total:,d}")
             print(f" - pages: {math.ceil(grand_total/ITEMS_PER_PAGE):,d}")
 
-        for repo in repositories['nodes']:
+        for repo in fetched_repos['nodes']:
             formatted_repo_data = format_repo(repo)
-            repo_data.append(formatted_repo_data)
+            out_repos.append(formatted_repo_data)
 
-        repo_page_info = repositories['pageInfo']
+        repo_page_info = fetched_repos['pageInfo']
         if repo_page_info['hasNextPage']:
             variables['cursor'] = repo_page_info['endCursor']
         else:
             break
 
-    return repo_data
+    return out_repos
 
 
 def counts_report(variables):
