@@ -47,7 +47,7 @@ def repo_names(start=None):
 
 def test():
     """
-    Read CSV and print prettified data as key-value pairs for each row.
+    Read CSV and print as a report followed by a total count of repos.
     """
     rows = read()
     print(f"Total: {len(rows)}")
