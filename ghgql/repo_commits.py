@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Repo commits application.
+Report commits of a repo.
 
 Fetch all commits for a single given repo using page. Takes an optional start
 date.

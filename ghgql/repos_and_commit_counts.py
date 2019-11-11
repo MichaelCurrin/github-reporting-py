@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Repo commit counts - report application.
+Commit counts for repos - report application.
 
 Generate a report which shows all repos under an owner and a total commit count
 against each, using the default branch. Optionally exclude commits after a given

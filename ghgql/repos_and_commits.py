@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """
-Repos and commits report.
+Report for commits of repos.
+
+NOTE: This is an experimental script that has performance issues.
 
 For a given repo owner and option start data, get all commits for all repos
 under that the owner.

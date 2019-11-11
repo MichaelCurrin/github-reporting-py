@@ -1,5 +1,5 @@
 """
-Repos recent commits.
+Report for recent commits of repos.
 """
 import sys
 

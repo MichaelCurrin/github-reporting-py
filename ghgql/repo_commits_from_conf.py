@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Repo commits from config - report application.
+Report of commits from configured repo names.
 
 Generate a repo commit report using configured values including the owner name
 and one or more repos. This script cannot pickup repos dynamically.
