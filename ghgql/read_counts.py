@@ -46,6 +46,9 @@ def repo_names(start=None):
 
 
 def test():
+    """
+    Read CSV and print prettified data as key-value pairs for each row.
+    """
     rows = read()
     print(f"Total: {len(rows)}")
     print()
