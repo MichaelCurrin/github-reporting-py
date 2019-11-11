@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 """
-Repo commit counts report application.
+Repo commit counts - report application.
 
-Process a query which supports paging and contains repo commits and iterates
-over all the pages. Get all repos owned by user and the count of commits
-on the default branch in each repo. An optional start date cutoff may be
-specified.
+Generate a report of commit counts for all repos owned by a given user and write
+out to a CSV. Only the default branch of each repo is used. An optional cutoff
+start date may be specified.
 
-The data is formatted and written out to a CSV report.
+Request are done using GQL query which supports paging and contains repo commits
+and iterates over all the pages.
 """
 import math
 import sys
@@ -39,7 +39,8 @@ def format_repo(repo):
 
         if total_commits:
             latest_commit = history['nodes'][0]
-            last_committed_date = lib.time.as_date(latest_commit['committedDate'])
+            last_committed_date = lib.time.as_date(
+                latest_commit['committedDate'])
             # TODO: Check this.
             last_commit_msg_subject = latest_commit['message'].split("\n")[0]
 
