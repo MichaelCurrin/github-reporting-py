@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 """
-Report generator - repo commits from config.
+Repo commits from config.
+
+Generate a repo commit report using configured values including the owner name
+and one or more repos. This script cannot pickup repos dynamically.
 """
 import argparse
 import datetime
