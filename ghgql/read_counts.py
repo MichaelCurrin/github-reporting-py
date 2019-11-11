@@ -39,7 +39,7 @@ def read(start=None):
 
 def repo_names(start=None):
     """
-    Return a list of repo names extracted from the input CSV.
+    Return CSV data as owner name and list of repo names.
     """
     repos_summary = read(start)
 
