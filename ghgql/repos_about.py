@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-About repos application.
+About repos report application.
 
 Get the metadata for a repos of a given login and print.
 
