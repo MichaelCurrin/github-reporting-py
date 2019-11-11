@@ -2,7 +2,8 @@
 """
 Repo commits application.
 
-Fetch commits for a given repo and optional start date.
+Fetch all commits for a single given repo using page. Takes an optional start
+date.
 """
 import argparse
 import datetime
