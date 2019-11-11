@@ -50,7 +50,7 @@ def test():
     print(f"Latest {preview}")
     for row in rows[-1*preview:]:
         for k, v in row.items():
-            print(f"{k:20}: {v}")
+            print(f"{k:23}: {v}")
         print()
 
     print('repo_names')
