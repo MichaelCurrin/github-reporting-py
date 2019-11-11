@@ -136,13 +136,13 @@ For example:
         - twitterverse
     ```
 
-Run the report, with no arguments.
+Run the report script without arguments.
 
 ```bash
-$ ./repo_commits_from_conf.py
+$ ./repos_commits_from_conf.py
 ```
 
-Open the report.
+Open the CSV report.
 
 To change the report output, update and save the config then rerun the report.
 
