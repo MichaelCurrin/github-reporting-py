@@ -57,3 +57,5 @@ See the following guides so you can use this project to generate some reports fo
 - [Installation](/docs/installation.md) - Setup project environment and configs.
 - [Usage](/docs/usage.md) - Run scripts to generate reports.
 - [Datasources](/docs/datasources.md) - Info and links around APIs.
+
+See also Github's resources and samples for running GraphQL queries - [platform-samples](https://github.com/github/platform-samples/tree/master/graphql).
