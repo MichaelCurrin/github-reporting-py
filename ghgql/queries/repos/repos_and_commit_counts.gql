@@ -2,8 +2,8 @@
 #
 # Page through repos by most recent first.
 # Get a count of commits and show the latest commit's details.
-# This includes contributions to other user's repos, so owner login is included
-# in the results to.
+# This includes contributions to other user's repos, so the owner login is included
+# in the results too.
 query RepoCommitCountsPaged($owner: String!, $since: GitTimestamp, $isFork: Boolean, $cursor: String) {
     repositoryOwner(login: $owner) {
         repositories(first: 100, isFork: $isFork, after: $cursor, orderBy: { field: PUSHED_AT, direction: DESC }) {
