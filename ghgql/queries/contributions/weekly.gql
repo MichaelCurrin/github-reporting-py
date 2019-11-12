@@ -1,0 +1,34 @@
+# Get Github contribution activity broken down by week, for the past few years.
+#
+# TODO: Expect parameters for year ranges, then use it to build up first, second, third etc. Unfortunately the number of fragments is fixed, without templating.
+fragment weekStats on ContributionsCollection {
+	totalCommitContributions
+	contributionCalendar {
+		weeks {
+			contributionDays {
+				date
+				contributionCount
+			}
+		}
+	}
+}
+
+{
+	viewer {
+		_2015: contributionsCollection(from: "2015-01-01T00:00:00", to: "2016-01-01T00:00:00") {
+			...weekStats
+		}
+		_2016: contributionsCollection(from: "2016-01-01T00:00:00", to: "2017-01-01T00:00:00") {
+			...weekStats
+		}
+		_2017: contributionsCollection(from: "2017-01-01T00:00:00", to: "2018-01-01T00:00:00") {
+			...weekStats
+		}
+		_2018: contributionsCollection(from: "2018-01-01T00:00:00", to: "2019-01-01T00:00:00") {
+			...weekStats
+		}
+		_2019: contributionsCollection(from: "2019-01-01T00:00:00", to: "2020-01-01T00:00:00") {
+			...weekStats
+		}
+	}
+}
