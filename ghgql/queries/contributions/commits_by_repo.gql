@@ -1,0 +1,18 @@
+# Get contributions of a user, broken down by repo.
+{
+	viewer {
+		contributionsCollection() {
+			commitContributionsByRepository {
+				contributions(first: 100) {
+					nodes {
+						occurredAt
+						commitCount
+					}
+				}
+				repository {
+					nameWithOwner
+				}
+			}
+		}
+	}
+}
