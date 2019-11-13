@@ -1,5 +1,7 @@
 # Get Github contribution activity broken down by week, for the past few years.
 #
+# Note that this will include weeks which have not happened yet but just includes zeroes.
+#
 # TODO: Expect parameters for year ranges, then use it to build up first, second, third etc. Unfortunately the number of fragments is fixed, without templating.
 fragment weekStats on ContributionsCollection {
 	totalCommitContributions
