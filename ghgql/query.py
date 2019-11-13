@@ -1,9 +1,13 @@
+#!/usr/bin/env python
 """
 Query application.
 
-Generic script to do a query against Github API using a given query's filepath.
-The result will be pretty printed. Note that even if the query handles paging,
-this script will only get the first page.
+Generic script to do a query against Github API using a given query's filepath
+and optionally send a data payload using key-value pairs provided. The result
+will be pretty printed as JSON, without any processing.
+
+Note that even if the query handles paging, this script will only get the first
+page.
 """
 import sys
 
@@ -15,11 +19,12 @@ def main(args):
     Main command-line function.
     """
     if not args or set(args).intersection({'-h', '--help'}):
-        lib.text.eprint(f"Usage: {__file__} QUERY_PATH [KEY VALUE[,KEY VALUE,...]]")
-        lib.text.eprint("QUERY_PATH: Path to file containing query e.g. queries/commits.gql")
+        script_path = f"./{__file__}" if not __file__.startswith('./') else __file__
+        lib.text.eprint(f"Usage: {script_path} QUERY_PATH [KEY VALUE[,KEY VALUE,...]]\n")
+        lib.text.eprint("QUERY_PATH: Path to file containing query e.g. queries/user/user_me.gql\n")
         lib.text.eprint(
             "For parametized/dynamic queries, provide an optional list of\n"
-            "key-value pairs, separated by a space.\n"
+            "key-value pairs, with spaces between pairs and within pairs.\n"
             ' e.g. to send {"owner": "abc", "repo": "xyz 1"} in the variables, use\n'
             "   QUERY_PATH owner abc repo 'xyz 1'"
         )
