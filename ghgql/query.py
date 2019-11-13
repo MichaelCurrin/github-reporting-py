@@ -1,9 +1,9 @@
 """
 Query application.
 
-Dynamically select a query using a filepath, send as a request to Github
-and pretty print the results. Only a single request will be done, as
-this does not handle queries which use paging.
+Generic script to do a query against Github API using a given query's filepath.
+The result will be pretty printed. Note that even if the query handles paging,
+this script will only get the first page.
 """
 import sys
 
