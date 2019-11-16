@@ -2,6 +2,14 @@
 
 Follow in the instructions in this section to run the scripts in this project.
 
+**Table of contents**
+
+- [Activate environment](#activate-environment)
+- [Demos reports](#demo-reports) - A few simple scripts.
+- [Repo summary reports](#repo-summary-reports) - Get metadata about reports or counts of commits.
+- [Commit reports](#commit-reports) - Get the _git_ commit history across multiple repos and to see how your organization or team members contribute.
+
+
 ## Activate environment
 
 Activate the virtual environment and navigate to the app directory.
@@ -15,7 +23,7 @@ $ cd ghgql
 Note: If you use the _VS Code_ IDE and open a terminal _after_ the Python Extension has loaded, this will be done for you because of the configs that come with this project.
 
 
-## Demos reports
+## Demo reports
 
 Run the simple demo scripts, which take no inputs or configs (other than access token). They showcase querying the GraphQL and printing the JSON responses to the screen.
 
@@ -149,7 +157,7 @@ To change the report output, update and save the config then rerun the report.
 
 ### Experimental scripts
 
-Run the [query.py](/ghgql/query.py) script along with the path of target queries form the [queries](/ghgql/queries) directory.
+Run the `ghgql/query.py` script along with the path of target queries form the `ghgql/queries` directory.
 
 You can view the query text first, to see what variables are needed. As you will get an API error printed to the console if you omit a required variable.
 
