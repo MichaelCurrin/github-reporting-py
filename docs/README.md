@@ -15,7 +15,7 @@ If you came here just to look at GraphQL queries that get data from Github, see 
 
 If you want to download the results as text or CSV files or automate the requests for many pages of data, then follow the [documentation](#documentation) section below to setup the project then run the command-line Python scripts which generate the reports. The scripts use the GQL queries internally.
 
-Why _GraphQL_ and not the _REST_ API? This project arose because of speed and rate limit issues with using _REST_ API for large volumes of commit data for _Github_. But, the _GraphQL_ API is about **100 times faster**, in many cases such as getting a page of 100 commits rather than one commit from the REST API commit endpoint. See the Datasources doc's [GraphQL benefits](/docs/datasources.md#graphql-benefits) section for more details.
+Why _GraphQL_ and not the _REST_ API? This project arose because of speed and rate limit issues with using _REST_ API for large volumes of commit data for _Github_. But, the _GraphQL_ API is about **100 times faster**, in many cases such as getting a page of 100 commits rather than one commit from the REST API commit endpoint. See the Datasources doc's [GraphQL benefits](/datasources.md#graphql-benefits) section for more details.
 
 ### GraphQL + Python reference
 
@@ -35,9 +35,9 @@ The response data is parsed and then printed on the screen or written to CSV rep
 
 Here is an outline of the report scripts available in this project, with links to them in usage document.
 
-- [Demos reports](/docs/usage.md#demo-reports) - A few simple scripts.
-- [Repo summary reports](/docs/usage.md#repo-summary-reports) - Get metadata about reports or counts of commits.
-- [Commit reports](/docs/usage.md#commit-reports) - Get the _git_ commit history across multiple repos and to see how your organization or team members contribute.
+- [Demos reports](/usage.md#demo-reports) - A few simple scripts.
+- [Repo summary reports](/usage.md#repo-summary-reports) - Get metadata about reports or counts of commits.
+- [Commit reports](/usage.md#commit-reports) - Get the _git_ commit history across multiple repos and to see how your organization or team members contribute.
 
 
 ## Project requirements
@@ -54,8 +54,8 @@ You need the following to run this project:
 
 See the following guides so you can use this project to generate some reports for yourself on users or repos you are interested in. Note that these only cover the case of a Unix-style environment.
 
-- [Installation](/docs/installation.md) - Setup project environment and configs.
-- [Usage](/docs/usage.md) - Run scripts to generate reports.
-- [Datasources](/docs/datasources.md) - Info and links around APIs.
+- [Installation](/installation.md) - Setup project environment and configs.
+- [Usage](/usage.md) - Run scripts to generate reports.
+- [Datasources](/datasources.md) - Info and links around APIs.
 
 See also Github's resources and samples for running GraphQL queries - [platform-samples](https://github.com/github/platform-samples/tree/master/graphql).
