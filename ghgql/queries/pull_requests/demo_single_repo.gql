@@ -1,0 +1,53 @@
+{
+	repository(owner: "MichaelCurrin", name: "Twitterverse") {
+		pullRequests(first: 3) {
+			nodes {
+				number
+				title
+				body
+
+				updatedAt
+				createdAt
+
+				additions
+				deletions
+				changedFiles
+
+				firstCommit: commits(first: 1) {
+					nodes {
+						commit {
+							message
+
+                            committedDate
+                            committer {
+                                name
+                            }
+
+							authoredDate
+							author {
+								name
+							}
+						}
+					}
+				}
+				lastCommit: commits(last: 1) {
+					nodes {
+						commit {
+							message
+
+                            committedDate
+                            committer {
+                                name
+                            }
+
+							authoredDate
+							author {
+								name
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

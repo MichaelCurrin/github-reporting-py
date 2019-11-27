@@ -1,0 +1,51 @@
+{
+	repositoryOwner(login: "MichaelCurrin") {
+		repositories(first: 10, orderBy: { field: UPDATED_AT, direction: DESC }) {
+			nodes {
+				name
+				updatedAt
+
+				pullRequests(first: 5, orderBy: { field: UPDATED_AT, direction: DESC }) {
+					nodes {
+						number
+						title
+                        # From branch.
+						headRefName
+                        # To branch.
+						baseRefName
+
+                        state
+						closed
+
+						updatedAt
+						createdAt
+
+						author {
+							login
+						}
+						assignees(first: 100) {
+							nodes {
+								name
+							}
+						}
+
+						labels {
+							nodes {
+								name
+							}
+						}
+
+						mergeCommit {
+							oid
+							message
+							authoredDate
+						}
+						mergedBy {
+							login
+						}
+					}
+				}
+			}
+		}
+	}
+}
