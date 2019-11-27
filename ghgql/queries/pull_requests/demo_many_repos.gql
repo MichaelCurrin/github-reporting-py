@@ -23,13 +23,13 @@
 						author {
 							login
 						}
-						assignees(first: 100) {
+						assignees (first: 100) {
 							nodes {
 								name
 							}
 						}
 
-						labels {
+						labels (first: 100) {
 							nodes {
 								name
 							}
