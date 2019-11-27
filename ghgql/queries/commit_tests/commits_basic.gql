@@ -11,6 +11,7 @@ query CommitsBasicPaged($cursor: String) {
 		name
 		defaultBranchRef {
 			name
+			# You can't get commits directly, so use target and then from a choice of objects choose Commit.
 			target {
 				... on Commit {
 					# The hashed value seems repeated throughout the cursor results, except
