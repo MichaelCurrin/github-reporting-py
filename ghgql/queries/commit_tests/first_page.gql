@@ -2,34 +2,34 @@
 # The target repo is fixed.
 # The after parameter is not used so the output is limited.
 query {
-  repository(owner: "michaelcurrin", name: "aggre-git") {
-    name
-    owner {
-      login
-    }
-    defaultBranchRef {
-      name
-      target {
-        ... on Commit {
-          history(first: 3) {
-            edges {
-              node {
-                abbreviatedOid
-                committedDate
-                committer {
-                  user {
-                    login
-                  }
-                }
-                changedFiles
-                additions
-                deletions
-                message
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+	repository(owner: "michaelcurrin", name: "aggre-git") {
+		name
+		owner {
+			login
+		}
+		defaultBranchRef {
+			name
+			target {
+				... on Commit {
+					history(first: 3) {
+						edges {
+							node {
+								abbreviatedOid
+								committedDate
+								committer {
+									user {
+										login
+									}
+								}
+								changedFiles
+								additions
+								deletions
+								message
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }

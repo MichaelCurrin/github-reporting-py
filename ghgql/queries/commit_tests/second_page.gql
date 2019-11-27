@@ -2,32 +2,32 @@
 # The target repo is fixed.
 # Get the second page of commits, using the after paramter.
 {
-  repository(owner: "michaelcurrin", name: "aggre-git") {
-    name
-    owner {
-      login
-    }
-    defaultBranchRef {
-      name
-      target {
-        ... on Commit {
-          # The hashed value is repeated throughout the cursor results, except
-          # there is an index number at the end after the space which changes.
-          history(first: 3, after: "5c8a8566c0bc6b2d42991cf3e1034773e37aabe2 2") {
-            totalCount
-            edges {
-              node {
-                message
-              }
-              cursor
-            }
-            pageInfo {
-              endCursor
-              hasNextPage
-            }
-          }
-        }
-      }
-    }
-  }
+	repository(owner: "michaelcurrin", name: "aggre-git") {
+		name
+		owner {
+			login
+		}
+		defaultBranchRef {
+			name
+			target {
+				... on Commit {
+					# The hashed value is repeated throughout the cursor results, except
+					# there is an index number at the end after the space which changes.
+					history(first: 3, after: "5c8a8566c0bc6b2d42991cf3e1034773e37aabe2 2") {
+						totalCount
+						edges {
+							node {
+								message
+							}
+							cursor
+						}
+						pageInfo {
+							endCursor
+							hasNextPage
+						}
+					}
+				}
+			}
+		}
+	}
 }
