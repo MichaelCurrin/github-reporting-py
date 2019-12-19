@@ -2,17 +2,17 @@
 
 Follow in the instructions in this section to run the scripts in this project.
 
-**Table of contents**
+**Reports**
 
-- [Activate environment](#activate-environment)
-- [Demos reports](#demo-reports) - A few simple scripts.
-- [Repo summary reports](#repo-summary-reports) - Get metadata about reports or counts of commits.
-- [Commit reports](#commit-reports) - Get the _git_ commit history across multiple repos and to see how your organization or team members contribute.
+- [Demo reports](#demo-reports) - A few simple scripts which demonstrate how doing queries and processing results work. The content of the results is of limited value.
+- [Query runner](#query-runner) - Run arbitrary GQL queries (with paging and variables) then view or store the output.
+- [CSV Reports](#csv-reports)
+    - [Repo summary reports](#repo-summary-reports) - Get metadata about reports or counts of commits.
+    - [Commit reports](#commit-reports) - Get the _git_ commit history across multiple repos and to see how your organization or team members contribute.
 
+## Environment
 
-## Activate environment
-
-Activate the virtual environment and navigate to the app directory.
+Before running scripts in the usage guide, activate the virtual environment then navigate to the app directory.
 
 ```bash
 $ cd <PATH/TO/REPO>
@@ -25,7 +25,7 @@ Note: If you use the _VS Code_ IDE and open a terminal _after_ the Python Extens
 
 ## Demo reports
 
-Run the simple demo scripts, which take no inputs or configs (other than access token). They showcase querying the GraphQL and printing the JSON responses to the screen.
+Run the simple demo scripts, which take no inputs or configs (other than the access token). These showcase querying the GraphQL and printing the JSON responses to the screen.
 
 These are not that useful for reporting, but their code is mostly self-contained so it is easy to understand how the API works in a single script or function.
 
@@ -42,7 +42,46 @@ These are not that useful for reporting, but their code is mostly self-contained
     $ python -m demo.paginate
     ```
 
-## Main reports
+## Query runner
+
+This project allows you to use execute arbitrary GQL queries using a Python script, the path to the query and the configured Github credentials.
+
+The result of the GQL output will be printed to the console as pretty JSON - this can be redirected to a file somewhere to store the data. The main limitation here is that the script does not understand the structure of the queries or results, so therefore the results cannot be converted to CSV output.
+
+Here are are advantages of this approach over using the GQL explorer in the browser:
+
+- Easily run a new or modified query which is in the repo. No need to copy and paste queries.
+- Easily change variables for the query. No without worrying about JSON syntax. Also, dates are converted to proper Github datetime types.
+- Get the results outputted to the console.
+- Optionally store results as a file.
+- Paging is handled internally. This helps process results where there are more than 100 items per page.
+
+### How to run
+
+Instructions are covered below for how to do this with the `ghgql/query.py`. The file path would usually be to a `.gql` file in the `ghgql/queries` directory, though it can point to anywhere.
+
+See the script's instructions.
+
+```bash
+$ ./query.py --help
+```
+
+### Examples
+
+Example with no variables, storing as a file.
+
+```bash
+$ ./query.py queries/commits/first_page.gql > var/my_report.json
+```
+
+Example with variables provided as key-value pairs, separated by spaces. Just print the results to the console.
+
+```bash
+$ ./query.py queries/commits/parametized.gql owner michaelcurrin name twitterverse
+```
+
+
+## CSV Reports
 
 This is the main purpose of this project is to produce CSV reports about repos. The reports are saved to the [var](/ghgql/var) directory. A filename will be shown in the printed output.
 
@@ -153,34 +192,3 @@ $ ./repos_commits_from_conf.py
 Open the CSV report.
 
 To change the report output, update and save the config then rerun the report.
-
-
-### Experimental scripts
-
-Run the `ghgql/query.py` script along with the path of target queries form the `ghgql/queries` directory.
-
-You can view the query text first, to see what variables are needed. As you will get an API error printed to the console if you omit a required variable.
-
-The output will be printed to the console.
-
-#### Static
-
-Run a GraphQL query by filename. Choose a static one, that always gives the same output as it has no variables.
-
-Example:
-
-```bash
-$ python query.py queries/commits/first_page.gql
-```
-
-#### Dynamic
-
-Run a specific query that needs variables. Provide key-value pairs separated by spaces.
-
-Example:
-
-```bash
-$ python query.py queries/commits/parametized.gql owner michaelcurrin name twitterverse
-```
-
-Since the API allows a max of 100 items on page, paginate through the pages of results. The "after" indicator for the next page is added internally to the variables sent in the payload, so paging will happen automatically.

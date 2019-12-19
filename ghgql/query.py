@@ -19,14 +19,30 @@ def main(args):
     Main command-line function.
     """
     if not args or set(args).intersection({'-h', '--help'}):
-        script_path = f"./{__file__}" if not __file__.startswith('./') else __file__
-        lib.text.eprint(f"Usage: {script_path} QUERY_PATH [KEY VALUE[,KEY VALUE,...]]\n")
-        lib.text.eprint("QUERY_PATH: Path to file containing query e.g. queries/user/user_me.gql\n")
+        script_path = f"./{__file__}" if not __file__.startswith(
+            './') else __file__
         lib.text.eprint(
-            "For parametized/dynamic queries, provide an optional list of\n"
-            "key-value pairs, with spaces between pairs and within pairs.\n"
-            ' e.g. to send {"owner": "abc", "repo": "xyz 1"} in the variables, use\n'
-            "   QUERY_PATH owner abc repo 'xyz 1'"
+            f"Usage: {script_path} QUERY_PATH [KEY VALUE[,KEY VALUE,...]]\n"
+            "\nDo a query to the Github GraphQL API using path to query,"
+            " plus optional variables\n"
+        )
+
+        lib.text.eprint(
+            "QUERY_PATH: Path to file containing query. This can be anywhere but is typically\n"
+            "            from the project's query directory. e.g. queries/user/user_me.gql\n"
+        )
+        lib.text.eprint(
+            "KEY VALUE:  For parametized/dynamic queries, provide an optional list of\n"
+            "            key-value pairs, with spaces between pairs and within pairs.\n"
+            '            e.g. to send {"owner": "abc", "repo": "xyz 1"} in the variables, use\n'
+            "            QUERY_PATH owner abc repo 'xyz 1'"
+        )
+        lib.text.eprint(
+            "\n\nSince the API allows a max of 100 items on page, the script will"
+            '\npaginate through the pages of results. The "after" indicator for '
+            "\nthe next page is added internally to the variables sent in the"
+            "\npayload, so paging will happen automatically."
+            "\n"
         )
         sys.exit(1)
 
