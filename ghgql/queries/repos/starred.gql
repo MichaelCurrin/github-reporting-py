@@ -11,12 +11,14 @@ query StarredRepos($cursor: String) {
 				endCursor
 			}
 			nodes {
+				owner {
+					login
+				}
 				name
-				nameWithOwner
 				description: shortDescriptionHTML
 				homepageUrl
-				updatedAt
 				createdAt
+				updatedAt
 				latestRelease: releases(first: 1) {
 					nodes {
 						tagName
