@@ -59,12 +59,14 @@ def fetch_github_data(query, variables=None):
                 print(f"Writing payload to: {ERROR_PAYLOAD_PATH}")
                 write_file(payload, ERROR_PAYLOAD_PATH)
                 message = text.prettify(errors)
-                raise ValueError(f"Error requesting Github. Errors:\n{message}")
+                raise ValueError(
+                    f"Error requesting Github. Errors:\n{message}")
 
             data = resp.get('data', None)
             if data is None:
                 message = text.prettify(resp)
-                raise ValueError(f"Error requesting Github. Details:\n{message}")
+                raise ValueError(
+                    f"Error requesting Github. Details:\n{message}")
         except ValueError as e:
             text.eprint(f"Requested failed - attempt #{i+1}/{MAX_ATTEMPTS}")
             if i+1 == MAX_ATTEMPTS:
@@ -163,7 +165,8 @@ def process_variables(args):
     """
     if args:
         if len(args) % 2:
-            raise ValueError(f'Incomplete key-value pairs provided: {" ".join(args)}')
+            raise ValueError(
+                f'Incomplete key-value pairs provided: {" ".join(args)}')
         variables = dict(zip(args[::2], args[1::2]))
 
         # TODO: Make this clear that you use start and it becomes since.
@@ -177,7 +180,7 @@ def process_variables(args):
 
         return variables
 
-    return None
+    return {}
 
 
 def process_args(args):
