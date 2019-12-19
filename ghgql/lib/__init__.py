@@ -20,6 +20,7 @@ VAR_DIR = APP_DIR / 'var'
 
 COUNTS_CSV_PATH = VAR_DIR / 'counts.csv'
 COUNTS_CSV_PATH_TODAY = VAR_DIR / f'counts-{datetime.date.today()}.csv'
+STARRED_CSV_PATH = VAR_DIR / 'starred.csv'
 
 ERROR_QUERY_PATH = VAR_DIR / 'error_query.gql'
 ERROR_PAYLOAD_PATH = VAR_DIR / 'error_payload.gql'
@@ -191,3 +192,10 @@ def process_args(args):
     variables = process_variables(args)
 
     return path, variables
+
+
+def to_archive_url(owner, repo_name, branch):
+    """
+    Return URL for downloading given repo as zip file.
+    """
+    return f"https://github.com/{owner}/{repo_name}/archive/{branch}.zip"
