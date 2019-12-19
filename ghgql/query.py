@@ -37,14 +37,9 @@ def main(args):
             "            key-value pairs, with spaces between pairs and within pairs.\n\n"
             '            To send {"owner": "abc", "repo": "xyz 1"} in the variables,\n'
             "            provide variables as\n"
-            "               owner abc repo 'xyz 1'"
-        )
-        lib.text.eprint(
-            "\nSince the API allows a max of 100 items on page, the script will"
-            '\npaginate through the pages of results. The "after" indicator for '
-            "\nthe next page is added internally to the variables sent in the"
-            "\npayload, so paging will happen automatically."
-            "\n"
+            "               owner abc repo 'xyz 1'\n"
+            "            See the top of the query file to see what variables\n"
+            "            are required and optional."
         )
         sys.exit(1)
 

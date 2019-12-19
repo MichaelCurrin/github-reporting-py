@@ -21,6 +21,13 @@ $ cd ghgql
 
 Note: If you use the _VS Code_ IDE and open a terminal _after_ the Python Extension has loaded, this will be done for you because of the configs that come with this project.
 
+## Paging note
+
+Note that for API results, Github usually limits the page to have up to 100 items (such as repos or users). This is adjusted with the `first` variable. To next beyond the first page, using the `after` variable with a cursor value.
+
+For some queries in this project, this is not handled at all, or requires a manually set cursor.
+
+However, some parts of this project handled this automatically. Such as the the repo and commit reports, where you just input the data you need (with optional date range to make it quicker) and the script will get all pages of data available before writing to a CSV.
 
 ## Demo reports
 
