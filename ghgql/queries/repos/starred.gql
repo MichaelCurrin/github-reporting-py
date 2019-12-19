@@ -1,0 +1,35 @@
+# Get starred repos of the current user.
+#
+# Allows paging.
+#
+query StarredRepos($cursor: String) {
+	viewer {
+		starredRepositories(first: 100, after: $cursor) {
+			totalCount
+			pageInfo {
+				hasNextPage
+				endCursor
+			}
+			nodes {
+				name
+				nameWithOwner
+				description: shortDescriptionHTML
+				homepageUrl
+				updatedAt
+				createdAt
+				latestRelease: releases(first: 1) {
+					nodes {
+						tagName
+						createdAt
+					}
+				}
+				branch: defaultBranchRef {
+					name
+				}
+				url
+				sshUrl
+				forkCount
+			}
+		}
+	}
+}
