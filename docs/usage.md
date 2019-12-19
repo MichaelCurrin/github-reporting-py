@@ -3,9 +3,8 @@
 Follow in the instructions in this section to run the scripts in this project.
 
 **Reports**
-
 - [Demo reports](#demo-reports) - A few simple scripts which demonstrate how doing queries and processing results work. The content of the results is of limited value.
-- [Query runner](#query-runner) - Run arbitrary GQL queries (with paging and variables) then view or store the output.
+- [Query runner](#query-runner) - Run arbitrary GQL queries with variables then view or store the output.
 - [CSV Reports](#csv-reports)
     - [Repo summary reports](#repo-summary-reports) - Get metadata about reports or counts of commits.
     - [Commit reports](#commit-reports) - Get the _git_ commit history across multiple repos and to see how your organization or team members contribute.
@@ -54,7 +53,8 @@ Here are are advantages of this approach over using the GQL explorer in the brow
 - Easily change variables for the query. No without worrying about JSON syntax. Also, dates are converted to proper Github datetime types.
 - Get the results outputted to the console.
 - Optionally store results as a file.
-- Paging is handled internally. This helps process results where there are more than 100 items per page.
+
+A page cursor can be passed on the command-line. For future development, extend this to handle multiple pages automatically. See Github [issue #5](https://github.com/MichaelCurrin/github-graphql-tool/issues/5).
 
 ### How to run
 
