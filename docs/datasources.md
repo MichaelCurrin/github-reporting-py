@@ -2,28 +2,32 @@
 
 Information and links around Github datasources.
 
-## Links
-
-- [REST API](https://www.restapitutorial.com/) - tutorial.
-- [GraphQL](https://graphql.org/) - website with tutorials.
-- [Github's GraphQL explorer](https://developer.github.com/v4/) - edit and run queries against live data, in the browser.
-- [Github GraphQL resource limitations](https://developer.github.com/v4/guides/resource-limitations/)
-    * > Individual calls cannot request more than 500,000 total nodes.
-
-
 ## Github APIs
 
 [Github](https://github.com) hosts code for developers and organizations and makes the code and history available through APIs. Here are Github's two latest ones:
 
-- Version 3: REST API
-- Version 4: GraphQL API
+- **V3 REST API**
+    - API URL: `api.github.com/` - do GET requests against the endpoints here. e.g. `GET /repos/octokit/octokit.rb`.
+    - [V3 Docs](https://developer.github.com/v3/)
+- **V4 GraphQL API**
+    - API URL: `api.github.com/graphql` - do POST requests against this single endpoint.
+    - [Explorer](https://developer.github.com/v4/explorer/) - edit and run queries against live data, in the browser. Requires you to sign in.
+    - [V4 Docs](https://developer.github.com/v4/)
+    - [Resource limitations](https://developer.github.com/v4/guides/resource-limitations/)
+        * > Individual calls cannot request more than 500,000 total nodes.
 
-This project explores using the GraphQL API for reporting purposes, in particular because GraphQL is more modern and requires far fewer requests to get the same data.
+This project explores using the GraphQL API for reporting purposes, in particular since the GraphQL one is more modern and efficient (it usually requires far fewer requests to get the same data and you do not overfetch on fields you don't need).
 
 You can use _curl_ or a library like Python _requests_ to do command-line requests to the API.
 
 For easy debugging, autocompletion and exploring of the schema, use the [GraphQL explorer](https://developer.github.com/v4/explorer/).
 
+
+## Resources
+
+- Tutorials
+    - [REST API](https://www.restapitutorial.com/)
+    - [GraphQL](https://graphql.org/)
 
 ## GraphQL benefits
 
