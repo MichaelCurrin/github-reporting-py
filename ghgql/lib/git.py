@@ -1,12 +1,14 @@
 """
 Git library module.
+
+Handle git data fetched from the Github API.
 """
 from . import time
 
 
 def parse_commit(value):
     """
-    Extract fields from nested data as returned from API and return as flat dict.
+    Extract relevant fields from nested data and return as a flat dict.
     """
     author = value['committer']['user']
     author_login = author['login'] if author is not None else None
@@ -32,6 +34,9 @@ def parse_commit(value):
 
 
 def prepare_row(commit, repo_name, branch_name):
+    """
+    Convert commit metadata to a dict for writing to a CSV.  
+    """
     parsed_commit_data = parse_commit(commit)
 
     return dict(
