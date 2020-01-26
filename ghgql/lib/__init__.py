@@ -14,6 +14,7 @@ import config
 # TODO Rename time to not conflict with builtin.
 from . import text, time
 
+
 # FIXME this only happens to work in lib so should be more robust
 APP_DIR = Path().absolute()
 VAR_DIR = APP_DIR / 'var'
@@ -25,15 +26,16 @@ STARRED_CSV_PATH = VAR_DIR / 'starred.csv'
 ERROR_QUERY_PATH = VAR_DIR / 'error_query.gql'
 ERROR_PAYLOAD_PATH = VAR_DIR / 'error_payload.gql'
 
-
 HEADERS = {'Authorization': f"token {config.ACCESS_TOKEN}"}
 MAX_ATTEMPTS = 3
 
 
 def fetch_github_data(query, variables=None):
     """
+    Get data from Github API using given parameters.
+    
     Note that a request which returns an error will still give a 200 and can
-    still contain some data. A 404 will not contain the data or errors keys.
+    might still contain some data. A 404 will not contain the data or errors keys.
     """
     if not variables:
         variables = {}
@@ -87,6 +89,9 @@ def fetch_github_data(query, variables=None):
 
 
 def read_file(path):
+    """
+    TODO: Refactor to use Path().read() instead.
+    """
     with open(path) as f_in:
         file_text = f_in.read()
 
@@ -96,6 +101,8 @@ def read_file(path):
 def write_file(content, path):
     """
     Write a list or str to a given filepath.
+    
+    TODO: Refactor to use Path() with appropriate text or JSON method.
     """
     if isinstance(content, (list, dict)):
         content = json.dumps(content)
@@ -108,6 +115,9 @@ def write_file(content, path):
 
 
 def read_template(path):
+    """
+    Return Jinja template at a given path.
+    """
     return Template(read_file(path))
 
 
