@@ -1,7 +1,7 @@
 # Github GraphQL Tool
-> Python tool to easily report on data fetched from Github's GraphQL API
+> A Python tool to easily report on Github data fetched from Github's GraphQL API
 
-A project to explore the Github GraphQL API for fun and to output data on repos, users and commits for reporting.
+A project to explore the Github GraphQL API for fun and to output data on repos, users and commits, for interest and for business reporting.
 
 
 ## Project requirements
@@ -10,7 +10,6 @@ You need the following to run this project:
 
 - Github account
 - Github API token with access to repos
-- Internet connection
 - Python 3.6+
 
 
