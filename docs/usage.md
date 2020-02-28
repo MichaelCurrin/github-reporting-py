@@ -3,6 +3,7 @@
 Follow in the instructions in this section to run the scripts in this project.
 
 **Reports**
+
 - [Demo reports](#demo-reports) - A few simple scripts which demonstrate how doing queries and processing results work. The content of the results is of limited value.
 - [Query runner](#query-runner) - Run arbitrary GQL queries with variables then view or store the output.
 - [CSV Reports](#csv-reports)
@@ -50,7 +51,7 @@ These are not that useful for reporting, but their code is mostly self-contained
 
 ## Query runner
 
-This project allows you to use execute arbitrary GQL queries using a Python script, the path to the query and the configured Github credentials.
+This project has a query runner Python script that lets you execute **arbitrary GQL queries** and print the results. This makes it great for testing the query itself. All you need is the path to the `.gql` file and configured Github credentials.
 
 The result of the GQL output will be printed to the console as pretty JSON - this can be redirected to a file somewhere to store the data. The main limitation here is that the script does not understand the structure of the queries or results, so therefore the results cannot be converted to CSV output.
 
@@ -73,9 +74,17 @@ See the script's instructions.
 $ ./query.py --help
 ```
 
+Simple usage just requires the path to query as a text file. Variables can be set as key-value pairs, if the query use variables.
+
 ### Examples
 
-Example with no variables, storing as a file.
+Example with no variables set. The result is printed.
+
+```bash
+$ ./query.py queries/commits/first_page.gql
+```
+
+The result is stored as a JSON file.
 
 ```bash
 $ ./query.py queries/commits/first_page.gql > var/my_report.json
