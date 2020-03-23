@@ -4,14 +4,17 @@
 A project to explore the Github GraphQL API for fun and to output data on repos, users and commits, for interest and for business reporting.
 
 
-## Project requirements
+## Requirements
 
 You need the following to run this project:
 
-- Github account
-- Github API token with access to repos
-- Python 3.6+
+Name | Description
+---  | ---
+Github account | Needed to create a dev token.
+[Github dev token](https://github.com/settings/tokens) | For V4 GraphQL API requests.
+[Python](python.org/) >= 3.6 | Used to do queries and generate reports.
 
+Only read access to repos is needed. You may enable read access to private repos which you have access to through being a member of an Github org (such as your work). 
 
 ## Documentation
 
