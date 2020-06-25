@@ -33,8 +33,8 @@ def parse_commit(value):
 
 def prepare_row(commit, repo_name, branch_name):
     """
-    Convert commit metadata to a dict for writing to a CSV.  
+    Convert commit metadata to a dict for writing to a CSV.
     """
     parsed_commit_data = parse_commit(commit)
 
-    return dict(repo_name=repo_name, branch_name=branch_name, **parsed_commit_data,)
+    return dict(repo_name=repo_name, branch_name=branch_name, **parsed_commit_data)

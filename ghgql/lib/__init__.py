@@ -34,7 +34,7 @@ MAX_ATTEMPTS = 3
 def fetch_github_data(query, variables=None):
     """
     Get data from Github API using given parameters.
-    
+
     Note that a request which returns an error will still give a 200 and can
     might still contain some data. A 404 will not contain the data or errors keys.
     """
@@ -96,7 +96,7 @@ def read_file(path):
 def write_file(content, path):
     """
     Write a list or str to a given filepath.
-    
+
     TODO: Refactor to use Path() with appropriate text or JSON method.
     """
     if isinstance(content, (list, dict)):
