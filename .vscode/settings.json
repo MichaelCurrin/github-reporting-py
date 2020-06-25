@@ -6,6 +6,8 @@
 
     "editor.rulers": [80],
 
-    // TBC: Is this needed?
+    "python.formatting.provider": "black",
+
     "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true
 }
