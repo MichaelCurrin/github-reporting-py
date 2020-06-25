@@ -21,7 +21,7 @@ APP_DIR = Path().absolute()
 VAR_DIR = APP_DIR / "var"
 
 COUNTS_CSV_PATH = VAR_DIR / "counts.csv"
-COUNTS_CSV_PATH_TODAY = VAR_DIR / f"counts-{datetime.date.today()}.csv"
+COUNTS_CSV_PATH_TODAY = VAR_DIR / f"counts-start-{datetime.date.today()}.csv"
 STARRED_CSV_PATH = VAR_DIR / "starred.csv"
 
 ERROR_QUERY_PATH = VAR_DIR / "error_query.gql"
