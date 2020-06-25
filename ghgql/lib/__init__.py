@@ -106,7 +106,7 @@ def write_file(content, path):
         f_out.writelines(content)
 
     print("Wrote text file")
-    print(" - path: {path}")
+    print(f" - path: {path}")
 
 
 def read_template(path):
