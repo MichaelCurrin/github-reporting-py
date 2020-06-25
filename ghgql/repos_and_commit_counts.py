@@ -91,6 +91,9 @@ def get_repos_and_commit_counts(path, variables) -> list:
 
 
 def counts_report(variables) -> None:
+    """
+    Write CSV of repo and commit counts using given variables.
+    """
     out_data = get_repos_and_commit_counts(QUERY_PATH, variables)
     lib.write_csv(lib.COUNTS_CSV_PATH_TODAY, out_data)
 
