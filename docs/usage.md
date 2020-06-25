@@ -120,6 +120,9 @@ After running, open the report.
 
 This command will go through a user or org and get a count of commits in each repo. The latest commit is also included. The result is written to a CSV.
 
+- [repos_and_commit_counts.py](/ghgql/repos_and_commit_counts.py)
+
+
 ```sh
 $ ./repos_and_commit_counts.py --help
 ```
@@ -170,6 +173,9 @@ You can run the Python script with command-line arguments to get data for a sing
 
 Run a report for a single repo using details passed on the command line.
 
+- [repo_commits.py](/ghgql/repo_commits.py)
+
+
 ```sh
 $ ./repo_commits.py --help
 ```
@@ -194,7 +200,9 @@ To update the report output, use different command-line arguments. The repo name
 
 Run a CSV report against named repos in a user or org, with optional start date. This script makes it easy to run a report repeatedly as it uses a config as an input rather than command-line options.
 
-Set the details in the `etc/app.local.yml` file's commit report section, if not set already.
+- [repos_commits_from_conf.py](/ghgql/repos_commits_from_conf.py)
+
+First set the details in the `etc/app.local.yml` file's commit report section, if not set already.
 
 For example:
 
@@ -216,7 +224,7 @@ For example:
         - twitterverse
     ```
 
-Run the report script - without arguments.
+Run the report script - no arguments needed.
 
 ```sh
 $ ./repos_commits_from_conf.py
