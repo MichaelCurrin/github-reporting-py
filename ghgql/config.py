@@ -6,9 +6,9 @@ from pathlib import Path
 import yaml
 
 
-ETC_DIR = Path() / 'etc'
-LOCAL_CONF_PATH = ETC_DIR / 'app.local.yml'
-TEMPLATE_CONF_PATH = ETC_DIR / 'app.template.yml'
+ETC_DIR = Path() / "etc"
+LOCAL_CONF_PATH = ETC_DIR / "app.local.yml"
+TEMPLATE_CONF_PATH = ETC_DIR / "app.template.yml"
 
 BASE_URL = "https://api.github.com/graphql"
 
@@ -35,8 +35,8 @@ def get_local_conf():
 def setup():
     conf = get_local_conf()
 
-    commit_report_conf = conf['commit_report']
-    access_token = conf['access_token']
+    commit_report_conf = conf["commit_report"]
+    access_token = conf["access_token"]
 
     return commit_report_conf, access_token
 
@@ -44,7 +44,7 @@ def setup():
 COMMIT_REPORT_CONF, ACCESS_TOKEN = setup()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(BASE_URL)
     print(ACCESS_TOKEN)
     print(COMMIT_REPORT_CONF)

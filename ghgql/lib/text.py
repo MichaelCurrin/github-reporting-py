@@ -27,6 +27,7 @@ def print_args_on_error(func):
     Decorator used to print variables given to a function if the function
     call fails.
     """
+
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
@@ -42,15 +43,15 @@ def print_args_on_error(func):
 
 def parse_bool(value):
     value = value.lower()
-    if value == 'true':
+    if value == "true":
         return True
-    if value == 'false':
+    if value == "false":
         return False
 
     raise ValueError(f"Could not parse value to bool. Got: {value}")
 
 
 def test():
-    assert parse_bool('true') is True
-    assert parse_bool('FALSE') is False
+    assert parse_bool("true") is True
+    assert parse_bool("FALSE") is False
     assert parse_bool(None) is None

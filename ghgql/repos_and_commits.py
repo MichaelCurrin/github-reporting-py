@@ -38,21 +38,17 @@ import lib.git
 import lib.text
 
 
-TEMPLATE_DIR = lib.APP_DIR / 'templates'
-QUERY_PATH = TEMPLATE_DIR / 'repos_and_commits.gql'
-CSV_PATH = lib.VAR_DIR / 'commits.csv'
+TEMPLATE_DIR = lib.APP_DIR / "templates"
+QUERY_PATH = TEMPLATE_DIR / "repos_and_commits.gql"
+CSV_PATH = lib.VAR_DIR / "commits.csv"
 
 
 def render(template, owner, repos, since, dry_run=False):
     """
     Prepare and return template for repo commits query.
     """
-    return template.render(
-        owner=owner,
-        repos=repos,
-        since=since,
-        dry_run=dry_run
-    )
+    return template.render(owner=owner, repos=repos, since=since, dry_run=dry_run)
+
 
 def process_results(results):
     """
@@ -60,31 +56,29 @@ def process_results(results):
 
     :return output_data:
     """
-    rate_limit = results.pop('rateLimit')
+    rate_limit = results.pop("rateLimit")
 
     # TODO: Clear a repo when it has been finished and write to disc, so that
     # is known in the CSV to the last success.
     output_data = defaultdict(list)
     for repo_data in results.values():
-        name = repo_data['name']
-        branch = repo_data['defaultBranchRef']
+        name = repo_data["name"]
+        branch = repo_data["defaultBranchRef"]
 
-        branch_name = branch.get('name')
+        branch_name = branch.get("name")
 
-        raw_commits = branch['target']['history']['nodes']
+        raw_commits = branch["target"]["history"]["nodes"]
         if raw_commits:
             for c in raw_commits:
                 parsed_commit_data = lib.git.parse_commit(c)
                 out_commit = dict(
-                    repo_name=name,
-                    branch_name=branch_name,
-                    **parsed_commit_data,
+                    repo_name=name, branch_name=branch_name, **parsed_commit_data,
                 )
                 output_data[name].append(out_commit)
         # else it is exhausted so can be removed
 
         # TODO: Use.
-        page_info = repo_data['defaultBranchRef']['target']['history']['pageInfo']
+        page_info = repo_data["defaultBranchRef"]["target"]["history"]["pageInfo"]
         print(page_info)
 
     return output_data, rate_limit
@@ -106,19 +100,19 @@ def get_results(template, owner, repos, since, dry_run):
 def write(path, rows):
     wrote_header = False
 
-    with open(path, 'w') as f_out:
+    with open(path, "w") as f_out:
         fieldnames = (
-            'repo_name',
-            'branch_name',
-            'commit_id',
-            'author_date',
-            'author_login',
-            'committed_date',
-            'committer_login',
-            'changed_files',
-            'additions',
-            'deletions',
-            'message',
+            "repo_name",
+            "branch_name",
+            "commit_id",
+            "author_date",
+            "author_login",
+            "committed_date",
+            "committer_login",
+            "changed_files",
+            "additions",
+            "deletions",
+            "message",
         )
 
         for repo_title, commits in rows.items():
@@ -152,12 +146,13 @@ def clean(name):
 
     Remove numeric characters which cause the query to break if at the start.
     """
-    name = name.replace("-", "_").replace('.', 'X')
+    name = name.replace("-", "_").replace(".", "X")
 
     if name[0].isnumeric():
         name = f"X{name[1:]}"
 
     return name
+
 
 def make_report(owner, repo_names, since, dry_run=False):
     """
@@ -172,7 +167,9 @@ def make_report(owner, repo_names, since, dry_run=False):
 
     # TODO: Split in batches.
     repo_names = repo_names[:30]
-    repos = [{'name': name, 'clean_name': clean(name), 'cursor': None} for name in repo_names]
+    repos = [
+        {"name": name, "clean_name": clean(name), "cursor": None} for name in repo_names
+    ]
 
     print("Query #1")
     do_query(template, owner, repos, since, dry_run)
@@ -182,13 +179,13 @@ def main(args):
     """
     Main command-line function.
     """
-    if not args or set(args).intersection({'-h', '--help'}):
+    if not args or set(args).intersection({"-h", "--help"}):
         print(f"Usage: {__file__} owner OWNER [start START_DATE]")
         print(f"START_DATE: Count commits on or after this date, in YYYY-MM-DD format.")
         sys.exit(1)
 
     variables = lib.process_variables(args)
-    start = variables.get('start', None)
+    start = variables.get("start", None)
 
     start_ts = lib.time.as_git_timestamp(start) if start else None
     owner_name, repo_names = read_counts.repo_names(start)
@@ -196,5 +193,5 @@ def main(args):
     make_report(owner_name, repo_names, start_ts, dry_run=False)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main(sys.argv[1:])

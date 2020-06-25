@@ -29,7 +29,7 @@ import config
 # Simple query with parametized repo owner and name values, to fetch the last
 # 3 commits on the default branch.
 payload = {
-    'query': """
+    "query": """
         query BasicQueryTest($owner: String!) {
             repository(owner: $owner, name: "aggre-git") {
                 defaultBranchRef {
@@ -59,14 +59,11 @@ payload = {
             }
         }
     """,
-    'variables': {
-        'owner': 'michaelcurrin',
-        'name': 'aggre-git'
-    }
+    "variables": {"owner": "michaelcurrin", "name": "aggre-git"},
 }
 
 # Request headers - Github auth token is needed.
-headers = {'Authorization': f"token {config.ACCESS_TOKEN}"}
+headers = {"Authorization": f"token {config.ACCESS_TOKEN}"}
 
 # Send the POST request.
 resp = requests.post(config.BASE_URL, json=payload, headers=headers)

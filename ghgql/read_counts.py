@@ -20,18 +20,20 @@ def read(start=None):
     """
     repo_count_data = lib.read_csv(lib.COUNTS_CSV_PATH_TODAY)
 
-    repo_count_data.sort(key=lambda x: x['last_committed_date'])
+    repo_count_data.sort(key=lambda x: x["last_committed_date"])
 
     out_data = []
 
     for row in repo_count_data:
-        if row['branch_name']:
-            if row['last_committed_date']:
-                row['last_committed_date'] = lib.time.as_date(row['last_committed_date'])
+        if row["branch_name"]:
+            if row["last_committed_date"]:
+                row["last_committed_date"] = lib.time.as_date(
+                    row["last_committed_date"]
+                )
             else:
-                row['last_committed_date'] = None
+                row["last_committed_date"] = None
 
-            if start is None or row['last_committed_date'] >= start:
+            if start is None or row["last_committed_date"] >= start:
                 out_data.append(row)
 
     return out_data
@@ -43,9 +45,9 @@ def repo_names(start=None):
     """
     repos_summary = read(start)
 
-    owner_name = repos_summary[0]['owner_name']
+    owner_name = repos_summary[0]["owner_name"]
 
-    return owner_name, [r['repo_name'] for r in repos_summary]
+    return owner_name, [r["repo_name"] for r in repos_summary]
 
 
 def test():
@@ -57,15 +59,15 @@ def test():
     print()
     preview = 3
     print(f"Latest {preview}")
-    for row in rows[-1*preview:]:
+    for row in rows[-1 * preview :]:
         for k, v in row.items():
             print(f"{k:23}: {v}")
         print()
 
-    print('repo_names')
+    print("repo_names")
     owner, names = repo_names()
     print(owner, len(names))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test()

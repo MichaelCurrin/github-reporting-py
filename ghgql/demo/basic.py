@@ -18,7 +18,7 @@ import config
 # Simple query with hardcoded repo owner and name to fetch the last 3 commits
 # on the default branch.
 payload = {
-    'query': """
+    "query": """
         query BasicQueryTest {
             repository(owner: "michaelcurrin", name: "aggre-git") {
                 defaultBranchRef {
@@ -51,7 +51,7 @@ payload = {
 }
 
 # Request headers - Github auth token is needed.
-headers = {'Authorization': f"token {config.ACCESS_TOKEN}"}
+headers = {"Authorization": f"token {config.ACCESS_TOKEN}"}
 
 # Send the POST request.
 resp = requests.post(config.BASE_URL, json=payload, headers=headers)

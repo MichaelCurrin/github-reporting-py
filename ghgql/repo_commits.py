@@ -13,25 +13,26 @@ import lib
 import lib.git
 
 
-QUERY_PATH = 'queries/repos/repo_commits.gql'
-CSV_OUT_NAME = 'repo-commits--{repo_name}--end-{end_date}--start-{start_date}.csv'
+QUERY_PATH = "queries/repos/repo_commits.gql"
+CSV_OUT_NAME = "repo-commits--{repo_name}--end-{end_date}--start-{start_date}.csv"
 
 
 def process_response(resp, repo_name):
     """
     Format response for a request of repo commits
     """
-    branch = resp['repository']['defaultBranchRef']
+    branch = resp["repository"]["defaultBranchRef"]
 
-    branch_name = branch.get('name')
+    branch_name = branch.get("name")
 
-    commit_history = branch['target']['history']
-    commits = [lib.git.prepare_row(c, repo_name, branch_name)
-               for c in commit_history['nodes']]
-    total_commits = commit_history['totalCount']
+    commit_history = branch["target"]["history"]
+    commits = [
+        lib.git.prepare_row(c, repo_name, branch_name) for c in commit_history["nodes"]
+    ]
+    total_commits = commit_history["totalCount"]
 
-    page_info = commit_history['pageInfo']
-    cursor = page_info['endCursor'] if page_info['hasNextPage'] else None
+    page_info = commit_history["pageInfo"]
+    cursor = page_info["endCursor"] if page_info["hasNextPage"] else None
 
     return commits, total_commits, cursor
 
@@ -47,11 +48,7 @@ def get_commits(owner, repo_name, start_date=None):
 
     since = lib.time.as_git_timestamp(start_date) if start_date else None
 
-    query_variables = dict(
-        owner=owner,
-        repo_name=repo_name,
-        since=since,
-    )
+    query_variables = dict(owner=owner, repo_name=repo_name, since=since,)
 
     results = []
 
@@ -70,7 +67,7 @@ def get_commits(owner, repo_name, start_date=None):
         print(f"Processed page: #{counter}")
 
         if cursor:
-            query_variables['cursor'] = cursor
+            query_variables["cursor"] = cursor
         else:
             break
 
@@ -100,27 +97,24 @@ def main():
     parser = argparse.ArgumentParser(description="Repo commits report")
 
     parser.add_argument(
-        'owner',
-        metavar="OWNER",
+        "owner", metavar="OWNER",
     )
     parser.add_argument(
-        'repo_name',
-        metavar="REPO_NAME",
+        "repo_name", metavar="REPO_NAME",
     )
     parser.add_argument(
-        '-s', '--start',
+        "-s",
+        "--start",
         metavar="DATE",
         help="Optionally filter to commits from this date onwards."
-             " Format: 'YYYY-MM-DD'.",
+        " Format: 'YYYY-MM-DD'.",
     )
 
     args = parser.parse_args()
     commits_to_csv(
-        args.owner,
-        args.repo_name,
-        args.start,
+        args.owner, args.repo_name, args.start,
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

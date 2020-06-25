@@ -16,7 +16,7 @@ import lib.text
 
 
 ITEMS_PER_PAGE = 100
-QUERY_PATH = 'queries/repos/repos_and_commit_counts.gql'
+QUERY_PATH = "queries/repos/repos_and_commit_counts.gql"
 
 
 @lib.text.print_args_on_error
@@ -24,7 +24,7 @@ def format_repo(repo) -> dict:
     """
     Format summary repo data and return as key-value pairs,
     """
-    branch = repo.get('defaultBranch')
+    branch = repo.get("defaultBranch")
 
     # Handle edgecase of an empty repo.
     branch_name = None
@@ -33,20 +33,19 @@ def format_repo(repo) -> dict:
     last_commit_msg_subject = None
 
     if branch:
-        branch_name = branch['name']
-        history = branch['commits']['history']
-        total_commits = history['totalCount']
+        branch_name = branch["name"]
+        history = branch["commits"]["history"]
+        total_commits = history["totalCount"]
 
         if total_commits:
-            latest_commit = history['nodes'][0]
-            last_committed_date = lib.time.as_date(
-                latest_commit['committedDate'])
+            latest_commit = history["nodes"][0]
+            last_committed_date = lib.time.as_date(latest_commit["committedDate"])
             # TODO: Check this.
-            last_commit_msg_subject = latest_commit['message'].split("\n")[0]
+            last_commit_msg_subject = latest_commit["message"].split("\n")[0]
 
     return dict(
-        owner_name=repo['owner']['login'],
-        repo_name=repo['name'],
+        owner_name=repo["owner"]["login"],
+        repo_name=repo["name"],
         branch_name=branch_name,
         total_commits=total_commits,
         last_committed_date=last_committed_date,
@@ -69,22 +68,22 @@ def get_repos_and_commit_counts(path, variables) -> list:
         print(f"Query #{count}")
 
         resp_data = lib.query_by_filename(path, variables)
-        fetched_repos = resp_data['repositoryOwner']['repositories']
+        fetched_repos = resp_data["repositoryOwner"]["repositories"]
 
         if count == 1:
-            grand_total = fetched_repos['totalCount']
+            grand_total = fetched_repos["totalCount"]
             print("Completed first page.")
             print("Data to fetch:")
             print(f" - repos: {grand_total:,d}")
             print(f" - pages: {math.ceil(grand_total/ITEMS_PER_PAGE):,d}")
 
-        for repo in fetched_repos['nodes']:
+        for repo in fetched_repos["nodes"]:
             formatted_repo_data = format_repo(repo)
             out_repos.append(formatted_repo_data)
 
-        repo_page_info = fetched_repos['pageInfo']
-        if repo_page_info['hasNextPage']:
-            variables['cursor'] = repo_page_info['endCursor']
+        repo_page_info = fetched_repos["pageInfo"]
+        if repo_page_info["hasNextPage"]:
+            variables["cursor"] = repo_page_info["endCursor"]
         else:
             break
 
@@ -100,16 +99,18 @@ def main(args) -> None:
     """
     Main command-line function.
     """
-    if not args or set(args).intersection({'-h', '--help'}):
+    if not args or set(args).intersection({"-h", "--help"}):
         print(f"Usage: {__file__} owner OWNER [start START_DATE]")
-        print("START_DATE: Count commits on or after this date, in YYYY-MM-DD"
-              " format. This only affects the commit count and not whether the"
-              " repo is shown.")
+        print(
+            "START_DATE: Count commits on or after this date, in YYYY-MM-DD"
+            " format. This only affects the commit count and not whether the"
+            " repo is shown."
+        )
         sys.exit(1)
 
     variables = lib.process_variables(args)
     counts_report(variables)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main(sys.argv[1:])

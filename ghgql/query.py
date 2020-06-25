@@ -19,9 +19,8 @@ def main(args):
     Main command-line function.
     """
     # TODO: Refactor strings here to be easy to edit and not exceed char limit.
-    if not args or set(args).intersection({'-h', '--help'}):
-        script_path = f"./{__file__}" if not __file__.startswith(
-            './') else __file__
+    if not args or set(args).intersection({"-h", "--help"}):
+        script_path = f"./{__file__}" if not __file__.startswith("./") else __file__
         lib.text.eprint(
             f"Usage: {script_path} QUERY_PATH [KEY VALUE[,KEY VALUE,...]]\n"
             "\nDo a query to the Github GraphQL API using path to query,"
@@ -49,5 +48,5 @@ def main(args):
     print(lib.text.prettify(data))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main(sys.argv[1:])

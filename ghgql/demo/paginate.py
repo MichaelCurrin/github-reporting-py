@@ -10,7 +10,7 @@ No arguments are used for this script.
 import lib
 
 
-QUERY_PATH = 'queries/commit_tests/commits_basic.gql'
+QUERY_PATH = "queries/commit_tests/commits_basic.gql"
 MAX_PAGES = 5
 
 
@@ -30,19 +30,19 @@ def main():
         print(f"Query #{i+1} - cursor: {variables.get('cursor', 'null')}")
 
         data = lib.query_by_filename(QUERY_PATH, variables=variables)
-        history = data['repository']['defaultBranchRef']['target']['history']
+        history = data["repository"]["defaultBranchRef"]["target"]["history"]
 
-        msgs = [edge['node']['message'] for edge in history['edges']]
+        msgs = [edge["node"]["message"] for edge in history["edges"]]
         for msg in msgs:
             print(f"  {msg}")
 
-        page_info = history['pageInfo']
-        has_next_page = page_info['hasNextPage']
+        page_info = history["pageInfo"]
+        has_next_page = page_info["hasNextPage"]
         if not has_next_page:
             print("No more pages")
             break
-        variables['cursor'] = page_info['endCursor']
+        variables["cursor"] = page_info["endCursor"]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

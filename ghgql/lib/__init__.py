@@ -11,22 +11,23 @@ import requests
 from jinja2 import Template
 
 import config
+
 # TODO Rename time to not conflict with builtin.
 from . import text, time
 
 
 # FIXME this only happens to work in lib so should be more robust
 APP_DIR = Path().absolute()
-VAR_DIR = APP_DIR / 'var'
+VAR_DIR = APP_DIR / "var"
 
-COUNTS_CSV_PATH = VAR_DIR / 'counts.csv'
-COUNTS_CSV_PATH_TODAY = VAR_DIR / f'counts-{datetime.date.today()}.csv'
-STARRED_CSV_PATH = VAR_DIR / 'starred.csv'
+COUNTS_CSV_PATH = VAR_DIR / "counts.csv"
+COUNTS_CSV_PATH_TODAY = VAR_DIR / f"counts-{datetime.date.today()}.csv"
+STARRED_CSV_PATH = VAR_DIR / "starred.csv"
 
-ERROR_QUERY_PATH = VAR_DIR / 'error_query.gql'
-ERROR_PAYLOAD_PATH = VAR_DIR / 'error_payload.gql'
+ERROR_QUERY_PATH = VAR_DIR / "error_query.gql"
+ERROR_PAYLOAD_PATH = VAR_DIR / "error_payload.gql"
 
-HEADERS = {'Authorization': f"token {config.ACCESS_TOKEN}"}
+HEADERS = {"Authorization": f"token {config.ACCESS_TOKEN}"}
 MAX_ATTEMPTS = 3
 
 
@@ -41,19 +42,15 @@ def fetch_github_data(query, variables=None):
         variables = {}
 
     payload = {
-        'query': query,
-        'variables': variables,
+        "query": query,
+        "variables": variables,
     }
 
     for i in range(MAX_ATTEMPTS):
         try:
-            resp = requests.post(
-                config.BASE_URL,
-                json=payload,
-                headers=HEADERS
-            ).json()
+            resp = requests.post(config.BASE_URL, json=payload, headers=HEADERS).json()
 
-            errors = resp.get('errors', None)
+            errors = resp.get("errors", None)
             # TODO: Abort immediately on bad syntax or bad/missing variable.
             if errors:
                 print(f"Writing query to: {ERROR_QUERY_PATH}")
@@ -61,26 +58,24 @@ def fetch_github_data(query, variables=None):
                 print(f"Writing payload to: {ERROR_PAYLOAD_PATH}")
                 write_file(payload, ERROR_PAYLOAD_PATH)
                 message = text.prettify(errors)
-                raise ValueError(
-                    f"Error requesting Github. Errors:\n{message}")
+                raise ValueError(f"Error requesting Github. Errors:\n{message}")
 
-            data = resp.get('data', None)
+            data = resp.get("data", None)
             if data is None:
                 message = text.prettify(resp)
-                raise ValueError(
-                    f"Error requesting Github. Details:\n{message}")
+                raise ValueError(f"Error requesting Github. Details:\n{message}")
         except ValueError as e:
             text.eprint(f"Requested failed - attempt #{i+1}/{MAX_ATTEMPTS}")
-            if i+1 == MAX_ATTEMPTS:
+            if i + 1 == MAX_ATTEMPTS:
                 raise
             text.eprint(e)
 
-            if 'rate' in str(e):
+            if "rate" in str(e):
                 print("RATE LIMIT")
             # TODO Sleep for set time or perhaps short time if too frequence between requests.
             seconds = 10
             text.eprint(f"Sleeping {seconds} s...")
-            sleep(seconds*1000)
+            sleep(seconds * 1000)
             text.eprint("Retrying...")
         else:
             break
@@ -107,7 +102,7 @@ def write_file(content, path):
     if isinstance(content, (list, dict)):
         content = json.dumps(content)
 
-    with open(path, 'w') as f_out:
+    with open(path, "w") as f_out:
         f_out.writelines(content)
 
     print("Wrote text file")
@@ -154,7 +149,7 @@ def write_csv(path, rows, append=False):
         return
 
     is_new_file = not path.exists()
-    mode = 'a' if append else 'w'
+    mode = "a" if append else "w"
 
     fieldnames = rows[0].keys()
     with open(path, mode) as f_out:
@@ -175,18 +170,17 @@ def process_variables(args):
     """
     if args:
         if len(args) % 2:
-            raise ValueError(
-                f'Incomplete key-value pairs provided: {" ".join(args)}')
+            raise ValueError(f'Incomplete key-value pairs provided: {" ".join(args)}')
         variables = dict(zip(args[::2], args[1::2]))
 
         # TODO: Make this clear that you use start and it becomes since.
-        start = variables.pop('start', None)
+        start = variables.pop("start", None)
         if start:
-            variables['since'] = time.as_git_timestamp(start)
+            variables["since"] = time.as_git_timestamp(start)
 
-        is_fork_arg = variables.pop('isFork', None)
+        is_fork_arg = variables.pop("isFork", None)
         if is_fork_arg:
-            variables['isFork'] = text.parse_bool(is_fork_arg)
+            variables["isFork"] = text.parse_bool(is_fork_arg)
 
         return variables
 
