@@ -3,7 +3,6 @@
 Follow in the instructions in this section to run the scripts in this project.
 
 **Reports**
-
 - [Demo reports](#demo-reports) - A few simple scripts which demonstrate how doing queries and processing results work. The content of the results is of limited value.
 - [Query runner](#query-runner) - Run arbitrary GQL queries with variables then view or store the output.
 - [CSV Reports](#csv-reports)
@@ -14,13 +13,14 @@ Follow in the instructions in this section to run the scripts in this project.
 
 Before running scripts in the usage guide, activate the virtual environment then navigate to the app directory.
 
-```bash
+```sh
 $ cd <PATH/TO/REPO>
 $ source venv/bin/activate
 $ cd ghgql
 ```
 
 Note: If you use the _VS Code_ IDE and open a terminal _after_ the Python Extension has loaded, this will be done for you because of the configs that come with this project.
+
 
 ## Paging note
 
@@ -30,6 +30,7 @@ For some queries in this project, this is not handled at all, or requires a manu
 
 However, some parts of this project handled this automatically. Such as the the repo and commit reports, where you just input the data you need (with optional date range to make it quicker) and the script will get all pages of data available before writing to a CSV.
 
+
 ## Demo reports
 
 Run the simple demo scripts, which take no inputs or configs (other than the access token). These showcase querying the GraphQL and printing the JSON responses to the screen.
@@ -37,17 +38,18 @@ Run the simple demo scripts, which take no inputs or configs (other than the acc
 These are not that useful for reporting, but their code is mostly self-contained so it is easy to understand how the API works in a single script or function.
 
 - This uses no variables in the request payload.
-    ```bash
+    ```sh
     $ python -m demo.basic
     ```
 - This does send variables (in JSON format) on request payload. They are just hardcoded for purposes of keeping this script simple.
-    ```bash
+    ```sh
     $ python -m demo.variables
     ```
 - Demo of pagination - get multiple pages of data. Just uses one import in order to handle reading a query and sending variables with payload to the API.
-    ```bash
+    ```sh
     $ python -m demo.paginate
     ```
+
 
 ## Query runner
 
@@ -70,7 +72,7 @@ Instructions are covered below for how to do this with the `ghgql/query.py`. The
 
 See the script's instructions.
 
-```bash
+```sh
 $ ./query.py --help
 ```
 
@@ -80,19 +82,19 @@ Simple usage just requires the path to query as a text file. Variables can be se
 
 Example with no variables set. The result is printed.
 
-```bash
+```sh
 $ ./query.py queries/commits/first_page.gql
 ```
 
 The result is stored as a JSON file.
 
-```bash
+```sh
 $ ./query.py queries/commits/first_page.gql > var/my_report.json
 ```
 
 Example with variables provided as key-value pairs, separated by spaces. Just print the results to the console.
 
-```bash
+```sh
 $ ./query.py queries/commits/parametized.gql owner michaelcurrin name twitterverse
 ```
 
@@ -107,7 +109,7 @@ This is the main purpose of this project is to produce CSV reports about repos. 
 
 Get metadata for all repos under a user or organization and print to the screen.
 
-```bash
+```sh
 $ ./repos_about.py --help
 ```
 
@@ -117,7 +119,7 @@ Open the report.
 
 Get the latest commit and the total commit count for all repos under a user or organization and write to a CSV.
 
-```bash
+```sh
 $ ./repos_and_commit_counts.py --help
 ```
 
@@ -155,19 +157,19 @@ You can run the Python script with command-line arguments to get data for a sing
 
 Run a report for a single repo using details passed on the command line.
 
-```bash
+```sh
 $ ./repo_commits.py --help
 ```
 
 Example:
 
-```bash
+```sh
 $ ./repo_commits.py michaelcurrin github-graphql-tool
 ```
 
 Set a start date to only get commits from that date onwards. This can make the script run much quicker if you choose a recent date. Example:
 
-```bash
+```sh
 $ ./repo_commits.py michaelcurrin github-graphql-tool --start 2019-04-01
 ```
 
@@ -201,7 +203,7 @@ For example:
 
 Run the report script without arguments.
 
-```bash
+```sh
 $ ./repos_commits_from_conf.py
 ```
 
