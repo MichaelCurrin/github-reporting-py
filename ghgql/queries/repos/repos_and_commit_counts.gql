@@ -23,29 +23,35 @@ query RepoCommitCountsPaged($owner: String!, $since: GitTimestamp, $isFork: Bool
                         ... on Commit {
                             history(first: 1, since: $since) {
                                 totalCount
+                                # This can be heavy when going through many an org
+                                # of 1000 repos and so keeps failing. And reducing
+                                # `first` arg didn't help. So rather leave out
+                                # the nodes data here. Maybe just use date and message
                                 nodes {
-                                    abbreviatedOid
-                                    authoredDate
-                                    author {
-                                        user {
-                                            login
-                                        }
-                                    }
+                                    # abbreviatedOid
+                                    # authoredDate
+                                    # author {
+                                    #     user {
+                                    #         login
+                                    #     }
+                                    # }
                                     committedDate
-                                    committer {
-                                        user {
-                                            login
-                                        }
-                                    }
-                                    authoredDate
-                                    author {
-                                        user {
-                                            login
-                                        }
-                                    }
-                                    changedFiles
-                                    additions
-                                    deletions
+                                    # committer {
+                                    #     user {
+                                    #         login
+                                    #     }
+                                    # }
+                                    # authoredDate
+                                    # author {
+                                    #     user {
+                                    #         login
+                                    #     }
+                                    # }
+
+                                    # changedFiles
+                                    # additions
+                                    # deletions
+
                                     message
                                 }
                             }

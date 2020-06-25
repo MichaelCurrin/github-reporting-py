@@ -6,6 +6,9 @@ Handle git data fetched from the Github API.
 from . import time
 
 
+# TODO This could be better as a class - then the structure can be reused
+# and used for type checking as a whole or getting fields on the object.
+# Use init to process `value`.
 def parse_commit(value):
     """
     Extract relevant fields from nested data and return as a flat dict.

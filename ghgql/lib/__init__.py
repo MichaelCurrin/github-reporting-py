@@ -21,7 +21,8 @@ APP_DIR = Path().absolute()
 VAR_DIR = APP_DIR / "var"
 
 COUNTS_CSV_PATH = VAR_DIR / "counts.csv"
-COUNTS_CSV_PATH_TODAY = VAR_DIR / f"counts-start-{datetime.date.today()}.csv"
+# TODO: Add start date.
+COUNTS_CSV_PATH_TODAY = VAR_DIR / f"counts-end-{datetime.date.today()}.csv"
 STARRED_CSV_PATH = VAR_DIR / "starred.csv"
 
 ERROR_QUERY_PATH = VAR_DIR / "error_query.gql"
@@ -158,6 +159,7 @@ def write_csv(path, rows, append=False):
             writer.writeheader()
         writer.writerows(rows)
 
+    # TODO: How to include `var/name` if relevant. To make it easy to click on console output.
     print("Wrote CSV:")
     print(f" - {path.name}")
     print(f" - {len(rows)} rows {'appended' if append else ''}")
