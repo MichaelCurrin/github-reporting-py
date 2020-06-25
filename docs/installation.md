@@ -36,19 +36,19 @@ Create your access token in your Github account settings. Ensure it has access t
 
 Navigate to the directory which contains the project's configs (based on the Unix convention of using the _/etc_ directory for configs).
 
-```sh
+```bash
 $ cd ghgql/etc
 ```
 
 Create a local config using the template.
 
-```sh
+```bash
 $ cp app.template.yml app.local.yml
 ```
 
 Open the created file with a command, or your IDE.
 
-```sh
+```bash
 $ edit app.local.yml
 # VS Code
 $ code app.local.yml
