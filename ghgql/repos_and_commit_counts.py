@@ -3,10 +3,11 @@
 Commit counts for repos - report application.
 
 Generate a report which shows all repos under an owner and a total commit count
-against each, using the default branch. Optionally exclude commits after a given
-start date.
+against each, using the default branch.
 
-This script uses paging to get each page of repos.
+Optional - exclude commits after a given start date.
+
+This script pages over repos.
 """
 import math
 import sys
@@ -25,7 +26,7 @@ def format_repo(repo) -> dict:
     """
     branch = repo.get('defaultBranch')
 
-    # Handle case of an empty repo.
+    # Handle edgecase of an empty repo.
     branch_name = None
     total_commits = 0
     last_committed_date = None
@@ -90,12 +91,12 @@ def get_repos_and_commit_counts(path, variables) -> list:
     return out_repos
 
 
-def counts_report(variables):
+def counts_report(variables) -> None:
     out_data = get_repos_and_commit_counts(QUERY_PATH, variables)
     lib.write_csv(lib.COUNTS_CSV_PATH_TODAY, out_data)
 
 
-def main(args):
+def main(args) -> None:
     """
     Main command-line function.
     """
