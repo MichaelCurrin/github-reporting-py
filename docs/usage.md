@@ -222,6 +222,8 @@ Run the report script - without arguments.
 $ ./repos_commits_from_conf.py
 ```
 
-Open the CSV report.
+Open the CSV reports.
+
+The one is on commit-level data and the other rolls commits up to repo names.
 
 To change the report output, update and save the config then rerun the report.
