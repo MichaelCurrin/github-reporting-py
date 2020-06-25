@@ -9,6 +9,7 @@ Follow in the instructions in this section to run the scripts in this project.
     - [Repo summary reports](#repo-summary-reports) - Get metadata about reports or counts of commits.
     - [Commit reports](#commit-reports) - Get the _git_ commit history across multiple repos and to see how your organization or team members contribute.
 
+
 ## Environment
 
 Before running scripts in the usage guide, activate the virtual environment then navigate to the app directory.
@@ -37,7 +38,7 @@ Run the simple demo scripts, which take no inputs or configs (other than the acc
 
 These are not that useful for reporting, but their code is mostly self-contained so it is easy to understand how the API works in a single script or function.
 
-- This uses no variables in the request payload.
+- This runs without variables in the request payload.
     ```sh
     $ python -m demo.basic
     ```
@@ -92,7 +93,7 @@ The result is stored as a JSON file.
 $ ./query.py queries/commits/first_page.gql > var/my_report.json
 ```
 
-Example with variables provided as key-value pairs, separated by spaces. Just print the results to the console.
+Example with variables provided as key-value pairs, separated by spaces. Just prints the results to the console.
 
 ```sh
 $ ./query.py queries/commits/parametized.gql owner michaelcurrin name twitterverse
@@ -113,14 +114,26 @@ Get metadata for all repos under a user or organization and print to the screen.
 $ ./repos_about.py --help
 ```
 
-Open the report.
+After running, open the report.
 
 #### Commit counts
 
-Get the latest commit and the total commit count for all repos under a user or organization and write to a CSV.
+This command will go through a user or org and get a count of commits in each repo. The latest commit is also included. The result is written to a CSV.
 
 ```sh
 $ ./repos_and_commit_counts.py --help
+```
+```
+Usage: ./repos_and_commit_counts.py owner OWNER [start START_DATE]
+START_DATE: Count commits on or after this date, in YYYY-MM-DD format. This only affects the commit count and not whether the repo is shown
+```
+
+Example:
+
+```sh
+$ ./repos_and_commit_counts.py owner MichaelCurrin
+
+$ ./repos_and_commit_counts.py owner MichaelCurrin start 2020-04-01
 ```
 
 Open the report.
@@ -179,6 +192,8 @@ To update the report output, use different command-line arguments. The repo name
 
 #### Multiple repos report
 
+Run a CSV report against named repos in a user or org, with optional start date. This script makes it easy to run a report repeatedly as it uses a config as an input rather than command-line options.
+
 Set the details in the `etc/app.local.yml` file's commit report section, if not set already.
 
 For example:
@@ -201,7 +216,7 @@ For example:
         - twitterverse
     ```
 
-Run the report script without arguments.
+Run the report script - without arguments.
 
 ```sh
 $ ./repos_commits_from_conf.py
