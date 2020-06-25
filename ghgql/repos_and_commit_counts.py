@@ -38,10 +38,12 @@ def format_repo(repo) -> dict:
         total_commits = history["totalCount"]
 
         if total_commits:
-            latest_commit = history["nodes"][0]
-            last_committed_date = lib.time.as_date(latest_commit["committedDate"])
-            # TODO: Check this.
-            last_commit_msg_subject = latest_commit["message"].split("\n")[0]
+            nodes = history.get("nodes", [])
+            if nodes:
+                latest_commit = nodes[0]
+                last_committed_date = lib.time.as_date(latest_commit["committedDate"])
+                # TODO: Check this.
+                last_commit_msg_subject = latest_commit["message"].split("\n")[0]
 
     return dict(
         owner_name=repo["owner"]["login"],
