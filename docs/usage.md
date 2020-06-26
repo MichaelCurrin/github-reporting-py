@@ -232,6 +232,6 @@ $ ./repos_commits_from_conf.py
 
 Open the CSV reports.
 
-The one is on commit-level data and the other rolls commits up to repo names.
+The one is on commit-level data and the other rolls commits up to repo names - this was extra functionality added later which is a commit count not just commits report. Note that files changed column would be overestimated as it adds up across commits so only lines changed and number of commits is accurate and useful here.
 
 To change the report output, update and save the config then rerun the report.
