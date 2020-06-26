@@ -4,6 +4,8 @@ Report of commits from configured repo names.
 
 Generate a repo commit report using configured values including the owner name
 and one or more repos. This script cannot pickup repos dynamically.
+
+A second CSV of summarized commit data by repo is written out as well.
 """
 import argparse
 import datetime
@@ -24,6 +26,8 @@ CSV_OUT_NAME_SUMMARY = (
 def report_config():
     """
     Get commit report values from config.
+
+    Returns a tuple of strings.
     """
     owner = COMMIT_REPORT_CONF["owner"]
     repo_names = COMMIT_REPORT_CONF["repo_names"]
@@ -61,28 +65,28 @@ def commits_to_csv(owner, repo_names, start_date=None):
 
     for repo_name in repo_names:
         commits = repo_commits.get_commits(owner, repo_name, start_date)
+        # TODO delete if it is first round. Or wait until the end and write out everything
+        # with overwriting but that just means an incomplete report is not generated of the script aborts which might be okay
+
         lib.write_csv(path, commits, append=True)
 
         # TODO Move this to a separate function, possibly using commits
         # returned from the function.
         repo_summary = defaultdict(int)
         repo_summary["name"] = repo_name
-        repo_summary["commits"] += len(commits)
+        repo_summary["commits"] = len(commits)
+        # Note that lines changed or files changed would not be accurate when adding commits so that is left out.
         for commit in commits:
             repo_summary["additions"] += commit["additions"]
             repo_summary["deletions"] += commit["deletions"]
-
-            modified = commit["additions"] + commit["deletions"]
-            repo_summary["lines_modified"] += modified
         repos_summary.append(repo_summary)
 
     lib.write_csv(summary_path, repos_summary)
-    print()
+    
 
-
-def main():
+def main() -> None:
     """
-    Main command-line function.
+    Main command-line entrypoint.
     """
     parser = argparse.ArgumentParser(description="Repo commits report")
 
