@@ -1,7 +1,7 @@
 # Github GraphQL Tool
-> A Python tool to easily report on Github data fetched from Github's GraphQL API
+> Create detailed and summary CSV reports of GitHub activity in a target GH user or organization
 
-A project to explore the Github GraphQL API for fun and to output data on repos, users and commits, for interest and for business reporting.
+A project to output CSV reports around on repos, users and commits, for interest and for business reporting. Built on Python3 and GH GraphQL V4 API.
 
 
 ## Requirements
