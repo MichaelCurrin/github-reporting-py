@@ -19,12 +19,10 @@ CSV_OUT_NAME = "repo-commits--{repo_name}--end-{end_date}--start-{start_date}.cs
 
 def process_response(resp, repo_name):
     """
-    Format response for a request of repo commits
+    Format the response from a request for repo commits.
     """
     branch = resp["repository"]["defaultBranchRef"]
-
     branch_name = branch.get("name")
-
     commit_history = branch["target"]["history"]
     commits = [
         lib.git.prepare_row(c, repo_name, branch_name) for c in commit_history["nodes"]
@@ -47,7 +45,6 @@ def get_commits(owner, repo_name, start_date=None):
     print("/".join((owner, repo_name)))
 
     since = lib.time.as_git_timestamp(start_date) if start_date else None
-
     query_variables = dict(owner=owner, repo_name=repo_name, since=since,)
 
     results = []
@@ -58,12 +55,11 @@ def get_commits(owner, repo_name, start_date=None):
 
         resp = lib.query_by_filename(QUERY_PATH, query_variables)
         commits, total_commits, cursor = process_response(resp, repo_name)
-
+        results.extend(commits)
+        
         if counter == 1:
             print(f" - commits: {total_commits}")
-            print(f" - pages: {math.ceil(total_commits / 100)}")
-
-        results.extend(commits)
+            print(f" - pages: {math.ceil(total_commits / 100)}")        
         print(f"Processed page: #{counter}")
 
         if cursor:
@@ -80,13 +76,15 @@ def commits_to_csv(owner, repo_name, start_date=None):
 
     Existing file will be overwritten.
     """
-    repo_commits = get_commits(owner, repo_name, start_date)
     filename = CSV_OUT_NAME.format(
         repo_name=repo_name,
         end_date=datetime.date.today(),
         start_date=start_date if start_date else "INIT",
     )
     path = lib.VAR_DIR / filename
+    
+    repo_commits = get_commits(owner, repo_name, start_date)
+    
     lib.write_csv(path, repo_commits, append=False)
 
 
