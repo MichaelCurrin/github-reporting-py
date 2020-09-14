@@ -2,7 +2,7 @@
 """
 Starred repos report application.
 
-Get the metadata for starred repos of the current user and write to a CSV.
+Get metadata for which the current user has starred and then write to a CSV.
 """
 import sys
 
@@ -11,6 +11,13 @@ import lib.text
 
 
 def parse_repo(node):
+    """
+    Get revelant fields from a given repo.
+    
+    :param node dict: A repo fetched from the GQL API.
+    
+    :return: A dict of processed details for the given repo.
+    """
     owner = node["owner"]["login"]
     repo_name = node["name"]
 
@@ -55,12 +62,12 @@ def main(args):
     while True:
         query_counter += 1
         print(f"Query #{query_counter}")
+        
         data = lib.query_by_filename(path, variables)
-
         repositories = data["viewer"]["starredRepositories"]
+        
         if query_counter == 1:
             print(f"Total count: {repositories['totalCount']}")
-
         for node in repositories["nodes"]:
             results.append(parse_repo(node))
 
