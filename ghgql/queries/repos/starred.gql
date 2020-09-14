@@ -1,6 +1,14 @@
 # Get starred repos of the current user.
 #
-# Allows paging.
+# Parameters:
+#	cursor: Optional cursor to allow for getting the next page of results. 
+#		"Returns the elements in the list that come after the specified cursor."
+#
+# Sorting is also possible:
+#	https://docs.github.com/en/graphql/reference/enums#starorderfield
+# 	orderBy: { field: STARRED_AT, direction: ASC/DESC}
+#
+#	It doesn't look like sorting by repo name, push date etc. is possible here.
 #
 query StarredRepos($cursor: String) {
 	viewer {
