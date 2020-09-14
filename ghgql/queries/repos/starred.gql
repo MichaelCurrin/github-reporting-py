@@ -1,4 +1,4 @@
-# Get starred repos of the current user.
+# Get repos which the authenticating user has starred.
 #
 # Parameters:
 #	cursor: Optional cursor to allow for getting the next page of results. 
