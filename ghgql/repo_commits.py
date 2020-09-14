@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """
-Report commits of a repo.
+Repo commits report application.
 
-Fetch all commits for a single given repo using page. Takes an optional start
-date.
+Fetch all commits for a single given repo using paging. 
+Accepts an optional start date.
 """
 import argparse
 import datetime
@@ -24,6 +24,7 @@ def process_response(resp, repo_name):
     branch = resp["repository"]["defaultBranchRef"]
     branch_name = branch.get("name")
     commit_history = branch["target"]["history"]
+    
     commits = [
         lib.git.prepare_row(c, repo_name, branch_name) for c in commit_history["nodes"]
     ]
