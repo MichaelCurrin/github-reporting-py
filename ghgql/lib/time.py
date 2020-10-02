@@ -2,9 +2,10 @@
 Library time module.
 """
 import datetime
+from typing import Union
 
 
-def as_git_timestamp(value: [datetime.date, datetime.datetime, str]) -> str:
+def as_git_timestamp(value: Union[datetime.date, datetime.datetime, str]) -> str:
     """
     Convert date to ISO timestamp string.
 
