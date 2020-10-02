@@ -3,10 +3,10 @@ Basic query demo application.
 
 This is intended for newcomers to Python and/or GraphQL to see in one place
 what the minimum components are to do a request and print the response.
-This is just meant as a demo though, as it is too simple to be resuable or
+This is just meant as a demo though, as it is too simple to be reusable or
 robust.
 
-See also the parametized demo script in the same directory.
+See also the parametrized demo script in the same directory.
 """
 import json
 
