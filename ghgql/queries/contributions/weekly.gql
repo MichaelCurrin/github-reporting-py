@@ -32,5 +32,8 @@ fragment weekStats on ContributionsCollection {
 		_2019: contributionsCollection(from: "2019-01-01T00:00:00", to: "2020-01-01T00:00:00") {
 			...weekStats
 		}
+		_2020: contributionsCollection(from: "2020-01-01T00:00:00", to: "2021-01-01T00:00:00") {
+			...weekStats
+		}
 	}
 }
