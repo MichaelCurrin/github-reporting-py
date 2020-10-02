@@ -24,7 +24,7 @@ def process_response(resp, repo_name):
     branch = resp["repository"]["defaultBranchRef"]
     branch_name = branch.get("name")
     commit_history = branch["target"]["history"]
-    
+
     commits = [
         lib.git.prepare_row(c, repo_name, branch_name) for c in commit_history["nodes"]
     ]
@@ -46,7 +46,11 @@ def get_commits(owner, repo_name, start_date=None):
     print("/".join((owner, repo_name)))
 
     since = lib.time.as_git_timestamp(start_date) if start_date else None
-    query_variables = dict(owner=owner, repo_name=repo_name, since=since,)
+    query_variables = dict(
+        owner=owner,
+        repo_name=repo_name,
+        since=since,
+    )
 
     results = []
 
@@ -57,10 +61,10 @@ def get_commits(owner, repo_name, start_date=None):
         resp = lib.query_by_filename(QUERY_PATH, query_variables)
         commits, total_commits, cursor = process_response(resp, repo_name)
         results.extend(commits)
-        
+
         if counter == 1:
             print(f" - commits: {total_commits}")
-            print(f" - pages: {math.ceil(total_commits / 100)}")        
+            print(f" - pages: {math.ceil(total_commits / 100)}")
         print(f"Processed page: #{counter}")
 
         if cursor:
@@ -83,9 +87,9 @@ def commits_to_csv(owner, repo_name, start_date=None):
         start_date=start_date if start_date else "INIT",
     )
     path = lib.VAR_DIR / filename
-    
+
     repo_commits = get_commits(owner, repo_name, start_date)
-    
+
     lib.write_csv(path, repo_commits, append=False)
 
 
@@ -96,10 +100,12 @@ def main():
     parser = argparse.ArgumentParser(description="Repo commits report")
 
     parser.add_argument(
-        "owner", metavar="OWNER",
+        "owner",
+        metavar="OWNER",
     )
     parser.add_argument(
-        "repo_name", metavar="REPO_NAME",
+        "repo_name",
+        metavar="REPO_NAME",
     )
     parser.add_argument(
         "-s",
@@ -111,7 +117,9 @@ def main():
 
     args = parser.parse_args()
     commits_to_csv(
-        args.owner, args.repo_name, args.start,
+        args.owner,
+        args.repo_name,
+        args.start,
     )
 
 

@@ -70,7 +70,9 @@ def main(args):
                 for c in commits:
                     parsed_commit_data = parse_commit(c)
                     out_commit = dict(
-                        repo_name=name, branch_name=branch_name, **parsed_commit_data,
+                        repo_name=name,
+                        branch_name=branch_name,
+                        **parsed_commit_data,
                     )
                     out_data.append(out_commit)
 

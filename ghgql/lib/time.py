@@ -9,8 +9,8 @@ def as_git_timestamp(value: [datetime.date, datetime.datetime, str]) -> str:
     Convert date to ISO timestamp string.
 
     Output as an ISO datetime format string, as required by the GitHub
-    GraphQL schema's `GitTimestamp` object. 
-    
+    GraphQL schema's `GitTimestamp` object.
+
     Any time in the input value gets dropped, such that the time is at midnight.
     """
     dt = datetime.datetime.strptime(str(value), "%Y-%m-%d")

@@ -49,12 +49,14 @@ def commits_to_csv(owner, repo_names, start_date=None):
     Fetch commits for given repos and append to a CSV after each repo is done.
     """
     filename = CSV_OUT_NAME.format(
-        end_date=datetime.date.today(), start_date=start_date if start_date else "INIT",
+        end_date=datetime.date.today(),
+        start_date=start_date if start_date else "INIT",
     )
     path = lib.VAR_DIR / filename
 
     summary_filename = CSV_OUT_NAME_SUMMARY.format(
-        end_date=datetime.date.today(), start_date=start_date if start_date else "INIT",
+        end_date=datetime.date.today(),
+        start_date=start_date if start_date else "INIT",
     )
     summary_path = lib.VAR_DIR / summary_filename
 
@@ -82,7 +84,7 @@ def commits_to_csv(owner, repo_names, start_date=None):
         repos_summary.append(repo_summary)
 
     lib.write_csv(summary_path, repos_summary)
-    
+
 
 def main() -> None:
     """

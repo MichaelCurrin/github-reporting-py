@@ -72,7 +72,9 @@ def process_results(results):
             for c in raw_commits:
                 parsed_commit_data = lib.git.parse_commit(c)
                 out_commit = dict(
-                    repo_name=name, branch_name=branch_name, **parsed_commit_data,
+                    repo_name=name,
+                    branch_name=branch_name,
+                    **parsed_commit_data,
                 )
                 output_data[name].append(out_commit)
         # else it is exhausted so can be removed

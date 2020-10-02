@@ -13,9 +13,9 @@ import lib.text
 def parse_repo(node):
     """
     Get revelant fields from a given repo.
-    
+
     :param node dict: A repo fetched from the GQL API.
-    
+
     :return: A dict of processed details for the given repo.
     """
     owner = node["owner"]["login"]
@@ -62,10 +62,10 @@ def main(args):
     while True:
         query_counter += 1
         print(f"Query #{query_counter}")
-        
+
         data = lib.query_by_filename(path, variables)
         repositories = data["viewer"]["starredRepositories"]
-        
+
         if query_counter == 1:
             print(f"Total count: {repositories['totalCount']}")
         for node in repositories["nodes"]:
