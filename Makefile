@@ -23,4 +23,4 @@ format-check:
 	black . --diff --check
 
 check-types:
-	mypy ghql
+	mypy ghgql
