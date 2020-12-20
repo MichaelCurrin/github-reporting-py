@@ -13,7 +13,7 @@ This was created explore the Github GraphQL API for fun and to output CSV report
 
 <div align="center">
 
-[![View docs](https://img.shields.io/badge/View_Docs-green?style=for-the-badge)](https://michaelcurrin.github.io/github-graphql-tool/)
+[![View docs](https://img.shields.io/badge/View-Docs-green?style=for-the-badge)](https://michaelcurrin.github.io/github-graphql-tool/)
 
 </div>
 
