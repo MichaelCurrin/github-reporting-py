@@ -1,4 +1,4 @@
-# GitHub Reporting Tool
+# GitHub Reporting Tool docs
 > Create detailed and summary CSV reports of GitHub activity in a target GH user or organization
 
 [![Made with Python](https://img.shields.io/badge/Python->=3.6-blue?logo=python&logoColor=white)](https://python.org)
