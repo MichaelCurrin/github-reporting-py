@@ -1,4 +1,4 @@
-# Lookup a Github user by login.
+# Lookup a GitHub user by login.
 {
   user(login: "MichaelCurrin") {
     name

@@ -12,11 +12,11 @@ To set those up for this project (or similar Python projects), follow the instru
 
 ### Create a token
 
-This project requires a valid Github API _access token_ in order to authenticate with the API for requests.
+This project requires a valid GitHub API _access token_ in order to authenticate with the API for requests.
 
-Create your access token in your Github account settings. Ensure it has access to read repo details.
+Create your access token in your GitHub account settings. Ensure it has access to read repo details.
 
-1. Open Github and login.
+1. Open GitHub and login.
 2. Go to [OAuth Apps](https://github.com/settings/developers).
 3. Create an app. e.g. "Git Reporting".
 4. Go to the [Tokens](https://github.com/settings/tokens) page.
@@ -54,7 +54,7 @@ $ edit app.local.yml
 $ code app.local.yml
 ```
 
-Paste your Github token value, without quotes e.g.
+Paste your GitHub token value, without quotes e.g.
 
 ```yaml
 access_token: ABCDEF0123456789

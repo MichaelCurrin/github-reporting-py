@@ -1,4 +1,4 @@
-# Get details for the authenticated Github user or owner of the API token.
+# Get details for the authenticated GitHub user or owner of the API token.
 
 # Supply optional request name, not used in output but useful as a reference when debugging your queries.
 query MyDetails {

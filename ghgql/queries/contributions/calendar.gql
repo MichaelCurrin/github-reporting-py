@@ -1,4 +1,4 @@
-# Get aggregates contribution counts for a Github user.
+# Get aggregates contribution counts for a GitHub user.
 #
 # Optionally set date range. Cannot be longer than 1 year. If not set, defaults
 # to a year ago up to today.

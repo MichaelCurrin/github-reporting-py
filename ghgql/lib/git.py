@@ -1,7 +1,7 @@
 """
 Git library module.
 
-Handle git data fetched from the Github API.
+Handle git data fetched from the GitHub API.
 """
 from . import time
 

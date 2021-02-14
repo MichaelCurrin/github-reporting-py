@@ -2,7 +2,7 @@
 """
 Query application.
 
-Generic script to do a query against Github API using a given query's filepath
+Generic script to do a query against GitHub API using a given query's filepath
 and optionally send a data payload using key-value pairs provided. The result
 will be pretty printed as JSON, without any processing.
 
@@ -23,7 +23,7 @@ def main(args):
         script_path = f"./{__file__}" if not __file__.startswith("./") else __file__
         lib.text.eprint(
             f"Usage: {script_path} QUERY_PATH [KEY VALUE[,KEY VALUE,...]]\n"
-            "\nDo a query to the Github GraphQL API using path to query,"
+            "\nDo a query to the GitHub GraphQL API using path to query,"
             " plus optional variables\n"
         )
 

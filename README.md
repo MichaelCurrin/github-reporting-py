@@ -12,7 +12,7 @@
 
 This was created to:
 
-- **Explore** the Github GraphQL API for fun.
+- **Explore** the GitHub GraphQL API for fun.
 - Output CSV **reports** around repos, users and commits - all within a target GH org or user.
 - Act as a **wrapper** on requests and formatting, so you can focus on writing or using a query and getting the data out as a CSV. No Python experience needed if you just use this as a CLI tool.
 

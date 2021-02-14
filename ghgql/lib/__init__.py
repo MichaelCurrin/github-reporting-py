@@ -34,7 +34,7 @@ MAX_ATTEMPTS = 3
 
 def fetch_github_data(query, variables=None):
     """
-    Get data from Github API using given parameters.
+    Get data from GitHub API using given parameters.
 
     Note that a request which returns an error will still give a 200 and can
     might still contain some data. A 404 will not contain the data or errors keys.
@@ -59,12 +59,12 @@ def fetch_github_data(query, variables=None):
                 print(f"Writing payload to: {ERROR_PAYLOAD_PATH}")
                 write_file(payload, ERROR_PAYLOAD_PATH)
                 message = text.prettify(errors)
-                raise ValueError(f"Error requesting Github. Errors:\n{message}")
+                raise ValueError(f"Error requesting GitHub. Errors:\n{message}")
 
             data = resp.get("data", None)
             if data is None:
                 message = text.prettify(resp)
-                raise ValueError(f"Error requesting Github. Details:\n{message}")
+                raise ValueError(f"Error requesting GitHub. Details:\n{message}")
         except ValueError as e:
             text.eprint(f"Requested failed - attempt #{i+1}/{MAX_ATTEMPTS}")
             if i + 1 == MAX_ATTEMPTS:

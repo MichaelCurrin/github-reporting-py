@@ -62,7 +62,7 @@ payload = {
     "variables": {"owner": "michaelcurrin", "name": "aggre-git"},
 }
 
-# Request headers - Github auth token is needed.
+# Request headers - GitHub auth token is needed.
 headers = {"Authorization": f"token {config.ACCESS_TOKEN}"}
 
 # Send the POST request.

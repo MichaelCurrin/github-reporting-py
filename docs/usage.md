@@ -25,7 +25,7 @@ Note: If you use the _VS Code_ IDE and open a terminal _after_ the Python Extens
 
 ## Paging note
 
-Note that for API results, Github usually limits the page to have up to 100 items (such as repos or users). This is adjusted with the `first` variable. To next beyond the first page, using the `after` variable with a cursor value.
+Note that for API results, GitHub usually limits the page to have up to 100 items (such as repos or users). This is adjusted with the `first` variable. To next beyond the first page, using the `after` variable with a cursor value.
 
 For some queries in this project, this is not handled at all, or requires a manually set cursor.
 
@@ -54,18 +54,18 @@ These are not that useful for reporting, but their code is mostly self-contained
 
 ## Query runner
 
-This project has a query runner Python script that lets you execute **arbitrary GQL queries** and print the results. This makes it great for testing the query itself. All you need is the path to the `.gql` file and configured Github credentials.
+This project has a query runner Python script that lets you execute **arbitrary GQL queries** and print the results. This makes it great for testing the query itself. All you need is the path to the `.gql` file and configured GitHub credentials.
 
 The result of the GQL output will be printed to the console as pretty JSON - this can be redirected to a file somewhere to store the data. The main limitation here is that the script does not understand the structure of the queries or results, so therefore the results cannot be converted to CSV output.
 
 Here are are advantages of this approach over using the GQL explorer in the browser:
 
 - Easily run a new or modified query which is in the repo. No need to copy and paste queries.
-- Easily change variables for the query. No without worrying about JSON syntax. Also, dates are converted to proper Github datetime types.
+- Easily change variables for the query. No without worrying about JSON syntax. Also, dates are converted to proper GitHub datetime types.
 - Get the results outputted to the console.
 - Optionally store results as a file.
 
-A page cursor can be passed on the command-line. For future development, extend this to handle multiple pages automatically. See Github [issue #5](https://github.com/MichaelCurrin/github-reporting-py/issues/5).
+A page cursor can be passed on the command-line. For future development, extend this to handle multiple pages automatically. See GitHub [issue #5](https://github.com/MichaelCurrin/github-reporting-py/issues/5).
 
 ### How to run
 
