@@ -65,7 +65,7 @@ Here are are advantages of this approach over using the GQL explorer in the brow
 - Get the results outputted to the console.
 - Optionally store results as a file.
 
-A page cursor can be passed on the command-line. For future development, extend this to handle multiple pages automatically. See Github [issue #5](https://github.com/MichaelCurrin/github-graphql-tool/issues/5).
+A page cursor can be passed on the command-line. For future development, extend this to handle multiple pages automatically. See Github [issue #5](https://github.com/MichaelCurrin/github-reporting-py/issues/5).
 
 ### How to run
 
@@ -183,13 +183,13 @@ $ ./repo_commits.py --help
 Example:
 
 ```bash
-$ ./repo_commits.py michaelcurrin github-graphql-tool
+$ ./repo_commits.py michaelcurrin github-reporting-py
 ```
 
 Set a start date to only get commits from that date onwards. This can make the script run much quicker if you choose a recent date. Example:
 
 ```bash
-$ ./repo_commits.py michaelcurrin github-graphql-tool --start 2019-04-01
+$ ./repo_commits.py michaelcurrin github-reporting-py --start 2019-04-01
 ```
 
 Open the report.
@@ -212,7 +212,7 @@ For example:
       start_date: 2019-09-01
       owner: michaelcurrin
       repo_names:
-        - github-graphql-tool
+        - github-reporting-py
     ```
 - Get commits from 30 days ago up to today, for multiple repos.
     ```yaml
@@ -220,7 +220,7 @@ For example:
       start_date: 30
       owner: michaelcurrin
       repo_names:
-        - github-graphql-tool
+        - github-reporting-py
         - twitterverse
     ```
 

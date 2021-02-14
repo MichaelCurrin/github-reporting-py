@@ -1,4 +1,4 @@
-# GitHub GraphQL Tool
+# GitHub Reporting Tool
 > Create detailed and summary CSV reports of GitHub activity in a target GH user or organization
 
 A project to output CSV reports around on repos, users and commits, for interest and for business reporting. Built on Python3 and GH GraphQL V4 API.
