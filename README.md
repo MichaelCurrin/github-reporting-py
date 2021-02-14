@@ -8,7 +8,12 @@
 [![API - GitHub GraphQL](https://img.shields.io/badge/API-GitHub_GraphQL-blue?logo=github)](https://graphql.github.io/)
 
 
-This was created explore the Github GraphQL API for fun and to output CSV reports on repos, users and commits that are withn a a target GH org or user, for reporting purposes.
+## Purpose
+
+This was created to:
+
+- Explore the Github GraphQL API for fun.
+- Output CSV reports around repos, users and commits - all within a target GH org or user.
 
 
 ## Documentation
