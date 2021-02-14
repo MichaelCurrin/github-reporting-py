@@ -61,7 +61,7 @@ def test():
     preview = 3
     print(f"Latest {preview} rows")
 
-    for row in rows[(-1 * preview):]:
+    for row in rows[(-1 * preview) :]:
         for k, v in row.items():
             print(f"{k:23}: {v}")
         print()

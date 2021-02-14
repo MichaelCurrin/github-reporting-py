@@ -47,6 +47,7 @@ def main(args):
 
     out_data = []
     query_counter = 0
+
     while True:
         query_counter += 1
         print(f"Query #{query_counter}")
