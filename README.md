@@ -1,4 +1,4 @@
-# Github GraphQL Tool
+# GitHub GraphQL Tool
 > Create detailed and summary CSV reports of GitHub activity in a target GH user or organization
 
 [![GitHub tag](https://img.shields.io/github/tag/MichaelCurrin/github-graphql-tool)](https://github.com/MichaelCurrin/github-graphql-tool/tags/)
