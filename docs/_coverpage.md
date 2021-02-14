@@ -6,4 +6,4 @@
 - 📊 A way to report on GitHub activity by you or your org
 
 [GitHub](https://github.com/MichaelCurrin/github-reporting-py/)
-[Getting Started](#github-reporting-py)
+[Getting Started](#github-reporting-tool-docs)
