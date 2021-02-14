@@ -1,4 +1,7 @@
-default: install
+default: install install-dev
+
+all: install install-dev format-check lint typecheck
+
 
 help:
 	@grep '^[a-z]' Makefile
@@ -17,5 +20,11 @@ format:
 format-check:
 	black . --diff --check
 
-check-types:
+lint:
+	flake8 . --select=E9,F63,F7,F82 --show-source
+	flake8 . --exit-zero
+
+fix: format lint
+
+t typecheck:
 	mypy ghgql
