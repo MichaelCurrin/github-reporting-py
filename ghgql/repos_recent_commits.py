@@ -7,7 +7,7 @@ import lib
 import lib.text
 
 
-# TODO Since
+# TODO Since param
 # TODO: Refactor - move this function to lib.
 def parse_commit(value):
     """

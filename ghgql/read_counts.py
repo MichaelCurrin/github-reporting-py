@@ -57,9 +57,11 @@ def test():
     rows = read()
     print(f"Total: {len(rows)}")
     print()
+
     preview = 3
-    print(f"Latest {preview}")
-    for row in rows[-1 * preview :]:
+    print(f"Latest {preview} rows")
+
+    for row in rows[(-1 * preview):]:
         for k, v in row.items():
             print(f"{k:23}: {v}")
         print()

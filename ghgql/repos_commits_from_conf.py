@@ -67,17 +67,19 @@ def commits_to_csv(owner, repo_names, start_date=None):
 
     for repo_name in repo_names:
         commits = repo_commits.get_commits(owner, repo_name, start_date)
-        # TODO delete if it is first round. Or wait until the end and write out everything
-        # with overwriting but that just means an incomplete report is not generated of the script aborts which might be okay
+        # TODO delete if it is first round. Or wait until the end and write out
+        # everything with overwriting but that just means an incomplete report
+        # is not generated of the script aborts which might be okay
 
         lib.write_csv(path, commits, append=True)
 
-        # TODO Move this to a separate function, possibly using commits
-        # returned from the function.
+        # TODO Move this to a separate function, possibly using commits returned
+        # from the function.
         repo_summary = defaultdict(int)
         repo_summary["name"] = repo_name
         repo_summary["commits"] = len(commits)
-        # Note that lines changed or files changed would not be accurate when adding commits so that is left out.
+        # Note that lines changed or files changed would not be accurate when
+        # adding commits so that is left out.
         for commit in commits:
             repo_summary["additions"] += commit["additions"]
             repo_summary["deletions"] += commit["deletions"]

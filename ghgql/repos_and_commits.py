@@ -183,7 +183,7 @@ def main(args):
     """
     if not args or set(args).intersection({"-h", "--help"}):
         print(f"Usage: {__file__} owner OWNER [start START_DATE]")
-        print(f"START_DATE: Count commits on or after this date, in YYYY-MM-DD format.")
+        print("START_DATE: Count commits on or after this date, in YYYY-MM-DD format.")
         sys.exit(1)
 
     variables = lib.process_variables(args)

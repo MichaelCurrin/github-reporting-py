@@ -2,8 +2,8 @@
 """
 Repo commits report application.
 
-Fetch all commits for a single given repo using paging. 
-Accepts an optional start date.
+Fetch all commits for a single given repo using paging. Accepts an optional
+start date.
 """
 import argparse
 import datetime
