@@ -1,4 +1,4 @@
-# GitHub Reporting Tool
+# GitHub Reporting Tool 👨‍💻 📊 🐍
 > Create detailed and summary CSV reports of GitHub activity in a target GH user or organization - using the GraphQL API
 
 [![GitHub tag](https://img.shields.io/github/tag/MichaelCurrin/github-reporting-py)](https://github.com/MichaelCurrin/github-reporting-py/tags/)
