@@ -1,0 +1,24 @@
+# Get repos and website URLs if set.
+query ReposURLs($owner: String!, $cursor: String) {
+    repositoryOwner(login: $owner) {
+        repositories(
+			first: 100
+			ownerAffiliations: OWNER
+			privacy: PUBLIC
+			isFork: false
+			isLocked: false
+			orderBy: { field: NAME, direction: ASC }
+			after: $cursor
+		) {
+            totalCount
+            pageInfo {
+                hasNextPage
+                endCursor
+            }
+            nodes {
+                name
+				homepageUrl
+            }
+        }
+    }
+}
