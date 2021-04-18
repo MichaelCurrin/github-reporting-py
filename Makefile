@@ -1,6 +1,6 @@
 default: install install-dev
 
-all: install install-dev format-check lint typecheck
+all: install install-dev fmt-check lint typecheck
 
 
 h help:
@@ -15,9 +15,9 @@ install-dev:
 	pip install -r requirements-dev.txt
 
 
-format:
+fmt:
 	black .
-format-check:
+fmt-check:
 	black . --diff --check
 
 l lint:
