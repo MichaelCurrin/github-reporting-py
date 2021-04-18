@@ -32,8 +32,6 @@ def days_ago(days: int) -> datetime.date:
     """
     Lookback a given number of days from today and return a date object.
     """
-    return (
-        datetime.date.today()
-        - datetime.timedelta(days=days)
-        + datetime.timedelta(days=1)
-    )
+    today = datetime.date.today()
+
+    return today - datetime.timedelta(days=days) + datetime.timedelta(days=1)
