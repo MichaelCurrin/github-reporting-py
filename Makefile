@@ -3,7 +3,7 @@ default: install install-dev
 all: install install-dev format-check lint typecheck
 
 
-help:
+h help:
 	@grep '^[a-z]' Makefile
 
 
