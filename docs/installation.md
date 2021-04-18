@@ -1,11 +1,26 @@
 # Installation
 
 
-## Setup environment
+## Install system dependencies
 
-This project requires you to setup Python 3 as well as a Python virtual environment, with the project's packages installed into it.
+Install Python 3 - follow this [gist](https://gist.github.com/MichaelCurrin/3a4d14ba1763b4d6a1884f56a01412b7) for assistance.
 
-To set those up for this project (or similar Python projects), follow the instructions here in my [gist](https://gist.github.com/MichaelCurrin/3a4d14ba1763b4d6a1884f56a01412b7). Then continue below.
+
+## Install project packages
+
+Create a virtual environment. Here using `venv` as a built-in tools for creating a virtual environment.
+
+```sh
+$ cd path-to-repo
+$ python3 -m venv venv
+```
+
+Install packages into it.
+
+```sh
+$ source venv/bin/activate
+$ make install install-dev
+```
 
 
 ## Configure project
@@ -18,8 +33,8 @@ Create your access token in your GitHub account settings. Ensure it has access t
 
 1. Go GitHub and login.
 2. Go to the [Personal Access Tokens](https://github.com/settings/tokens) page under Developer Settings.
-3. Create a new token with appropriately scoped permissions. 
-    - Only **read** access is needed for this project. 
+3. Create a new token with appropriately scoped permissions.
+    - Only **read** access is needed for this project.
     - The scopes needed depends on what you want to query. Some recommended scopes are:
         * ☐ `repo` (Optionally tick the top-level one for access to _private_ repos)
             - ☑ `public_repo`
@@ -30,7 +45,7 @@ Create your access token in your GitHub account settings. Ensure it has access t
         * ☐ `user`
             - ☑ `read`
             - ☑ `email`
-4. Find the generated token value, which you'll use in the next step. 
+4. Find the generated token value, which you'll use in the next step.
     - Do not navigate away yet,as the token **cannot** be viewed online later. You can generate a new value for the token anytime and that will make the old value inactive.
 
 ### Add a token to the config
