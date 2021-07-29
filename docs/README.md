@@ -6,6 +6,10 @@
 
 A project to output CSV reports around on repos, users and commits, for interest and for business reporting. Built on Python3 and GH GraphQL V4 API.
 
+View the source:
+
+[![MichaelCurrin - github-reporting-py](https://img.shields.io/static/v1?label=MichaelCurrin&message=github-reporting-py&color=blue&logo=github)](https://github.com/MichaelCurrin/github-reporting-py)
+
 
 ## Requirements
 
