@@ -2,7 +2,7 @@
     "terminal.integrated.cwd": "ghgql",
     "code-runner.cwd": "ghgql",
 
-    "python.pythonPath": "venv/bin/python",
+    "python.defaultInterpreterPath": "venv/bin/python",
 
     "editor.rulers": [80],
 
