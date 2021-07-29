@@ -3,25 +3,39 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>GitHub Reporting Tool</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
   <meta name="viewport"
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+  <title>GitHub Reporting Tool</title>
+  <meta name="description" content="A Python tool to easily report on GitHub data fetched from the GraphQL API">
+
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
 </head>
 
 <body>
   <div id="app"></div>
+  
   <script>
-    window.$docsify = {
-      name: 'GitHub Reporting Tool',
-      repo: 'https://github.com/MichaelCurrin/github-reporting-py',
-      auto2top: true,
-      coverpage: true,
-      loadSidebar: true,
-      subMaxLevel: 2,
-    }
+        var repo = 'https://github.com/MichaelCurrin/github-reporting-py';
+
+        window.$docsify = {
+            name: 'GitHub Reporting Tool',
+            repo,
+            auto2top: true,
+            coverpage: true,
+            loadSidebar: true,
+            subMaxLevel: 2,
+            themeColor: '#3271a8',
+
+            plugins: [
+                EditOnGithubPlugin.create(
+                    repo + '/blob/master/docs/',
+                    null,
+                    '📝 Edit on GitHub',
+                )
+            ],
+        };
 
   </script>
 
