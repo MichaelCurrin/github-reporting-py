@@ -7,3 +7,5 @@
 
 [GitHub](https://github.com/MichaelCurrin/github-reporting-py/)
 [Getting Started](#github-reporting-tool-docs)
+
+![color](#eeefef)
