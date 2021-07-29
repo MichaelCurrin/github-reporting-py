@@ -1,5 +1,5 @@
 # GitHub Reporting Tool
-> A Python tool to easily report on GitHub data fetched from GitHub's GraphQL API
+> A Python tool to easily report on GitHub data fetched from the GraphQL API
 
 - 📡 A reference for using GitHub's GraphQL API
 - 🐍 A reference for how to use GraphQL in Python generally
