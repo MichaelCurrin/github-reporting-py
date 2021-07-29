@@ -10,6 +10,8 @@ View the source:
 
 [![MichaelCurrin - github-reporting-py](https://img.shields.io/static/v1?label=MichaelCurrin&message=github-reporting-py&color=blue&logo=github)](https://github.com/MichaelCurrin/github-reporting-py)
 
+If you're interested in making your own docs site like this one, follow my [DocsifyJS Tutorial](https://michaelcurrin.github.io/docsify-js-tutorial/).
+
 
 ## Requirements
 
