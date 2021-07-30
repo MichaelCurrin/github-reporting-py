@@ -240,3 +240,30 @@ Open the CSV reports.
 The one is on commit-level data and the other rolls commits up to repo names - this was extra functionality added later which is a commit count not just commits report. Note that files changed column would be overestimated as it adds up across commits so only lines changed and number of commits is accurate and useful here.
 
 To change the report output, update and save the config then rerun the report.
+
+#### Daily commit counts
+
+- [daily_commit_counts.py](https://github.com/MichaelCurrin/github-reporting-py/blob/master/ghgql/daily_commit_counts.py)
+
+Usage - persist as a CSV file.
+
+```sh
+$ ./daily_commit_counts.py > var/daily.csv
+```
+
+?> Currently this does not take any params and just looks up for the current user from 2015 to 2021 inclusive.
+
+Sample result:
+
+date|contributions
+--- | ---
+2015-01-01|2
+2015-01-02|0
+...|...
+2019-03-28|4
+2019-03-29|6
+2019-03-30|8
+2019-03-31|0
+...|...
+2021-07-24|17
+2021-07-25|60
