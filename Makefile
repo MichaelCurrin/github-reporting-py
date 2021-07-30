@@ -1,3 +1,7 @@
+CONFIG_TEMPL = app.template.yml
+CONFIG_LOCAL = app.local.yml
+
+
 default: install install-dev
 
 all: install install-dev fmt-check lint typecheck
@@ -14,6 +18,11 @@ install:
 install-dev:
 	pip install -r requirements-dev.txt
 
+config:
+	cd ghgql/etc && \
+		cp $(CONFIG_TEMPL) $(CONFIG_LOCAL) && \
+		open $(CONFIG_LOCAL)
+
 
 fmt:
 	black .
@@ -28,3 +37,14 @@ fix: format lint
 
 t typecheck:
 	mypy ghgql
+
+
+demo:
+	# Basic demo.
+	cd ghgql && python -m demo.basic
+
+	# Variables demo.
+	cd ghgql && python -m demo.variables
+
+	# Paginate demo.
+	cd ghgql && python -m demo.paginate
