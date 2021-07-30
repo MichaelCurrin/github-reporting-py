@@ -12,28 +12,39 @@ import math
 import lib
 import lib.git
 
-
 QUERY_PATH = "queries/repos/repo_commits.gql"
 CSV_OUT_NAME = "repo-commits--{repo_name}--end-{end_date}--start-{start_date}.csv"
+
+
+def _parse(resp):
+    """
+    Parse response data for the repo commits query.
+    """
+    branch = resp["repository"]["defaultBranchRef"]
+
+    branch_name = branch.get("name")
+
+    commit_history = branch["target"]["history"]
+    total_commits = commit_history["totalCount"]
+    commits = commit_history["nodes"]
+    page_info = commit_history["pageInfo"]
+
+    cursor = page_info["endCursor"] if page_info["hasNextPage"] else None
+
+    return branch_name, total_commits, commits, cursor
 
 
 def process_response(resp, repo_name):
     """
     Format the response from a request for repo commits.
     """
-    branch = resp["repository"]["defaultBranchRef"]
-    branch_name = branch.get("name")
-    commit_history = branch["target"]["history"]
+    branch_name, total_commits, commits, cursor = _parse(resp)
 
-    commits = [
-        lib.git.prepare_row(c, repo_name, branch_name) for c in commit_history["nodes"]
+    processed_commits = [
+        lib.git.prepare_row(c, repo_name, branch_name) for c in commits
     ]
-    total_commits = commit_history["totalCount"]
 
-    page_info = commit_history["pageInfo"]
-    cursor = page_info["endCursor"] if page_info["hasNextPage"] else None
-
-    return commits, total_commits, cursor
+    return processed_commits, total_commits, cursor
 
 
 def get_commits(owner, repo_name, start_date=None):
