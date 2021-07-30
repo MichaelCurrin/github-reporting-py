@@ -1,7 +1,7 @@
 commit_report:
   start_date:
-  owner:
+  owner: # e.g. michaelcurrin
   repo_names:
-    -
+    # e.g. - github-reporting-py
 
-access_token:
+access_token: # e.g. ABCDEF0123456789
