@@ -8,7 +8,7 @@ Install Python 3 - follow this [gist](https://gist.github.com/MichaelCurrin/3a4d
 
 ## Install project packages
 
-Create a virtual environment. Here using `venv` as a built-in tools for creating a virtual environment.
+Create a virtual environment. Here using Python 3's built-in `venv` module. Note that `virtualenv` is deprecated. 
 
 ```sh
 $ cd path-to-repo
