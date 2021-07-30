@@ -3,6 +3,7 @@
 Follow in the instructions in this section to run the scripts in this project.
 
 **Reports**
+
 - [Demo reports](#demo-reports) - A few simple scripts which demonstrate how doing queries and processing results work. The content of the results is of limited value.
 - [Query runner](#query-runner) - Run arbitrary GQL queries with variables then view or store the output.
 - [CSV Reports](#csv-reports)
@@ -15,7 +16,7 @@ Follow in the instructions in this section to run the scripts in this project.
 Before running scripts in the usage guide, activate the virtual environment then navigate to the app directory.
 
 ```bash
-$ cd <PATH/TO/REPO>
+$ cd PATH_TO_REPO
 $ source venv/bin/activate
 $ cd ghgql
 ```
@@ -50,6 +51,10 @@ These are not that useful for reporting, but their code is mostly self-contained
     ```bash
     $ python -m demo.paginate
     ```
+- Or, run all of demos at once, from the repo root.
+    ```sh
+    $ make demo
+    ```
 
 
 ## Query runner
@@ -71,7 +76,7 @@ A page cursor can be passed on the command-line. For future development, extend 
 
 Instructions are covered below for how to do this with the `ghgql/query.py`. The file path would usually be to a `.gql` file in the `ghgql/queries` directory, though it can point to anywhere.
 
-See the script's instructions.
+See the script's instructions:
 
 ```bash
 $ ./query.py --help
@@ -81,13 +86,13 @@ Simple usage just requires the path to query as a text file. Variables can be se
 
 ### Examples
 
-Example with no variables set. The result is printed.
+Example with no variables set. The result will be printed.
 
 ```bash
 $ ./query.py queries/commits/first_page.gql
 ```
 
-The result is stored as a JSON file.
+Here the result will be stored as a JSON file.
 
 ```bash
 $ ./query.py queries/commits/first_page.gql > var/my_report.json
@@ -96,13 +101,13 @@ $ ./query.py queries/commits/first_page.gql > var/my_report.json
 Example with variables provided as key-value pairs, separated by spaces. Just prints the results to the console.
 
 ```bash
-$ ./query.py queries/commits/parametized.gql owner michaelcurrin name twitterverse
+$ ./query.py queries/commits/parametrized.gql owner michaelcurrin name twitterverse
 ```
 
 
 ## CSV Reports
 
-This is the main purpose of this project is to produce CSV reports about repos. The reports are saved to the [var](/ghgql/var) directory. A filename will be shown in the printed output.
+This is the main purpose of this project is to produce CSV reports about repos. The reports are saved to the `ghgql/var` directory. A filename will be shown in the printed output.
 
 ### Repo summary reports
 
@@ -120,7 +125,7 @@ After running, open the report.
 
 This command will go through a user or org and get a count of commits in each repo. The latest commit is also included. The result is written to a CSV.
 
-- [repos_and_commit_counts.py](/ghgql/repos_and_commit_counts.py)
+- [repos_and_commit_counts.py](https://github.com/MichaelCurrin/github-reporting-py/blob/master/ghgql/repos_and_commit_counts.py)
 
 
 ```bash
@@ -200,7 +205,7 @@ To update the report output, use different command-line arguments. The repo name
 
 Run a CSV report against named repos in a user or org, with optional start date. This script makes it easy to run a report repeatedly as it uses a config as an input rather than command-line options.
 
-- [repos_commits_from_conf.py](/ghgql/repos_commits_from_conf.py)
+- [repos_commits_from_conf.py](https://github.com/MichaelCurrin/github-reporting-py/blob/master/ghgql/repos_commits_from_conf.py)
 
 First set the details in the `etc/app.local.yml` file's commit report section, if not set already.
 
