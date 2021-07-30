@@ -6,16 +6,7 @@ Get commit contributions of a user by day over a few years, using `weekly` from
 the API. The API response groups days by weeks, so this report flattens that
 to one row for each day.
 
-e.g.
-    date,contributions
-    2019-03-27,7
-    2019-03-28,4
-    2019-03-29,6
-    2019-03-30,8
-    2019-03-31,0
-    ...
-    2021-03-24,17
-    2021-03-25,60
+See the docs for sample output.
 """
 import lib
 
