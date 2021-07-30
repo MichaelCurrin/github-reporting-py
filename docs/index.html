@@ -21,22 +21,22 @@
   <div id="app"></div>
   
   <script>
-        var repo = 'https://github.com/MichaelCurrin/github-reporting-py';
+        var repo = "https://github.com/MichaelCurrin/github-reporting-py";
 
         window.$docsify = {
-            name: 'GitHub Reporting Tool',
+            name: "GitHub Reporting Tool",
             repo,
             auto2top: true,
             coverpage: true,
             loadSidebar: true,
-            subMaxLevel: 2,
+            subMaxLevel: 3,
             themeColor: '#3271a8',
 
             plugins: [
                 EditOnGithubPlugin.create(
-                    repo + '/blob/master/docs/',
+                    repo + "/blob/master/docs/",
                     null,
-                    '📝 Edit on GitHub',
+                    "📝 Edit on GitHub",
                 )
             ],
         };
