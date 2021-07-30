@@ -3,7 +3,8 @@
 Daily commit counts report application.
 
 Get commit contributions of a user by day over a few years, using `weekly` from
-the API and the authenticated user.
+the API. The API response groups days by weeks, so this report flattens that
+to one row for each day.
 
 e.g.
     date,contributions
