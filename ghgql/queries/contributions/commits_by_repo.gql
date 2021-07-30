@@ -9,6 +9,7 @@
 						commitCount
 					}
 				}
+
 				repository {
 					nameWithOwner
 				}

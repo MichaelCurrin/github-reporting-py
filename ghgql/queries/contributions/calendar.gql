@@ -1,28 +1,41 @@
 # Get aggregates contribution counts for a GitHub user.
 #
-# Optionally set date range. Cannot be longer than 1 year. If not set, defaults
-# to a year ago up to today.
-# Sample payload: { "from": "2016-11-11T00:00:00" }
+# Defaults to a year ago up to today. Optionally set a date range - must be less
+# than 1 year though.
+#
+# Sample payload:
+# 	{ "from": "2016-11-11T00:00:00" }
+#
+# 	{ "from": "2018-02-01T00:00:00", "to": "2018-03-20T00:00:00" }
 #
 query myContributions($from: DateTime, $to: DateTime) {
 	viewer {
 		contributionsCollection (from: $from, to: $to) {
 			# TOTAL
+
 			# Count commits.
 			totalCommitContributions
+
 			# Count issues.
 			totalIssueContributions
+
 			# Count repos.
 			totalRepositoryContributions
-			# YEARS. This list is independent of the `from` and `to` parameters.
+
+
+			# YEARS
+
+			# This list is independent of the `from` and `to` parameters.
 			contributionYears
-			# MONTHS and WEEKS
+
+			# MONTHS AND WEEKS
+
 			contributionCalendar {
 				totalContributions # Includes more than just commits.
 				months {
-					year # e.g. 2018
-					name # e.g. "Nov"
-					firstDay # e.g. "2018-11-01
+					year       # e.g. 2018
+					name       # e.g. "Nov"
+					firstDay   # e.g. "2018-11-01
 					totalWeeks # Count of weeks of the month where user contributed.
 				}
 				weeks {
