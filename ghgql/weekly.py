@@ -2,22 +2,19 @@
 """
 Weekly report application.
 
-Get contributions of a user by day, using `weekly` from the API.
+Get commit contributions of a user by day over a few years, using `weekly` from
+the API and the authenticated user.
 
 e.g.
-    2019-03-27 7
-    2019-03-28 4
-    2019-03-29 6
-    2019-03-30 8
-    2019-03-31 0
+    date,contributions
+    2019-03-27,7
+    2019-03-28,4
+    2019-03-29,6
+    2019-03-30,8
+    2019-03-31,0
     ...
-    2021-03-24 17
-    2021-03-25 60
-    2021-03-26 6
-    2021-03-27 41
-    2021-03-28 74
-    2021-03-29 30
-    2021-03-30 69
+    2021-03-24,17
+    2021-03-25,60
 """
 import lib
 
