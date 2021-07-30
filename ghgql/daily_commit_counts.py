@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Weekly report application.
+Daily commit counts report application.
 
 Get commit contributions of a user by day over a few years, using `weekly` from
 the API and the authenticated user.
@@ -18,7 +18,7 @@ e.g.
 """
 import lib
 
-QUERY_PATH = "queries/contributions/weekly.gql"
+QUERY_PATH = "queries/contributions/daily_commit_counts.gql"
 
 
 def process_weeks(value):
