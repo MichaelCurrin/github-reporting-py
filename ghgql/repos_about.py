@@ -41,18 +41,15 @@ def report(path, variables):
         print(f"Query #{query_counter}")
 
         data = lib.query_by_filename(path, variables)
-        repositories = data["repositoryOwner"]["repositories"]
-
-        repo_nodes = repositories["nodes"]
-        total = repositories["totalCount"]
-        repo_page_info = repositories["pageInfo"]
+        repos = data["repositoryOwner"]["repositories"]
 
         if query_counter == 1:
-            print(f"Total count: {total}")
+            print(f"Total count: {repos['totalCount']}")
 
-        for repo_node in repo_nodes:
+        for repo_node in repos["nodes"]:
             process(repo_node)
 
+        repo_page_info = repos["pageInfo"]
         if repo_page_info["hasNextPage"]:
             variables["cursor"] = repo_page_info["endCursor"]
         else:
