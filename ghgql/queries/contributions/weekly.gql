@@ -1,8 +1,13 @@
-# Get GitHub contribution activity broken down by week, for the past few years.
+# Get daily GitHub contribution activity.
 #
-# Note that this will include weeks which have not happened yet but just includes zeroes.
+# Broken down by days of the week, for the past few years.
 #
-# TODO: Expect parameters for year ranges, then use it to build up first, second, third etc. Unfortunately the number of fragments is fixed, without templating.
+# Note that this will include future weeks which have not yet happened, but just
+# includes zero counts.
+#
+# TODO: Expect parameters for year ranges, then use it to build up first,
+# second, third etc. Unfortunately the number of fragments is fixed, without
+# templating.
 fragment weekStats on ContributionsCollection {
 	totalCommitContributions
 	contributionCalendar {
@@ -33,6 +38,9 @@ fragment weekStats on ContributionsCollection {
 			...weekStats
 		}
 		_2020: contributionsCollection(from: "2020-01-01T00:00:00", to: "2021-01-01T00:00:00") {
+			...weekStats
+		}
+		_2021: contributionsCollection(from: "2021-01-01T00:00:00", to: "2022-01-01T00:00:00") {
 			...weekStats
 		}
 	}
