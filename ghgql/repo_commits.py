@@ -16,7 +16,7 @@ QUERY_PATH = "queries/repos/repo_commits.gql"
 CSV_OUT_NAME = "repo-commits--{repo_name}--end-{end_date}--start-{start_date}.csv"
 
 
-def _parse(resp):
+def parse(resp):
     """
     Parse response data for the repo commits query.
     """
@@ -38,7 +38,7 @@ def process_response(resp, repo_name):
     """
     Format the response from a request for repo commits.
     """
-    branch_name, total_commits, commits, cursor = _parse(resp)
+    branch_name, total_commits, commits, cursor = parse(resp)
 
     processed_commits = [
         lib.git.prepare_row(c, repo_name, branch_name) for c in commits
