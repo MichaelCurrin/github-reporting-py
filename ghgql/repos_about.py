@@ -10,19 +10,12 @@ import sys
 
 import lib.text
 
+QUERY_PATH = "queries/repos/repos_about.gql"
 
-def main(args):
-    """
-    Main command-line function.
-    """
-    if len(args) != 2 or set(args).intersection({"-h", "--help"}):
-        lib.text.eprint(f"Usage: {__file__} owner OWNER")
-        sys.exit(1)
 
-    path = "queries/repos/repos_about.gql"
-    variables = lib.process_variables(args)
-
+def report(path, variables):
     query_counter = 0
+
     while True:
         query_counter += 1
         print(f"Query #{query_counter}")
@@ -53,6 +46,19 @@ def main(args):
             variables["cursor"] = repo_page_info["endCursor"]
         else:
             break
+
+
+def main(args):
+    """
+    Main command-line function.
+    """
+    if len(args) != 2 or set(args).intersection({"-h", "--help"}):
+        lib.text.eprint(f"Usage: {__file__} owner OWNER")
+        sys.exit(1)
+
+    path = QUERY_PATH
+    variables = lib.process_variables(args)
+    report(path, variables)
 
 
 if __name__ == "__main__":
