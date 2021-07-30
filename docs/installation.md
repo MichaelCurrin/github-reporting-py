@@ -8,17 +8,24 @@ Install Python 3 - follow this [gist](https://gist.github.com/MichaelCurrin/3a4d
 
 ## Install project packages
 
-Create a virtual environment. Here using Python 3's built-in `venv` module. Note that `virtualenv` is deprecated. 
+Create a virtual environment.
 
 ```sh
 $ cd path-to-repo
 $ python3 -m venv venv
 ```
 
-Install packages into it.
+?> Here using Python 3's built-in `venv` module. Note that the `virtualenv` is deprecated.
+
+Activate it.
 
 ```sh
 $ source venv/bin/activate
+```
+
+Install packages into it.
+
+```sh
 $ make install install-dev
 ```
 
@@ -50,34 +57,17 @@ Create your access token in your GitHub account settings. Ensure it has access t
 
 ### Add a token to the config
 
-Navigate to the directory which contains the project's configs (based on the Unix convention of using the _/etc_ directory for configs).
-
-```bash
-$ cd ghgql/etc
-```
-
-Create a local config using the template.
-
-```bash
-$ cp app.template.yml app.local.yml
-```
-
-Open the created file with a command, or your IDE.
-
-```bash
-$ edit app.local.yml
-# VS Code
-$ code app.local.yml
-```
-
-Paste your GitHub token value, without quotes e.g.
-
-```yaml
-access_token: ABCDEF0123456789
-```
-
-Leave the other section as is for now.
-
-Save and exit.
+1. Create a local _unversioned_ config file, based on the template.
+    ```bash
+    $ make config
+    ```
+1. Open it.
+    - The new file should open automatically in your default editor.
+    - Or open with VS Code.
+        ```sh
+        $ code ghgql/etc/app.local.yml
+        ```
+1. Paste in your GitHub token value in `access_token`. Without quotes. Leave the other section as is, for now.
+1. Save and exit.
 
 You are now setup and so can continue to the [Usage](usage.md) instructions.
