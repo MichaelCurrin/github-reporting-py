@@ -1,6 +1,6 @@
-black>=20.8b1
+black>=21.7b0
 
 # Pylint is too noisy so just use this.
-flake8>=3.8
+flake8>=3.9.2
 
-mypy>=0.800
+mypy>=0.910
