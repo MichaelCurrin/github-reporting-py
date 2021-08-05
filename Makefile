@@ -12,7 +12,7 @@ h help:
 
 
 install:
-	pip install --upgrade pip
+	pip install pip --upgrade
 	pip install -r requirements.txt
 
 install-dev:
@@ -20,7 +20,7 @@ install-dev:
 	mypy --install-types --non-interactive
 
 upgrade:
-	pip install --upgrade pip
+	pip install pip --upgrade
 	pip install -r requirements.txt --upgrade
 	pip install -r requirements-dev.txt --upgrade
 
