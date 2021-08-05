@@ -8,15 +8,15 @@ import json
 from pathlib import Path
 
 import requests
-from jinja2 import Template
+from jinja2 import Template  # type: ignore
 
 import config
 
-# TODO Rename time to not conflict with builtin.
+# TODO: Rename time to not conflict with builtin.
 from . import text, time
 
 
-# FIXME this only happens to work in lib so should be more robust
+# FIXME: this only happens to work in lib so should be more robust
 APP_DIR = Path().absolute()
 VAR_DIR = APP_DIR / "var"
 
