@@ -13,17 +13,23 @@ View the source:
 If you're interested in making your own docs site like this one, follow my [DocsifyJS Tutorial](https://michaelcurrin.github.io/docsify-js-tutorial/).
 
 
-## Requirements
+## Sample
 
-You need the following to run this project:
+There are a few reports you can generate, using a few Python scripts.
 
-| Name                                                   | Description                               |
-| ------------------------------------------------------ | ----------------------------------------- |
-| GitHub account                                         | Needed to create a dev token.             |
-| [GitHub dev token](https://github.com/settings/tokens) | For authenticated API requests.           |
-| [Python](python.org/)                                  | Used to run queries and generate reports. |
+Run the executable script by name with any arguments.
 
-Only **read** access to public repos is needed. You may also enable read access to any **private** repos which you have access to - either directly in your user or in an org that your user belongs to.
+Examples:
+
+```bash
+$ ./repos_and_commit_counts.py owner MichaelCurrin
+```
+
+Or
+
+```bash
+$ ./repos_and_commit_counts.py owner MichaelCurrin start 2020-04-01
+```
 
 
 ## Documentation
@@ -31,8 +37,8 @@ Only **read** access to public repos is needed. You may also enable read access 
 See the following guides so you can use this project to generate some reports for yourself on users or repos you are interested in. Note that these only cover the case of a Unix-style environment.
 
 - [Aims](/aims.md) - The main purposes for this project and how they could benefit you.
-- [Installation](/installation.md) - Setup project environment and configs.
-- [Usage](/usage.md) - Run scripts to generate reports.
+- [Installation](/installation.md) - Requirements and how to set up your environment and configs.
+- [Usage](/usage.md) - Run CLI scripts to generate reports.
 - [Datasources](/datasources.md) - Info and links around APIs.
 
 See also GitHub's resources and samples for running GraphQL queries - [platform-samples](https://github.com/github/platform-samples/tree/master/graphql).
