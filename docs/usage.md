@@ -136,15 +136,19 @@ Usage: ./repos_and_commit_counts.py owner OWNER [start START_DATE]
 START_DATE: Count commits on or after this date, in YYYY-MM-DD format. This only affects the commit count and not whether the repo is shown
 ```
 
-Example:
+Examples:
 
 ```bash
 $ ./repos_and_commit_counts.py owner MichaelCurrin
+```
 
+Or
+
+```bash
 $ ./repos_and_commit_counts.py owner MichaelCurrin start 2020-04-01
 ```
 
-Open the report.
+Then open the report.
 
 ### Commit reports
 
@@ -154,19 +158,24 @@ The CSV output is commit-level data from one or more repos. Each row in the repo
 
 The following fields are in the headers of the commit repos:
 
-- `repo_name`: Name of repo where the commit was made.
-- `branch_name`:  Name of branch where the commit was made.
-- `commit_id`: Short commit hash.
-- `author_date`: Date the commit was _authored_ (originally written).
-- `author_login`: Username of the author (who originally wrote the commit).
-- `committed_date`: Date the commit was _committed_. You probably want to use the author fields above rather than these commit fields but they are provided anyway.
-- `committer_login`: Username of the commit's committer.
-- `changed_files`: Number of files changed.
-- `additions`: Number of lines added.
-- `deletions`: Number of lines removed.
-- `message`: Commit message.
+Field | Description
+---   | ---
+`repo_name` | Name of repo where the commit was made.
+`branch_name` |  Name of branch where the commit was made.
+`commit_id` | Short commit hash.
+`author_date` | Date the commit was _authored_ (originally written).
+`author_login` | Username of the author (who originally wrote the commit).
+`committed_date` | Date the commit was _committed_. You probably want to use the author fields above rather than these commit fields but they are provided anyway.
+`committer_login` | Username of the commit's committer.
+`changed_files` | Number of files changed.
+`additions` | Number of lines added.
+`deletions` | Number of lines removed.
+`message` | Commit message.
 
-A further note on _author_ vs _committer_ for a commit - details for shown in the report output for both, for the most flexibility. They are usually the same person, but sometimes one username can be different or one can be be missing. In the case of a merged Pull Request, both login fields can be blank, though there is still a date repeated in both date columns.
+A further note on _author_ vs _committer_ for a commit:
+
+- Details for shown in the report output for both, for the most flexibility. They are usually the _same_ person, but, sometimes one username can be different or one field can be missing. 
+- In the case of a merged Pull Request, _both_ login fields could be blank, though there is still a date repeated in both date columns.
 
 An explanation from the [commit history](https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History) part of the _git_ docs:
 
@@ -179,7 +188,6 @@ You can run the Python script with command-line arguments to get data for a sing
 Run a report for a single repo using details passed on the command line.
 
 - [repo_commits.py](/ghgql/repo_commits.py)
-
 
 ```bash
 $ ./repo_commits.py --help
