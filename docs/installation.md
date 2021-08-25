@@ -1,6 +1,21 @@
 # Installation
 
 
+## Requirements
+
+You need the following to run this project:
+
+| Name                                                   | Description                               |
+| ------------------------------------------------------ | ----------------------------------------- |
+| GitHub account                                         | To login to GitHub and create a dev token. |
+| [GitHub dev token](https://github.com/settings/tokens) | For authenticated API requests.           |
+| [Python 3](https://python.org/)                        | Used to run queries and generate reports. |
+
+For the token, only **read** access to public repos is needed. This is more secure - used the least privilege required for the task.
+
+You could also enable read access to any **private** repos which you have access to - either directly in your user or in an org that your user belongs to.
+
+
 ## Install system dependencies
 
 Install Python 3 - follow this [gist](https://gist.github.com/MichaelCurrin/3a4d14ba1763b4d6a1884f56a01412b7) for assistance.
@@ -10,7 +25,7 @@ Install Python 3 - follow this [gist](https://gist.github.com/MichaelCurrin/3a4d
 
 Create a virtual environment.
 
-```sh
+```bash
 $ cd path-to-repo
 $ python3 -m venv venv
 ```
@@ -19,13 +34,13 @@ $ python3 -m venv venv
 
 Activate it.
 
-```sh
+```bash
 $ source venv/bin/activate
 ```
 
 Install packages into it.
 
-```sh
+```bash
 $ make install install-dev
 ```
 
@@ -64,10 +79,10 @@ Create your access token in your GitHub account settings. Ensure it has access t
 1. Open it.
     - The new file should open automatically in your default editor.
     - Or open with VS Code.
-        ```sh
+        ```bash
         $ code ghgql/etc/app.local.yml
         ```
 1. Paste in your GitHub token value in `access_token`. Without quotes. Leave the other section as is, for now.
 1. Save and exit.
 
-You are now setup and so can continue to the [Usage](usage.md) instructions.
+You are now setup and so can continue to the [Usage](/usage.md) instructions.
