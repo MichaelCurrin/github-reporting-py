@@ -51,8 +51,8 @@ These are not that useful for reporting, but their code is mostly self-contained
     ```bash
     $ python -m demo.paginate
     ```
-- Or, run all of demos at once, from the repo root.
-    ```sh
+- Run all of demos at once. From the repo root:
+    ```bash
     $ make demo
     ```
 
@@ -126,7 +126,6 @@ After running, open the report.
 This command will go through a user or org and get a count of commits in each repo. The latest commit is also included. The result is written to a CSV.
 
 - [repos_and_commit_counts.py](https://github.com/MichaelCurrin/github-reporting-py/blob/master/ghgql/repos_and_commit_counts.py)
-
 
 ```bash
 $ ./repos_and_commit_counts.py --help
@@ -255,11 +254,11 @@ To change the report output, update and save the config then rerun the report.
 
 Usage - persist as a CSV file.
 
-```sh
+```bash
 $ ./daily_commit_counts.py > var/daily.csv
 ```
 
-?> Currently this does not take any params and just looks up for the current user from 2015 to 2021 inclusive.
+?> Currently this does not take any parameters. It just looks up activity for the current user, from 2015 to 2021 inclusive.
 
 Sample result:
 
