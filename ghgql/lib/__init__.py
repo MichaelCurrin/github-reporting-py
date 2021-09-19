@@ -31,6 +31,7 @@ HEADERS = {"Authorization": f"token {config.ACCESS_TOKEN}"}
 MAX_ATTEMPTS = 3
 
 str_dict = dict[str, str]
+str_list = list[str]
 
 
 def _request(url: str, payload: str_dict, headers: str_dict):
@@ -193,7 +194,7 @@ def write_csv(path: Path, rows: list[str_dict], append=False) -> None:
     print()
 
 
-def process_variables(args: list[str]) -> str_dict:
+def process_variables(args: str_list) -> str_dict:
     """
     Process command-line arguments containing a filename and key-value pairs.
     """
@@ -216,7 +217,7 @@ def process_variables(args: list[str]) -> str_dict:
     return {}
 
 
-def process_args(args: list[str]):
+def process_args(args: str_list):
     """
     Process command-line arguments containing a filename and key-value pairs.
 
