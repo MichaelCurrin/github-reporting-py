@@ -1,5 +1,4 @@
 {
-  "terminal.integrated.cwd": "ghgql",
   "code-runner.cwd": "ghgql",
 
   "python.defaultInterpreterPath": "venv/bin/python",
