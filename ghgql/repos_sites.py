@@ -6,14 +6,18 @@ Get the URLs for repos.
 """
 import json
 import sys
+from pathlib import Path
 
 import lib.text
 
-QUERY_PATH = "queries/repos/repos_sites.gql"
-OUT_PATH = "var/sites.json"
+QUERY_PATH = Path("queries/repos/repos_sites.gql")
+OUT_PATH = Path("var/sites.json")
+
+dict_of_str = dict[str, str]
+list_of_str = list[str]
 
 
-def write_json(path, rows):
+def write_json(path: Path, rows: list[dict_of_str]):
     if not rows:
         print("No rows to write")
         print()
@@ -28,7 +32,7 @@ def write_json(path, rows):
     print()
 
 
-def get(path, variables):
+def get(path: Path, variables: dict_of_str):
     """
     Note that homepage URL may be null or an empty string in the API response.
     """
@@ -62,7 +66,7 @@ def get(path, variables):
     return repos
 
 
-def process(path, variables, out_path):
+def process(path: Path, variables: dict_of_str, out_path: Path):
     """
     Fetch repo data and write results.
     """
@@ -71,7 +75,7 @@ def process(path, variables, out_path):
     write_json(out_path, repos)
 
 
-def main(args):
+def main(args: list_of_str):
     """
     Main command-line function.
     """
