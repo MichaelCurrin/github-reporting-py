@@ -108,7 +108,7 @@ def fetch_github_data(query: str, variables=None) -> str_dict:
     return resp_json.get("data", None)
 
 
-def read_file(path):
+def read_file(path: Path):
     """
     TODO: Refactor to use Path().read() instead.
     """
@@ -118,7 +118,7 @@ def read_file(path):
     return file_text
 
 
-def write_file(content, path):
+def write_file(content, path: Path):
     """
     Write a list or str to a given filepath.
 
@@ -143,7 +143,7 @@ def read_template(path: Path):
 
 # TODO Rename to path.
 # TODO Refactor so the file only has to be read once for a set of paged queries.
-def query_by_filename(path, variables=None):
+def query_by_filename(path: Path, variables=None):
     if not variables:
         variables = {}
     query = read_file(path)
