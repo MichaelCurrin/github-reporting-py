@@ -46,12 +46,14 @@ def fetch_github_data(query: str, variables=None):
         "variables": variables,
     }
 
+    resp_json = {}
+
     for i in range(MAX_ATTEMPTS):
         try:
             resp = requests.post(config.BASE_URL, json=payload, headers=HEADERS)
-            resp_data = resp.json()
+            resp_json = resp.json()
 
-            errors = resp_data.get("errors", None)
+            errors = resp_json.get("errors", None)
 
             # TODO: Abort immediately on bad syntax or bad/missing variable.
             if errors:
@@ -65,8 +67,8 @@ def fetch_github_data(query: str, variables=None):
 
                 raise ValueError(f"Error requesting GitHub. Errors:\n{message}")
 
-            if (resp_data.get("data", None)) is None:
-                message = text.prettify(resp_data)
+            if (resp_json.get("data", None)) is None:
+                message = text.prettify(resp_json)
 
                 raise ValueError(f"Error requesting GitHub. Details:\n{message}")
         except ValueError as e:
@@ -87,7 +89,7 @@ def fetch_github_data(query: str, variables=None):
         else:
             break
 
-    return resp_data.get("data", None)
+    return resp_json.get("data", None)
 
 
 def read_file(path):
