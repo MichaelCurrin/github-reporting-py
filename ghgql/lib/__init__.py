@@ -147,6 +147,7 @@ def read_template(path: Path):
 def query_by_filename(path: Path, variables=None):
     if not variables:
         variables = {}
+
     query = read_file(path)
     resp = fetch_github_data(query, variables)
 
