@@ -109,14 +109,14 @@ def write_file(content, path):
     if isinstance(content, (list, dict)):
         content = json.dumps(content)
 
+    print("Writing")
+    print(f" - path: {path}")
+
     with open(path, "w") as f_out:
         f_out.writelines(content)
 
-    print("Wrote text file")
-    print(f" - path: {path}")
 
-
-def read_template(path):
+def read_template(path: Path):
     """
     Return Jinja template at a given path.
     """
@@ -134,14 +134,14 @@ def query_by_filename(path, variables=None):
     return resp
 
 
-def read_csv(path):
+def read_csv(path: Path):
     with open(path) as f_in:
         reader = csv.DictReader(f_in)
 
         return list(reader)
 
 
-def write_csv(path, rows, append=False):
+def write_csv(path: Path, rows: list[dict], append=False) -> None:
     """
     Write a CSV file to a path with given rows and header from first row.
 
@@ -153,14 +153,17 @@ def write_csv(path, rows, append=False):
     if not rows:
         print("No rows to write")
         print()
+
         return
 
     is_new_file = not path.exists()
     mode = "a" if append else "w"
 
-    fieldnames = rows[0].keys()
+    fieldnames = list(rows[0].keys())
+
     with open(path, mode) as f_out:
         writer = csv.DictWriter(f_out, fieldnames)
+
         if is_new_file or not append:
             writer.writeheader()
         writer.writerows(rows)
@@ -172,7 +175,7 @@ def write_csv(path, rows, append=False):
     print()
 
 
-def process_variables(args):
+def process_variables(args: list[str]) -> dict:
     """
     Process command-line arguments containing a filename and key-value pairs.
     """
@@ -195,7 +198,7 @@ def process_variables(args):
     return {}
 
 
-def process_args(args):
+def process_args(args: list[str]):
     """
     Process command-line arguments containing a filename and key-value pairs.
 
@@ -209,7 +212,7 @@ def process_args(args):
     return path, variables
 
 
-def to_archive_url(owner, repo_name, branch):
+def to_archive_url(owner: str, repo_name: str, branch: str) -> str:
     """
     Return URL for downloading given repo as zip file.
     """
