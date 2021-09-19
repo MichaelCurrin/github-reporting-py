@@ -4,6 +4,7 @@ Library module.
 import csv
 import datetime
 import json
+import sys
 from pathlib import Path
 from time import sleep
 
@@ -38,15 +39,20 @@ def _request(url, payload, headers):
 
     # TODO: Abort immediately on bad syntax or bad/missing variable.
     if errors:
+        error_msg = errors.get("message", None)
+        if error_msg == "Bad credentials":
+            print("Update the configured token and try again")
+            sys.exit(1)
+
         print(f"Writing query to: {ERROR_QUERY_PATH}")
         write_file(payload["query"], ERROR_QUERY_PATH)
 
         print(f"Writing payload to: {ERROR_PAYLOAD_PATH}")
         write_file(payload, ERROR_PAYLOAD_PATH)
 
-        message = text.prettify(errors)
+        msg = text.prettify(errors)
 
-        raise ValueError(f"Error requesting GitHub. Errors:\n{message}")
+        raise ValueError(f"Error requesting GitHub. Errors:\n{msg}")
 
     if (resp_json.get("data", None)) is None:
         message = text.prettify(resp_json)
