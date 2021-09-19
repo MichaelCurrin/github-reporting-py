@@ -14,7 +14,7 @@ def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
 
-def prettify(data: Union[list, dict]):
+def prettify(data: Union[list, dict]) -> str:
     """
     Return input data structure (list or dict) as a prettified JSON-formatted string.
 
@@ -23,7 +23,7 @@ def prettify(data: Union[list, dict]):
     return json.dumps(data, indent=4, sort_keys=True, default=str)
 
 
-def print_args_on_error(func):
+def print_args_on_error(func: object):
     """
     Decorator used to print variables given to a function if the function
     call fails.
@@ -42,10 +42,12 @@ def print_args_on_error(func):
     return wrapper
 
 
-def parse_bool(value):
+def parse_bool(value: str):
     value = value.lower()
+
     if value == "true":
         return True
+
     if value == "false":
         return False
 
@@ -56,3 +58,7 @@ def test():
     assert parse_bool("true") is True
     assert parse_bool("FALSE") is False
     assert parse_bool(None) is None
+
+
+if __name__ == "__main__":
+    test()
