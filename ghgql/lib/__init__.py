@@ -35,7 +35,8 @@ def fetch_github_data(query, variables=None):
     Get data from GitHub API using given parameters.
 
     Note that a request which returns an error will still give a 200 and can
-    might still contain some data. A 404 will not contain the data or errors keys.
+    might still contain some data. A 404 will not contain the data or errors
+    keys.
     """
     if not variables:
         variables = {}
@@ -50,27 +51,34 @@ def fetch_github_data(query, variables=None):
             resp = requests.post(config.BASE_URL, json=payload, headers=HEADERS).json()
 
             errors = resp.get("errors", None)
+
             # TODO: Abort immediately on bad syntax or bad/missing variable.
             if errors:
                 print(f"Writing query to: {ERROR_QUERY_PATH}")
                 write_file(query, ERROR_QUERY_PATH)
+
                 print(f"Writing payload to: {ERROR_PAYLOAD_PATH}")
                 write_file(payload, ERROR_PAYLOAD_PATH)
+
                 message = text.prettify(errors)
+
                 raise ValueError(f"Error requesting GitHub. Errors:\n{message}")
 
             data = resp.get("data", None)
             if data is None:
                 message = text.prettify(resp)
+
                 raise ValueError(f"Error requesting GitHub. Details:\n{message}")
         except ValueError as e:
             text.eprint(f"Requested failed - attempt #{i+1}/{MAX_ATTEMPTS}")
+
             if i + 1 == MAX_ATTEMPTS:
                 raise
             text.eprint(e)
 
             if "rate" in str(e):
                 print("RATE LIMIT")
+
             # TODO Sleep for set time or perhaps short time if too frequence between requests.
             seconds = 10
             text.eprint(f"Sleeping {seconds} s...")
