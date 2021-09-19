@@ -57,6 +57,12 @@ demo:
 	# Paginate demo.
 	cd ghgql && python -m demo.paginate
 
-# Hardcoded values, useful for the codeowner to test changes.
-report:
+# Reports with hardcoded values, useful for the codeowner to test changes.
+
+report-commit:
 	cd ghgql && ./repo_commits.py MichaelCurrin github-reporting-py
+
+report-counts:
+	cd ghgql && ./repos_and_commit_counts.py owner MichaelCurrin start 2021-01-01
+
+report: report-commit report-counts
