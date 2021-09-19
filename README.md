@@ -4,7 +4,7 @@
 [![GitHub tag](https://img.shields.io/github/tag/MichaelCurrin/github-reporting-py)](https://github.com/MichaelCurrin/github-reporting-py/tags/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](#license)
 
-[![Made with Python](https://img.shields.io/badge/Python->=3.6-blue?logo=python&logoColor=white)](https://python.org)
+[![Made with Python](https://img.shields.io/badge/Python->=3.9-blue?logo=python&logoColor=white)](https://python.org)
 [![API - GitHub GraphQL](https://img.shields.io/badge/GitHub_API-V4_GraphQL-blue?logo=github)](https://graphql.github.io/)
 
 
