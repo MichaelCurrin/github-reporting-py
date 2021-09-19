@@ -7,15 +7,19 @@ against each, using the default branch.
 
 Optional - exclude commits after a given start date.
 
-This script pages over repos.
+This script paginates over repo data.
 """
 import math
 import sys
+from pathlib import Path
 
 import lib.text
 
 ITEMS_PER_PAGE = 100
-QUERY_PATH = "queries/repos/repos_and_commit_counts.gql"
+QUERY_PATH = Path("queries/repos/repos_and_commit_counts.gql")
+
+dict_of_str = dict[str, str]
+list_of_str = list[str]
 
 
 @lib.text.print_args_on_error
@@ -54,7 +58,7 @@ def format_repo(repo) -> dict:
     )
 
 
-def get_repos_and_commit_counts(path, variables) -> list:
+def get_repos_and_commit_counts(path: Path, variables: dict_of_str) -> list:
     """
     Get commit counts for all repos owned by an account.
 
@@ -91,7 +95,7 @@ def get_repos_and_commit_counts(path, variables) -> list:
     return out_repos
 
 
-def counts_report(variables) -> None:
+def counts_report(variables: dict_of_str) -> None:
     """
     Write CSV of repo and commit counts using given variables.
     """
@@ -99,12 +103,12 @@ def counts_report(variables) -> None:
     lib.write_csv(lib.COUNTS_CSV_PATH_TODAY, out_data)
 
 
-def main(args) -> None:
+def main(args: list_of_str) -> None:
     """
     Main command-line function.
     """
     if not args or set(args).intersection({"-h", "--help"}):
-        print(f"Usage: {__file__} owner OWNER [start START_DATE]")
+        print(f"Usage: {sys.argv[0]} owner OWNER [start START_DATE]")
         print(
             "START_DATE: Count commits on or after this date, in YYYY-MM-DD"
             " format. This only affects the commit count and not whether the"
