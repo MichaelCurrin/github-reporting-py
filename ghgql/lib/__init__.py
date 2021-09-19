@@ -193,7 +193,7 @@ def write_csv(path: Path, rows: list[dict], append=False) -> None:
     print()
 
 
-def process_variables(args: list[str]) -> dict:
+def process_variables(args: list[str]) -> str_dict:
     """
     Process command-line arguments containing a filename and key-value pairs.
     """
