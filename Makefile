@@ -56,3 +56,7 @@ demo:
 
 	# Paginate demo.
 	cd ghgql && python -m demo.paginate
+
+# Hardcoded values, useful for the codeowner to test changes.
+report:
+	cd ghgql && ./repo_commits.py MichaelCurrin github-reporting-py
