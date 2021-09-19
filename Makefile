@@ -35,7 +35,7 @@ fmt-fix:
 	isort .
 fmt-check:
 	black . --diff --check
-	isort --check
+	isort . --check
 
 l lint:
 	flake8 . --select=E9,F63,F7,F82 --show-source
