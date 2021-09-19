@@ -157,23 +157,23 @@ The CSV output is commit-level data from one or more repos. Each row in the repo
 
 The following fields are in the headers of the commit repos:
 
-Field | Description
----   | ---
-`repo_name` | Name of repo where the commit was made.
-`branch_name` |  Name of branch where the commit was made.
-`commit_id` | Short commit hash.
-`author_date` | Date the commit was _authored_ (originally written).
-`author_login` | Username of the author (who originally wrote the commit).
-`committed_date` | Date the commit was _committed_. You probably want to use the author fields above rather than these commit fields but they are provided anyway.
-`committer_login` | Username of the commit's committer.
-`changed_files` | Number of files changed.
-`additions` | Number of lines added.
-`deletions` | Number of lines removed.
-`message` | Commit message.
+| Field             | Description                                                                                                                                     |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `repo_name`       | Name of repo where the commit was made.                                                                                                         |
+| `branch_name`     | Name of branch where the commit was made.                                                                                                       |
+| `commit_id`       | Short commit hash.                                                                                                                              |
+| `author_date`     | Date the commit was _authored_ (originally written).                                                                                            |
+| `author_login`    | Username of the author (who originally wrote the commit).                                                                                       |
+| `committed_date`  | Date the commit was _committed_. You probably want to use the author fields above rather than these commit fields but they are provided anyway. |
+| `committer_login` | Username of the commit's committer.                                                                                                             |
+| `changed_files`   | Number of files changed.                                                                                                                        |
+| `additions`       | Number of lines added.                                                                                                                          |
+| `deletions`       | Number of lines removed.                                                                                                                        |
+| `message`         | Commit message.                                                                                                                                 |
 
 A further note on _author_ vs _committer_ for a commit:
 
-- Details for shown in the report output for both, for the most flexibility. They are usually the _same_ person, but, sometimes one username can be different or one field can be missing. 
+- Details for shown in the report output for both, for the most flexibility. They are usually the _same_ person, but, sometimes one username can be different or one field can be missing.
 - In the case of a merged Pull Request, _both_ login fields could be blank, though there is still a date repeated in both date columns.
 
 An explanation from the [commit history](https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History) part of the _git_ docs:
@@ -262,15 +262,15 @@ $ ./daily_commit_counts.py > var/daily.csv
 
 Sample result:
 
-date|contributions
---- | ---
-2015-01-01|2
-2015-01-02|0
-...|...
-2019-03-28|4
-2019-03-29|6
-2019-03-30|8
-2019-03-31|0
-...|...
-2021-07-24|17
-2021-07-25|60
+| date       | contributions |
+| ---------- | ------------- |
+| 2015-01-01 | 2             |
+| 2015-01-02 | 0             |
+| ...        | ...           |
+| 2019-03-28 | 4             |
+| 2019-03-29 | 6             |
+| 2019-03-30 | 8             |
+| 2019-03-31 | 0             |
+| ...        | ...           |
+| 2021-07-24 | 17            |
+| 2021-07-25 | 60            |

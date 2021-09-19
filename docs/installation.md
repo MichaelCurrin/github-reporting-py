@@ -5,11 +5,11 @@
 
 You need the following to run this project:
 
-| Name                                                   | Description                               |
-| ------------------------------------------------------ | ----------------------------------------- |
+| Name                                                   | Description                                |
+| ------------------------------------------------------ | ------------------------------------------ |
 | GitHub account                                         | To login to GitHub and create a dev token. |
-| [GitHub dev token](https://github.com/settings/tokens) | For authenticated API requests.           |
-| [Python 3](https://python.org/)                        | Used to run queries and generate reports. |
+| [GitHub dev token](https://github.com/settings/tokens) | For authenticated API requests.            |
+| [Python 3](https://python.org/)                        | Used to run queries and generate reports.  |
 
 For the token, only **read** access to public repos is needed. This is more secure - used the least privilege required for the task.
 
