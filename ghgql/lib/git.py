@@ -9,7 +9,7 @@ from . import time
 # TODO This could be better as a class - then the structure can be reused
 # and used for type checking as a whole or getting fields on the object.
 # Use init to process `value`.
-def parse_commit(value):
+def parse_commit(value: dict):
     """
     Extract relevant fields from nested data and return as a flat dict.
     """
@@ -34,7 +34,7 @@ def parse_commit(value):
     )
 
 
-def prepare_row(commit, repo_name, branch_name):
+def prepare_row(commit: dict, repo_name: str, branch_name: str):
     """
     Convert commit metadata to a dict for writing to a CSV.
     """
