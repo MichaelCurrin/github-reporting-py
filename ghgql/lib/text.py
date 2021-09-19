@@ -3,6 +3,7 @@ Library text module.
 """
 import json
 import sys
+from typing import Union
 
 
 # TODO: Also write to log to make it easier to keep track of later.
@@ -13,7 +14,7 @@ def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
 
-def prettify(data):
+def prettify(data: Union[list, dict]):
     """
     Return input data structure (list or dict) as a prettified JSON-formatted string.
 
