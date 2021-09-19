@@ -30,7 +30,33 @@ HEADERS = {"Authorization": f"token {config.ACCESS_TOKEN}"}
 MAX_ATTEMPTS = 3
 
 
-def fetch_github_data(query: str, variables=None):
+def _request(url, payload, headers):
+    resp = requests.post(url, json=payload, headers=headers)
+    resp_json = resp.json()
+
+    errors = resp_json.get("errors", None)
+
+    # TODO: Abort immediately on bad syntax or bad/missing variable.
+    if errors:
+        print(f"Writing query to: {ERROR_QUERY_PATH}")
+        write_file(payload["query"], ERROR_QUERY_PATH)
+
+        print(f"Writing payload to: {ERROR_PAYLOAD_PATH}")
+        write_file(payload, ERROR_PAYLOAD_PATH)
+
+        message = text.prettify(errors)
+
+        raise ValueError(f"Error requesting GitHub. Errors:\n{message}")
+
+    if (resp_json.get("data", None)) is None:
+        message = text.prettify(resp_json)
+
+        raise ValueError(f"Error requesting GitHub. Details:\n{message}")
+
+    return resp_json
+
+
+def fetch_github_data(query: str, variables=None) -> dict:
     """
     Get data from GitHub API using given parameters.
 
@@ -50,27 +76,7 @@ def fetch_github_data(query: str, variables=None):
 
     for i in range(MAX_ATTEMPTS):
         try:
-            resp = requests.post(config.BASE_URL, json=payload, headers=HEADERS)
-            resp_json = resp.json()
-
-            errors = resp_json.get("errors", None)
-
-            # TODO: Abort immediately on bad syntax or bad/missing variable.
-            if errors:
-                print(f"Writing query to: {ERROR_QUERY_PATH}")
-                write_file(query, ERROR_QUERY_PATH)
-
-                print(f"Writing payload to: {ERROR_PAYLOAD_PATH}")
-                write_file(payload, ERROR_PAYLOAD_PATH)
-
-                message = text.prettify(errors)
-
-                raise ValueError(f"Error requesting GitHub. Errors:\n{message}")
-
-            if (resp_json.get("data", None)) is None:
-                message = text.prettify(resp_json)
-
-                raise ValueError(f"Error requesting GitHub. Details:\n{message}")
+            resp_json = _request(config.BASE_URL, payload, HEADERS)
         except ValueError as e:
             text.eprint(f"Requested failed - attempt #{i+1}/{MAX_ATTEMPTS}")
 
@@ -79,9 +85,10 @@ def fetch_github_data(query: str, variables=None):
             text.eprint(e)
 
             if "rate" in str(e):
-                print("RATE LIMIT")
+                print("RATE LIMITED")
 
-            # TODO Sleep for set time or perhaps short time if too frequence between requests.
+            # TODO: Sleep for set time or perhaps short time if too frequent
+            # between requests.
             seconds = 10
             text.eprint(f"Sleeping {seconds} s...")
             sleep(seconds * 1000)
