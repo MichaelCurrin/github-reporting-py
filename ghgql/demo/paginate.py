@@ -9,7 +9,6 @@ No arguments are used for this script.
 """
 import lib
 
-
 QUERY_PATH = "queries/commit_tests/commits_basic.gql"
 MAX_PAGES = 5
 

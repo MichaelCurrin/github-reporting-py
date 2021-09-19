@@ -1,20 +1,18 @@
 """
 Library module.
 """
-import datetime
-from time import sleep
 import csv
+import datetime
 import json
 from pathlib import Path
+from time import sleep
 
+import config
 import requests
 from jinja2 import Template  # type: ignore
 
-import config
-
 # TODO: Rename time to not conflict with builtin.
 from . import text, time
-
 
 # FIXME: this only happens to work in lib so should be more robust
 APP_DIR = Path().absolute()

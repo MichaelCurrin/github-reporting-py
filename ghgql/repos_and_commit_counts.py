@@ -14,7 +14,6 @@ import sys
 
 import lib.text
 
-
 ITEMS_PER_PAGE = 100
 QUERY_PATH = "queries/repos/repos_and_commit_counts.gql"
 

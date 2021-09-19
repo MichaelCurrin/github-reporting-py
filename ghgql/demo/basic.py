@@ -10,10 +10,8 @@ See also the parametrized demo script in the same directory.
 """
 import json
 
-import requests
-
 import config
-
+import requests
 
 # Simple query with hardcoded repo owner and name to fetch the last 3 commits
 # on the default branch.

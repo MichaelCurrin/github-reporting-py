@@ -33,10 +33,9 @@ import csv
 import sys
 from collections import defaultdict
 
-import read_counts
 import lib.git
 import lib.text
-
+import read_counts
 
 TEMPLATE_DIR = lib.APP_DIR / "templates"
 QUERY_PATH = TEMPLATE_DIR / "repos_and_commits.gql"

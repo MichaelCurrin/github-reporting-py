@@ -16,7 +16,6 @@ import lib.text
 import repo_commits
 from config import COMMIT_REPORT_CONF
 
-
 CSV_OUT_NAME = "repos-commits--configured--end-{end_date}--start-{start_date}.csv"
 CSV_OUT_NAME_SUMMARY = (
     "repos-commits--configured-summary--end-{end_date}--start-{start_date}.csv"

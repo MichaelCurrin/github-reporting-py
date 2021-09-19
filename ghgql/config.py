@@ -5,7 +5,6 @@ from pathlib import Path
 
 import yaml
 
-
 ETC_DIR = Path() / "etc"
 LOCAL_CONF_PATH = ETC_DIR / "app.local.yml"
 TEMPLATE_CONF_PATH = ETC_DIR / "app.template.yml"

@@ -21,10 +21,8 @@ Query variables
 """
 import json
 
-import requests
-
 import config
-
+import requests
 
 # Simple query with parametized repo owner and name values, to fetch the last
 # 3 commits on the default branch.
