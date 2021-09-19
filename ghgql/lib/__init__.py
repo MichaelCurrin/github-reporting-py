@@ -30,11 +30,11 @@ ERROR_PAYLOAD_PATH = VAR_DIR / "error_payload.gql"
 HEADERS = {"Authorization": f"token {config.ACCESS_TOKEN}"}
 MAX_ATTEMPTS = 3
 
-t_dict_of_str = dict[str, str]
+dict_of_str = dict[str, str]
 list_of_str = list[str]
 
 
-def _request(url: str, payload: t_dict_of_str, headers: t_dict_of_str):
+def _request(url: str, payload: dict_of_str, headers: dict_of_str):
     resp = requests.post(url, json=payload, headers=headers)
     resp_json = resp.json()
 
@@ -66,7 +66,7 @@ def _request(url: str, payload: t_dict_of_str, headers: t_dict_of_str):
     return resp_json
 
 
-def fetch_github_data(query: str, variables=None) -> t_dict_of_str:
+def fetch_github_data(query: str, variables=None) -> dict_of_str:
     """
     Get data from GitHub API using given parameters.
 
@@ -161,7 +161,7 @@ def read_csv(path: Path):
         return list(reader)
 
 
-def write_csv(path: Path, rows: list[t_dict_of_str], append=False) -> None:
+def write_csv(path: Path, rows: list[dict_of_str], append=False) -> None:
     """
     Write a CSV file to a path with given rows and header from first row.
 
@@ -195,7 +195,7 @@ def write_csv(path: Path, rows: list[t_dict_of_str], append=False) -> None:
     print()
 
 
-def process_variables(args: list_of_str) -> t_dict_of_str:
+def process_variables(args: list_of_str) -> dict_of_str:
     """
     Process command-line arguments containing a filename and key-value pairs.
     """
