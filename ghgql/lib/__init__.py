@@ -35,15 +35,16 @@ def _request(url, payload, headers):
     resp = requests.post(url, json=payload, headers=headers)
     resp_json = resp.json()
 
+    resp_msg = resp_json.get("message", None)
+    if resp_msg == "Bad credentials":
+        print("Bad credentials")
+        print("Update the configured token and try again")
+        sys.exit(1)
+
     errors = resp_json.get("errors", None)
 
     # TODO: Abort immediately on bad syntax or bad/missing variable.
     if errors:
-        error_msg = errors.get("message", None)
-        if error_msg == "Bad credentials":
-            print("Update the configured token and try again")
-            sys.exit(1)
-
         print(f"Writing query to: {ERROR_QUERY_PATH}")
         write_file(payload["query"], ERROR_QUERY_PATH)
 
