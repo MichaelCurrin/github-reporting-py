@@ -30,7 +30,7 @@ HEADERS = {"Authorization": f"token {config.ACCESS_TOKEN}"}
 MAX_ATTEMPTS = 3
 
 
-def fetch_github_data(query, variables=None):
+def fetch_github_data(query: str, variables=None):
     """
     Get data from GitHub API using given parameters.
 
@@ -48,9 +48,10 @@ def fetch_github_data(query, variables=None):
 
     for i in range(MAX_ATTEMPTS):
         try:
-            resp = requests.post(config.BASE_URL, json=payload, headers=HEADERS).json()
+            resp = requests.post(config.BASE_URL, json=payload, headers=HEADERS)
+            resp_data = resp.json()
 
-            errors = resp.get("errors", None)
+            errors = resp_data.get("errors", None)
 
             # TODO: Abort immediately on bad syntax or bad/missing variable.
             if errors:
@@ -64,9 +65,8 @@ def fetch_github_data(query, variables=None):
 
                 raise ValueError(f"Error requesting GitHub. Errors:\n{message}")
 
-            data = resp.get("data", None)
-            if data is None:
-                message = text.prettify(resp)
+            if (resp_data.get("data", None)) is None:
+                message = text.prettify(resp_data)
 
                 raise ValueError(f"Error requesting GitHub. Details:\n{message}")
         except ValueError as e:
@@ -87,7 +87,7 @@ def fetch_github_data(query, variables=None):
         else:
             break
 
-    return data
+    return resp_data.get("data", None)
 
 
 def read_file(path):
@@ -214,6 +214,6 @@ def process_args(args: list[str]):
 
 def to_archive_url(owner: str, repo_name: str, branch: str) -> str:
     """
-    Return URL for downloading given repo as zip file.
+    Return a download URL for a repo's zip file.
     """
     return f"https://github.com/{owner}/{repo_name}/archive/{branch}.zip"
