@@ -1,14 +1,14 @@
 {
-    "terminal.integrated.cwd": "ghgql",
-    "code-runner.cwd": "ghgql",
+  "terminal.integrated.cwd": "ghgql",
+  "code-runner.cwd": "ghgql",
 
-    "python.defaultInterpreterPath": "venv/bin/python",
+  "python.defaultInterpreterPath": "venv/bin/python",
 
-    "editor.rulers": [80],
+  "editor.rulers": [80],
 
-    "python.formatting.provider": "black",
+  "python.formatting.provider": "black",
 
-    "python.linting.enabled": true,
-    "python.linting.flake8Enabled": true,
-    "python.linting.pylintEnabled": false
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.pylintEnabled": false
 }
