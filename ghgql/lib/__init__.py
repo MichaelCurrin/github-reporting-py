@@ -30,8 +30,10 @@ ERROR_PAYLOAD_PATH = VAR_DIR / "error_payload.gql"
 HEADERS = {"Authorization": f"token {config.ACCESS_TOKEN}"}
 MAX_ATTEMPTS = 3
 
+str_dict = dict[str, str]
 
-def _request(url, payload, headers):
+
+def _request(url: str, payload: str_dict, headers: str_dict):
     resp = requests.post(url, json=payload, headers=headers)
     resp_json = resp.json()
 
@@ -63,7 +65,7 @@ def _request(url, payload, headers):
     return resp_json
 
 
-def fetch_github_data(query: str, variables=None) -> dict:
+def fetch_github_data(query: str, variables=None) -> str_dict:
     """
     Get data from GitHub API using given parameters.
 
