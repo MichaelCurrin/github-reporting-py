@@ -159,7 +159,7 @@ def read_csv(path: Path):
         return list(reader)
 
 
-def write_csv(path: Path, rows: list[dict], append=False) -> None:
+def write_csv(path: Path, rows: list[str_dict], append=False) -> None:
     """
     Write a CSV file to a path with given rows and header from first row.
 
