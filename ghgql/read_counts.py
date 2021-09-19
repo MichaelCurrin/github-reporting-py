@@ -1,10 +1,11 @@
+#!/usr/bin/env python
 """
 Read counts script.
 
-Read the existing CSV of repo counts and return.
+Read an existing CSV of repo counts and return.
 
-If this script is run alone, the contents of the CSV is printed out with some
-pretty formatting.
+If this script is run alone, the contents of the CSV are printed out with some
+pretty formatting. Make sure `repos_and_commit_counts.py` has been run first.
 """
 import lib
 
