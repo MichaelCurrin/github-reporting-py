@@ -27,6 +27,11 @@ This tool was created to:
 </div>
 
 
+## Contributing
+
+If you want to make the project better, see the [contribution guidelines](/CONTRIBUTING.md).
+
+
 ## License
 
 Released under [MIT](/LICENSE) by [@MichaelCurrin](https://github.com/MichaelCurrin/).
