@@ -27,14 +27,16 @@ def read(start=None):
 
     for row in repo_count_data:
         if row["branch_name"]:
-            if row["last_committed_date"]:
-                row["last_committed_date"] = lib.time.as_date(
-                    row["last_committed_date"]
-                )
-            else:
-                row["last_committed_date"] = None
+            last_committed_date_str = row["last_committed_date"]
 
-            if start is None or row["last_committed_date"] >= start:
+            if last_committed_date_str:
+                last_committed_date = lib.time.as_date(last_committed_date_str)
+            else:
+                last_committed_date = None
+
+            if start is None or last_committed_date >= start:
+                row["last_committed_date"] = last_committed_date
+
                 out_data.append(row)
 
     return out_data
