@@ -10,11 +10,11 @@
 
 ## Purpose
 
-This was created to:
+This tool was created to:
 
 - **Explore** the GitHub GraphQL API for fun.
 - Output CSV **reports** around repos, users and commits - all within a target GH org or user.
-- Act as a **wrapper** on requests and formatting, so you can focus on writing or using a query and getting the data out as a CSV. 
+- Act as a **wrapper** on requests and formatting, so you can focus on writing or using a query and getting the data out as a CSV.
 - Act an easy CLI for anyone - without caring about what language the tool is implemented in (other than installing initially).
 
 
@@ -22,7 +22,7 @@ This was created to:
 
 <div align="center">
 
-[![View docs](https://img.shields.io/badge/View-Online_docs-blue?style=for-the-badge)](https://michaelcurrin.github.io/github-reporting-py/)
+[![View docs](https://img.shields.io/badge/View-Online_docs-blue?style=for-the-badge)](https://michaelcurrin.github.io/github-reporting-py/ "Go to docs site")
 
 </div>
 
