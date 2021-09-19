@@ -4,7 +4,7 @@ CONFIG_LOCAL = app.local.yml
 
 default: install install-dev
 
-all: install install-dev fmt-check lint typecheck
+all: install install-dev checks
 
 
 h help:
@@ -30,7 +30,7 @@ config:
 		open $(CONFIG_LOCAL)
 
 
-fmt:
+fmt-fix:
 	black .
 fmt-check:
 	black . --diff --check
@@ -39,10 +39,10 @@ l lint:
 	flake8 . --select=E9,F63,F7,F82 --show-source
 	flake8 . --exit-zero
 
-fix: format lint
-
 t typecheck:
 	mypy ghgql
+
+checks: fmt-check lint typecheck
 
 
 demo:
