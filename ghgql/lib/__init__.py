@@ -201,7 +201,11 @@ def process_variables(args: list_of_str) -> t_dict_of_str:
     """
     if args:
         if len(args) % 2:
-            raise ValueError(f'Incomplete key-value pairs provided: {" ".join(args)}')
+            provided = " ".join(args)
+            raise ValueError(
+                f"Uneven number of items in key-value pairs. Got: {provided}"
+            )
+
         variables = dict(zip(args[::2], args[1::2]))
 
         # TODO: Make this clear that you use start and it becomes since.
