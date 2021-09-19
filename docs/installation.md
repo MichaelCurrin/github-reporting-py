@@ -54,8 +54,8 @@ This project requires a valid GitHub API _access token_ in order to authenticate
 Create your access token in your GitHub account settings. Ensure it has access to read repo details.
 
 1. Go GitHub and login.
-2. Go to the [Personal Access Tokens](https://github.com/settings/tokens) page under Developer Settings.
-3. Create a new token with appropriately scoped permissions.
+1. Go to the [Personal Access Tokens](https://github.com/settings/tokens) page under Developer Settings.
+1. Create a new token with appropriately scoped permissions.
     - Only **read** access is needed for this project.
     - The scopes needed depends on what you want to query. Some recommended scopes are:
         * ☐ `repo` (Optionally tick the top-level one for access to _private_ repos)
@@ -67,8 +67,8 @@ Create your access token in your GitHub account settings. Ensure it has access t
         * ☐ `user`
             - ☑ `read`
             - ☑ `email`
-4. Find the generated token value, which you'll use in the next step.
-    - Do not navigate away yet,as the token **cannot** be viewed online later. You can generate a new value for the token anytime and that will make the old value inactive.
+1. Find the generated token value, which you'll use in the next step.
+    - Do not navigate away yet, as the token **cannot** be viewed online later. You can generate a new value for the token anytime and that will make the old value inactive.
 
 ### Add a token to the config
 
