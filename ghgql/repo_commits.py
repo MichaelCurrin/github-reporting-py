@@ -17,7 +17,7 @@ QUERY_PATH = Path("./queries/repos/repo_commits.gql")
 CSV_OUT_NAME = "repo-commits--{repo_name}--end-{end_date}--start-{start_date}.csv"
 
 
-def parse(resp):
+def parse(resp: dict):
     """
     Parse response data for the repo commits query.
     """
@@ -35,7 +35,7 @@ def parse(resp):
     return branch_name, total_commits, commits, cursor
 
 
-def process_response(resp, repo_name):
+def process_response(resp: dict, repo_name: str):
     """
     Format the response from a request for repo commits.
     """
@@ -48,9 +48,9 @@ def process_response(resp, repo_name):
     return processed_commits, total_commits, cursor
 
 
-def get_commits(owner, repo_name, start_date=None):
+def get_commits(owner: str, repo_name: str, start_date=None) -> list[dict]:
     """
-    Fetch all commits for a given repo and optional start date.
+    Fetch all commits for a given repo and  an optional start date.
 
     Uses paging if there is more than 1 page of 100 commits to fetch. Returns a
     list of zero or more dict objects with commit data.
@@ -65,8 +65,8 @@ def get_commits(owner, repo_name, start_date=None):
     )
 
     results = []
-
     counter = 0
+
     while True:
         counter += 1
 
