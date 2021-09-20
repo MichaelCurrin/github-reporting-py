@@ -15,7 +15,7 @@ MAX_PAGES = 5
 
 def main():
     """
-    Main command-line function.
+    Main command-line entry-point.
 
     Do a query to the API using a configured GQL file and query variables. In
     this situation, the only variable to send is 'cursor' which is an used as an
@@ -25,6 +25,7 @@ def main():
     explanation on cursors.
     """
     variables = {}
+
     for i in range(MAX_PAGES):
         print(f"Query #{i+1} - cursor: {variables.get('cursor', 'null')}")
 
@@ -32,14 +33,17 @@ def main():
         history = data["repository"]["defaultBranchRef"]["target"]["history"]
 
         msgs = [edge["node"]["message"] for edge in history["edges"]]
+
         for msg in msgs:
             print(f"  {msg}")
 
         page_info = history["pageInfo"]
         has_next_page = page_info["hasNextPage"]
+
         if not has_next_page:
             print("No more pages")
             break
+
         variables["cursor"] = page_info["endCursor"]
 
 
