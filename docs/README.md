@@ -1,5 +1,5 @@
 # GitHub Reporting Tool docs
-> Create detailed and summary CSV reports of GitHub activity in a target GH user or organization
+> Create detailed and summary CSV reports of activity by a GitHub user, using the GraphQL API
 
 [![Made with Python](https://img.shields.io/badge/Python->=3.9-blue?logo=python&logoColor=white)](https://python.org)
 [![API - GitHub GraphQL](https://img.shields.io/badge/GitHub_API-V4_GraphQL-blue?logo=github)](https://graphql.github.io/)
