@@ -1,5 +1,5 @@
 # GitHub Reporting Tool 👨‍💻 📊 🐍
-> Create detailed and summary CSV reports of GitHub activity in a target GH user or organization - using the GraphQL API
+> Create detailed and summary CSV reports of activity by a GitHub user, using the GraphQL API
 
 [![GitHub tag](https://img.shields.io/github/tag/MichaelCurrin/github-reporting-py)](https://github.com/MichaelCurrin/github-reporting-py/tags/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](#license)
@@ -13,7 +13,7 @@
 This tool was created to:
 
 - **Explore** the GitHub GraphQL API for fun.
-- Output CSV **reports** around repos, users and commits - all within a target GH org or user.
+- Output CSV **reports** around repos, users and commits - all within a target GH user or organization.
 - Act as a **wrapper** on requests and formatting, so you can focus on writing or using a query and getting the data out as a CSV.
 - Act an easy CLI for anyone - without caring about what language the tool is implemented in (other than installing initially).
 
