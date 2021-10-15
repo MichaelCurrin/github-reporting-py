@@ -13,7 +13,7 @@ from pathlib import Path
 import lib
 import lib.git
 
-QUERY_PATH = Path("./queries/repos/repo_commits.gql")
+QUERY_PATH = Path("queries/repos/repo_commits.gql")
 CSV_OUT_NAME = "repo-commits--{repo_name}--end-{end_date}--start-{start_date}.csv"
 
 
