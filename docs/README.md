@@ -15,9 +15,9 @@ If you're interested in making your own docs site like this one, follow my [Docs
 
 ## Sample
 
-There are a few reports you can generate, using a few Python scripts.
+This project has a few executable Python scripts which each generate a report.
 
-Run the executable script by name with any arguments.
+Run the script by name and supply it with arguments.
 
 Examples:
 
@@ -25,9 +25,7 @@ Examples:
 $ ./repos_and_commit_counts.py owner MichaelCurrin
 ```
 
-Or
-
-```bash
+```
 $ ./repos_and_commit_counts.py owner MichaelCurrin start 2020-04-01
 ```
 
