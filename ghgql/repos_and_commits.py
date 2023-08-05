@@ -46,7 +46,7 @@ def render(template, owner, repos, since, dry_run=False):
     """
     Prepare and return template for repo commits query.
     """
-    return template.render(owner=owner, repos=repos, since=since, dry_run=dry_run)
+    return template.render(owner, repos, since, dry_run)
 
 
 def process_results(results):
@@ -63,10 +63,9 @@ def process_results(results):
     for repo_data in results.values():
         name = repo_data["name"]
         branch = repo_data["defaultBranchRef"]
-
         branch_name = branch.get("name")
-
         raw_commits = branch["target"]["history"]["nodes"]
+
         if raw_commits:
             for c in raw_commits:
                 parsed_commit_data = lib.git.parse_commit(c)
@@ -99,9 +98,12 @@ def get_results(template, owner, repos, since, dry_run):
 
 
 def write(path, rows):
+    """
+    Write `rows` to the file `path`.
+    """
     wrote_header = False
 
-    with open(path, "w") as f_out:
+    with open(path, "w", encoding='utf8') as f_out:
         fieldnames = (
             "repo_name",
             "branch_name",

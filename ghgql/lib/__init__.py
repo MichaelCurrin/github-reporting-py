@@ -30,12 +30,16 @@ ERROR_PAYLOAD_PATH = VAR_DIR / "error_payload.gql"
 HEADERS = {"Authorization": f"token {config.ACCESS_TOKEN}"}
 MAX_ATTEMPTS = 3
 
-dict_of_str = dict[str, str]
-list_of_str = list[str]
+DictOfStr = dict[str, str]
+ListOfStr = list[str]
 
 
-def _request(url: str, payload: dict_of_str, headers: dict_of_str):
-    resp = requests.post(url, json=payload, headers=headers)
+def _request(url: str, payload: DictOfStr, headers: DictOfStr):
+    resp = requests.post(
+        url,
+        json=payload,
+        headers=headers,
+        timeout=requests.Timeout(10))
     resp_json = resp.json()
 
     resp_msg = resp_json.get("message", None)
@@ -66,7 +70,7 @@ def _request(url: str, payload: dict_of_str, headers: dict_of_str):
     return resp_json
 
 
-def fetch_github_data(query: str, variables=None) -> dict_of_str:
+def fetch_github_data(query: str, variables={}) -> DictOfStr:
     """
     Get data from GitHub API using given parameters.
 
@@ -74,9 +78,6 @@ def fetch_github_data(query: str, variables=None) -> dict_of_str:
     might still contain some data. A 404 will not contain the data or errors
     keys.
     """
-    if not variables:
-        variables = {}
-
     payload = {
         "query": query,
         "variables": variables,
@@ -113,7 +114,7 @@ def read_file(path: Path):
     """
     TODO: Refactor to use Path().read() instead.
     """
-    with open(path) as f_in:
+    with open(path, encoding='utf8') as f_in:
         file_text = f_in.read()
 
     return file_text
@@ -131,7 +132,7 @@ def write_file(content, path: Path):
     print("Writing")
     print(f" - path: {path}")
 
-    with open(path, "w") as f_out:
+    with open(path, "w", encoding='utf8') as f_out:
         f_out.writelines(content)
 
 
@@ -144,24 +145,24 @@ def read_template(path: Path):
 
 # TODO Rename to path.
 # TODO Refactor so the file only has to be read once for a set of paged queries.
-def query_by_filename(path: Path, variables=None):
-    if not variables:
-        variables = {}
-
+def query_by_filename(path: Path, variables={}):
+    """
+    Use query file `path` and `variables` to make a query.
+    """
     query = read_file(path)
-    resp = fetch_github_data(query, variables)
 
-    return resp
+    return fetch_github_data(query, variables)
 
 
 def read_csv(path: Path):
-    with open(path) as f_in:
-        reader = csv.DictReader(f_in)
+    """
+    Read a CSV file.
+    """
+    with open(path, "r", encoding='utf8') as f_in:
+        return list(csv.DictReader(f_in))
 
-        return list(reader)
 
-
-def write_csv(path: Path, rows: list[dict_of_str], append=False) -> None:
+def write_csv(path: Path, rows: list[DictOfStr], append=False) -> None:
     """
     Write a CSV file to a path with given rows and header from first row.
 
@@ -178,10 +179,9 @@ def write_csv(path: Path, rows: list[dict_of_str], append=False) -> None:
 
     is_new_file = not path.exists()
     mode = "a" if append else "w"
-
     fieldnames = list(rows[0].keys())
 
-    with open(path, mode) as f_out:
+    with open(path, mode, encoding='utf8') as f_out:
         writer = csv.DictWriter(f_out, fieldnames)
 
         if is_new_file or not append:
@@ -195,7 +195,7 @@ def write_csv(path: Path, rows: list[dict_of_str], append=False) -> None:
     print()
 
 
-def process_variables(args: list_of_str) -> dict_of_str:
+def process_variables(args: ListOfStr) -> DictOfStr:
     """
     Process command-line arguments containing a filename and key-value pairs.
     """
@@ -222,7 +222,7 @@ def process_variables(args: list_of_str) -> dict_of_str:
     return {}
 
 
-def process_args(args: list_of_str):
+def process_args(args: ListOfStr):
     """
     Process command-line arguments containing a filename and key-value pairs.
 
