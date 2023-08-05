@@ -9,7 +9,7 @@ import lib.text
 
 # TODO Since param
 # TODO: Refactor - move this function to lib.
-def parse_commit(value):
+def parse_commit(value, verbose=False):
     """
     Extract fields from nested data as returned from API and return as flat dict.
     """
@@ -21,15 +21,23 @@ def parse_commit(value):
     committer_login = committer["login"] if committer is not None else None
     commit_date = lib.time.as_date(value["committedDate"])
 
-    return dict(
+    if verbose:
+        return dict(
+            commit_id=value["abbreviatedOid"],
+            author_date=author_date,
+            author_login=author_login,
+            committed_date=commit_date,
+            committer_login=committer_login,
+            changed_files=value["changedFiles"],
+            additions=value["additions"],
+            deletions=value["deletions"],
+            message=value["message"],
+        )
+    else:
+        return dict(
         commit_id=value["abbreviatedOid"],
-        author_date=author_date,
-        author_login=author_login,
         committed_date=commit_date,
         committer_login=committer_login,
-        changed_files=value["changedFiles"],
-        additions=value["additions"],
-        deletions=value["deletions"],
         message=value["message"],
     )
 
