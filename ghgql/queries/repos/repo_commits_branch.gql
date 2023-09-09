@@ -1,0 +1,39 @@
+# Get details of all commits for a single repo and optional date range,
+# using paging to get all commits.
+query CommitsForRepo($owner: String!, $repo_name: String!, $branch_name: String!, $since: GitTimestamp, $cursor: String) {
+	repository(owner: $owner, name: $repo_name) {
+		ref(qualifiedName: $branch_name) {
+			name
+			target {
+				... on Commit {
+					history(since: $since, first: 100, after: $cursor) {
+						totalCount
+						pageInfo {
+							hasNextPage
+							endCursor
+						}
+						nodes {
+							abbreviatedOid
+							authoredDate
+							author {
+								user {
+									login
+								}
+							}
+							committedDate
+							committer {
+								user {
+									login
+								}
+							}
+							changedFiles
+							additions
+							deletions
+							message
+						}
+					}
+				}
+			}
+		}
+	}
+}
