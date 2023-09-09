@@ -64,7 +64,7 @@ payload = {
 headers = {"Authorization": f"token {config.ACCESS_TOKEN}"}
 
 # Send the POST request.
-resp = requests.post(config.BASE_URL, json=payload, headers=headers)
+resp = requests.post(config.BASE_URL, json=payload, headers=headers, timeout=10)
 
 # Pretty print the output.
 prettified = json.dumps(resp.json(), indent=4)

@@ -39,7 +39,7 @@ def _request(url: str, payload: DictOfStr, headers: DictOfStr):
         url,
         json=payload,
         headers=headers,
-        timeout=requests.Timeout(10))
+        timeout=10)
     resp_json = resp.json()
 
     resp_msg = resp_json.get("message", None)
@@ -100,9 +100,9 @@ def fetch_github_data(query: str, variables={}) -> DictOfStr:
 
             # TODO: Sleep for set time or perhaps short time if too frequent
             # between requests.
-            seconds = 10
+            seconds = 1
             text.eprint(f"Sleeping {seconds} s...")
-            sleep(seconds * 1000)
+            sleep(seconds)
             text.eprint("Retrying...")
         else:
             break
