@@ -1,4 +1,4 @@
-black>=21.7b0
+black>=24.3.0
 
 # Pylint is too noisy so just use this.
 flake8>=3.9.2
